@@ -1,0 +1,30 @@
+{
+  "name": "wind-scrape",
+  "version": "1.0.0",
+  "description": "Scrape wind forecast from a few websites",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jeroentvb/wind-scrape.git"
+  },
+  "keywords": [
+    "package",
+    "scraper",
+    "wind",
+    "forecast"
+  ],
+  "author": "jeroentvb",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jeroentvb/wind-scrape/issues"
+  },
+  "homepage": "https://github.com/jeroentvb/wind-scrape#readme",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
+    "nightmare": "^3.0.1",
+    "request": "^2.88.0"
+  }
+}
