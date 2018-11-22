@@ -1,3 +1,11 @@
+## Disclaimer
+This package scrapes websites. Web scraping is a grey area and may not be allowed by the website.  
+Use with caution and for *personal* use only!
+
+### Note
+If you are going to use this package in a project I highly recommend implementing writing the scraped data to a file, and using this file if a website has been scraped within a certain amount of time. This avoids spamming a website with unnecessary requests.
+
+
 # Wind scrape
 This package can scrape wind forecast from windfinder superforecast and windguru.
 
