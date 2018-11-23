@@ -31,11 +31,12 @@ Scrapes data from a windfinder superforecast page. Returns a promise which resol
   windgust: [],
   winddirection: []
 }
-```
+```  
+It also splices the data to only return day hours.
 
 #### url  
 A string. Url to a windfinder superforecast page.
-  
+
 ### Scrape.windguru(url, modelNumbers)
 Scrapes data from selected windguru model (tables). Returns a promise which resolves in an object with the following format:
 ```js
@@ -59,3 +60,16 @@ A string. Url to windguru spot page.
 
 #### modelNumbers
 An array. Numers of the windguru models you want to scrape.
+
+## Testing
+To test newly added features just run one of the following commands. The result should be the scraped data logged in the console. The spot used is *Tarifa*.
+```shell
+# Test all functions specified in partials/test.js
+npm test all  
+
+# Test the windfinder function
+npm test windfinder  
+
+# Test the windguru function
+npm test windguru
+```
