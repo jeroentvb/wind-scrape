@@ -3,8 +3,9 @@ This package scrapes websites. Web scraping is a grey area and may not be allowe
 Use with caution and for *personal* use only!
 
 ### Note
-If you are going to use this package in a project I highly recommend implementing writing the scraped data to a file, and using this file if a website has been scraped within a certain amount of time. This avoids spamming a website with unnecessary requests.
-
+If you are going to use this package in a project I highly recommend implementing writing the scraped data to a file, and using this file if a website has been scraped within a certain amount of time. This avoids spamming a website with unnecessary requests.  
+  
+Getting data from windguru doesn't seem to work on windows as the package used to scrape windguru ([Nightmare](https://github.com/segmentio/nightmare)) doesn't seem to work.
 
 # Wind scrape
 This package can scrape wind forecast from windfinder superforecast and windguru.
