@@ -16,6 +16,7 @@ function getHtml (url) {
 
 class Scrape {
   static windfinder (url) {
+    if (!url) throw new Error('No url specified!')
     return new Promise((resolve, reject) => {
       getHtml(url)
         .then(html => extract.windfinderData(html))
@@ -25,6 +26,9 @@ class Scrape {
   }
 
   static windguru (url, modelNumbers) {
+    if (!url) throw new Error('No url specified!')
+    if (!modelNumbers) throw new Error('No model numbers specified!')
+    if (!Array.isArray(modelNumbers)) throw new Error('Model numbers must be in an array!')
     return new Promise((resolve, reject) => {
       nightmare
         .goto(url)
