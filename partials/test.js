@@ -1,8 +1,8 @@
 const Scrape = require('../index')
 
 const url = {
-  windfinder: 'https://www.windfinder.com/weatherforecast/tarifa',
-  windguru: 'https://www.windguru.cz/43'
+  windfinder: 'tarifa',
+  windguru: '43'
 }
 
 switch (process.argv[2]) {

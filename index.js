@@ -15,23 +15,23 @@ function getHtml (url) {
 }
 
 class Scrape {
-  static windfinder (url) {
-    if (!url) throw new Error('No url specified!')
+  static windfinder (spotname) {
+    if (!spotname) throw new Error('No spot specified!')
     return new Promise((resolve, reject) => {
-      getHtml(url)
+      getHtml(`https://www.windfinder.com/weatherforecast/${spotname}`)
         .then(html => extract.windfinderData(html))
         .then(windfinder => resolve(windfinder))
         .catch(err => reject(err))
     })
   }
 
-  static windguru (url, modelNumbers) {
-    if (!url) throw new Error('No url specified!')
+  static windguru (spotnumber, modelNumbers) {
+    if (!spotnumber) throw new Error('No spot number specified!')
     if (!modelNumbers) throw new Error('No model numbers specified!')
     if (!Array.isArray(modelNumbers)) throw new Error('Model numbers must be in an array!')
     return new Promise((resolve, reject) => {
       nightmare
-        .goto(url)
+        .goto(`https://www.windguru.cz/${spotnumber}`)
         .wait('.spot-name')
         .wait('#tabid_2_0_dates')
         .wait('#tabid_2_0_WINDSPD')
