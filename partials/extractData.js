@@ -14,35 +14,35 @@ function windfinderData (html) {
   }
 
   // Get the spots name
-  $('#spotheader-spotname').filter(function () {
+  $('#spotheader-spotname').each(function () {
     windfinder.spot = $(this).text()
   })
 
   // Get the dates
-  $('.weathertable__header').find($('h4')).filter(function (i) {
+  $('.weathertable__header').find($('h4')).each(function (i) {
     windfinder.date[i] = $(this).text()
   })
 
   // Get the time
-  $('.data-time').find($('.value')).filter(function (i) {
+  $('.data-time').find($('.value')).each(function (i) {
     windfinder.time[i] = $(this).text()
   })
   utils.spliceToDayHours(windfinder.time)
 
   // Get the average wind speed
-  $('.data--major').find($('.units-ws')).filter(function (i) {
+  $('.data--major').find($('.units-ws')).each(function (i) {
     windfinder.windspeed[i] = $(this).text()
   })
   utils.spliceToDayHours(windfinder.windspeed)
 
   // Get the wind gusts
-  $('.data-gusts').find($('.units-ws')).filter(function (i) {
+  $('.data-gusts').find($('.units-ws')).each(function (i) {
     windfinder.windgust[i] = $(this).text()
   })
   utils.spliceToDayHours(windfinder.windgust)
 
   // Get the wind direction; do some converting
-  $('.data-direction-arrow').find($('.directionarrow')).filter(function (i) {
+  $('.data-direction-arrow').find($('.directionarrow')).each(function (i) {
     var data = parseInt($(this).attr('title').replace('°', ' '))
     // This can be used to calculate the wind direction in wind direction instead of angles
     // var val = Math.floor((data / 22.5) + 0.5)
@@ -64,26 +64,26 @@ function windguruModel (number, $) {
     winddirection: []
   }
   // Get model name
-  $(`#wgtab-obal-tabid_${number}`).find('.nadlegend').filter(function () {
+  $(`#wgtab-obal-tabid_${number}`).find('.nadlegend').each(function () {
     modelData.name = $(this).text()
   })
   // Get time
-  $(`#tabid_${number}_0_dates`).find('td').filter(function (i) {
+  $(`#tabid_${number}_0_dates`).find('td').each(function (i) {
     modelData.time[i] = $(this).text().split('.')[1]
   })
 
   // Get windspeed
-  $(`#tabid_${number}_0_WINDSPD`).find('td').filter(function (i) {
+  $(`#tabid_${number}_0_WINDSPD`).find('td').each(function (i) {
     modelData.windspeed[i] = $(this).text()
   })
 
   // Get windgust
-  $(`#tabid_${number}_0_GUST`).find('td').filter(function (i) {
+  $(`#tabid_${number}_0_GUST`).find('td').each(function (i) {
     modelData.windgust[i] = $(this).text()
   })
 
   // Get winddirection
-  $(`#tabid_${number}_0_SMER`).find('td span').filter(function (i) {
+  $(`#tabid_${number}_0_SMER`).find('td span').each(function (i) {
     modelData.winddirection[i] = parseInt($(this).attr('title').match(/\d+/)[0]) - 180
   })
 
@@ -100,7 +100,7 @@ function windguruData (html, modelNumbers) {
   }
 
   // Get spot name
-  $('.spot-name').filter(function () {
+  $('.spot-name').each(function () {
     windguru.spot = $(this).text()
   })
 
