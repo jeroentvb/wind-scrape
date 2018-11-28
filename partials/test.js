@@ -1,26 +1,40 @@
-const Scrape = require('../index')
+const scrape = require('../index')
+const helper = require('jeroentvb-helper')
 
 const url = {
-  windfinder: 'https://www.windfinder.com/weatherforecast/tarifa',
-  windguru: 'https://www.windguru.cz/43'
+  windfinder: 'tarifa',
+  windguru: '43',
+  windy: {
+    lat: '36.012',
+    long: '-5.611'
+  }
 }
 
 switch (process.argv[2]) {
   case 'all':
     Promise.all([
-      Scrape.windfinder(url.windfinder),
-      Scrape.windguru(url.windguru, [0, 2, 3, 4])
+      scrape.windfinder(url.windfinder),
+      scrape.windguru(url.windguru, [0, 2, 3, 4]),
+      scrape.windy(url.windy.lat, url.windy.long)
     ])
-      .then(res => console.log(res))
+      .then(res => {
+        console.log(res)
+        helper.exportToFile('allData', res)
+      })
       .catch(err => console.error(err))
     break
   case 'windfinder':
-    Scrape.windfinder(url.windfinder)
+    scrape.windfinder(url.windfinder)
       .then(res => console.log(res))
       .catch(err => console.error(err))
     break
   case 'windguru':
-    Scrape.windguru(url.windguru, [0, 2, 3, 4])
+    scrape.windguru(url.windguru, [0, 2, 3, 4])
+      .then(res => console.log(res))
+      .catch(err => console.error(err))
+    break
+  case 'windy':
+    scrape.windy(url.windy.lat, url.windy.long)
       .then(res => console.log(res))
       .catch(err => console.error(err))
     break

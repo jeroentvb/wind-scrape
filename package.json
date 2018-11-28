@@ -1,6 +1,6 @@
 {
   "name": "wind-scrape",
-  "version": "1.0.0",
+  "version": "0.2.0",
   "description": "Scrape wind forecast from a few websites",
   "main": "index.js",
   "scripts": {
@@ -26,5 +26,8 @@
     "cheerio": "^1.0.0-rc.2",
     "nightmare": "^3.0.1",
     "request": "^2.88.0"
+  },
+  "devDependencies": {
+    "jeroentvb-helper": "github:jeroentvb/jeroentvb-helper"
   }
 }
