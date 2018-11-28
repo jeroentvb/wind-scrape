@@ -26,5 +26,8 @@
     "cheerio": "^1.0.0-rc.2",
     "nightmare": "^3.0.1",
     "request": "^2.88.0"
+  },
+  "devDependencies": {
+    "jeroentvb-helper": "github:jeroentvb/jeroentvb-helper"
   }
 }

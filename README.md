@@ -65,6 +65,31 @@ Example: to scrape data for Tarifa, use `43`.
 An array. Numbers of the windguru models you want to scrape.  
 You can get these using the inspector in your browser. Or use `0` for the first model, `1` for the second, `2` for the third, e.t.c.
 
+### Scrape.windy(lat, long)
+Scrapes data for a custom location. Returns a promise which resolves in an object with the following format:
+```js
+{
+  name: 'Windy',
+  models: [
+    {
+      name: 'example model',
+      time: [],
+      windspeed: [],
+      windgust: [],
+      winddirection: []
+    }
+  ]
+}
+```  
+
+#### lat
+Latitude of a spot
+
+#### long
+Longitude of a spot. Together these make up the coordinates of a spot.
+Consider the following windy url `https://www.windy.com/36.012/-5.611/wind?`. `36.012` would be the latitude, `-5.611` the longitude.  
+I recommend using windy specific coordinates. Though, any set of coordinates should work.
+
 ## Testing
 To test newly added features just run one of the following commands. The result should be the scraped data logged in the console. The spot used is *Tarifa*.
 ```shell
@@ -76,4 +101,7 @@ npm test windfinder
 
 # Test the windguru function
 npm test windguru
+
+# Test the windy function
+npm test windy
 ```

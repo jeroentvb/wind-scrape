@@ -112,7 +112,50 @@ function windguruData (html, modelNumbers) {
   return windguru
 }
 
+function windyData (html) {
+  let $ = cheerio.load(html)
+  let hours = []
+  let windy = {
+    name: 'Windy',
+    // date: [],
+    models: []
+  }
+
+  $('.legend-left', '.legend-windCombined').each(function () {
+    windy.models.push({
+      name: $(this).text()
+    })
+  })
+
+  $('td', '.td-hour').each(function () {
+    hours.push($(this).text())
+  })
+  windy.models.forEach(model => {
+    model.time = hours
+  })
+
+  $('.td-windCombined', '#detail-data-table').each(function (i) {
+    windy.models[i].windspeed = []
+    windy.models[i].windgust = []
+    windy.models[i].winddirection = []
+
+    $(this).find('td').each(function () {
+      let winddirection = $(this).find('div').css('transform').replace(/\D/g, '')
+      let windgust = $(this).find('small').text()
+      $(this).children().remove().end()
+      let windspeed = $(this).text()
+
+      windy.models[i].windspeed.push(windspeed)
+      windy.models[i].windgust.push(windgust)
+      windy.models[i].winddirection.push(winddirection)
+    })
+  })
+
+  return windy
+}
+
 module.exports = {
   windguruData,
-  windfinderData
+  windfinderData,
+  windyData
 }
