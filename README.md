@@ -17,7 +17,7 @@ npm install jeroentvb/wind-scrape
 
 ## Usage
 ```js
-const Scrape = require('wind-scrape')
+const scrape = require('wind-scrape')
 ```
 
 ### Scrape.windfinder(spotname)
