@@ -91,7 +91,7 @@ Consider the following windy url `https://www.windy.com/36.012/-5.611/wind?`. `3
 I recommend using windy specific coordinates. Though, any set of coordinates should work.
 
 ## Testing
-To test newly added features just run one of the following commands. The result should be the scraped data logged in the console. The spot used is *Tarifa*.
+To test newly added features just run one of the following commands. The result should be the scraped data logged in the console and a file containing the scraped data will be written to the root of the application. The spot used is *Tarifa*.
 ```shell
 # Test all functions specified in partials/test.js
 npm test all  

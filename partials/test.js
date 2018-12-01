@@ -25,17 +25,26 @@ switch (process.argv[2]) {
     break
   case 'windfinder':
     scrape.windfinder(url.windfinder)
-      .then(res => console.log(res))
+      .then(res => {
+        console.log(res)
+        helper.exportToFile('windfinder', res)
+      })
       .catch(err => console.error(err))
     break
   case 'windguru':
     scrape.windguru(url.windguru, [0, 2, 3, 4])
-      .then(res => console.log(res))
+      .then(res => {
+        console.log(res)
+        helper.exportToFile('windguru', res)
+      })
       .catch(err => console.error(err))
     break
   case 'windy':
     scrape.windy(url.windy.lat, url.windy.long)
-      .then(res => console.log(res))
+      .then(res => {
+        console.log(res)
+        helper.exportToFile('windy', res)
+      })
       .catch(err => console.error(err))
     break
   default:
