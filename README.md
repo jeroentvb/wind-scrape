@@ -10,6 +10,14 @@ Getting data from windguru doesn't seem to work on windows as the package used t
 # Wind scrape
 This package can scrape wind forecast from windfinder superforecast and windguru.
 
+## Table of contents
+* [Installation](#installation)
+* [Usage](#usage)
+  * [Windfinder](#windfinder)
+  * [Windguru](#windguru)
+  * [Windy](#windy)
+* [Testing](#testing)
+
 ## Installation
 ```
 npm install jeroentvb/wind-scrape
@@ -20,7 +28,8 @@ npm install jeroentvb/wind-scrape
 const scrape = require('wind-scrape')
 ```
 
-### Scrape.windfinder(spotname)
+### windfinder
+**scrape.windfinder(spotname)**  
 Scrapes data from a windfinder superforecast page. Returns a promise which resolves in an object with the following format:
 ```js
 {
@@ -39,7 +48,8 @@ It also splices the data to only return day hours.
 A string. Name of the spot to scrape. This is the part after `https://www.windfinder.com/weatherforecast/`.  
 Example: to scrape data for Tarifa Centro, use `tarifa`.
 
-### Scrape.windguru(url, modelNumbers)
+### windguru
+**scrape.windguru(url, modelNumbers)**  
 Scrapes data from selected windguru model (tables). Returns a promise which resolves in an object with the following format:
 ```js
 {
@@ -65,7 +75,8 @@ Example: to scrape data for Tarifa, use `43`.
 An array. Numbers of the windguru models you want to scrape.  
 You can get these using the inspector in your browser. Or use `0` for the first model, `1` for the second, `2` for the third, e.t.c.
 
-### Scrape.windy(lat, long)
+### Windy
+**scrape.windy(lat, long)**  
 Scrapes data for a custom location. Returns a promise which resolves in an object with the following format:
 ```js
 {
