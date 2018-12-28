@@ -25,7 +25,7 @@ function windfinderData (html) {
 
   // Get the time
   $('.data-time').find($('.value')).each(function (i) {
-    windfinder.time[i] = $(this).text()
+    windfinder.time[i] = $(this).text().replace('h', '')
   })
   utils.spliceToDayHours(windfinder.time)
 
@@ -69,7 +69,7 @@ function windguruModel (number, $) {
   })
   // Get time
   $(`#tabid_${number}_0_dates`).find('td').each(function (i) {
-    modelData.time[i] = $(this).text().split('.')[1]
+    modelData.time[i] = $(this).text().split('.')[1].replace('h', '')
   })
 
   // Get windspeed
