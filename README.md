@@ -39,7 +39,8 @@ Scrapes data from a windfinder superforecast page. Returns a promise which resol
   time: [],
   windspeed: [],
   windgust: [],
-  winddirection: []
+  winddirection: [],
+  temperature: []
 }
 ```  
 It also splices the data to only return day hours.
@@ -61,7 +62,8 @@ Scrapes data from selected windguru model (tables). Returns a promise which reso
       time: [],
       windspeed: [],
       windgust: [],
-      winddirection: []
+      winddirection: [],
+      temperature: []
     }
   ]
 }
