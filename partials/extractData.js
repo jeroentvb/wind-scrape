@@ -53,6 +53,14 @@ function windfinderData (html) {
   })
   utils.spliceToDayHours(windfinder.winddirection)
 
+  // Get temperature
+  $('.data-temp').find($('.units-at')).each(function (i) {
+    windfinder.temperature[i] = $(this).text()
+  })
+  utils.spliceToDayHours(windfinder.temperature)
+
+  console.log(windfinder.temperature)
+
   return windfinder
 }
 
@@ -62,7 +70,8 @@ function windguruModel (number, $) {
     time: [],
     windspeed: [],
     windgust: [],
-    winddirection: []
+    winddirection: [],
+    temperature: []
   }
   // Get model name
   $(`#wgtab-obal-tabid_${number}`).find('.nadlegend').each(function () {
@@ -86,6 +95,11 @@ function windguruModel (number, $) {
   // Get winddirection
   $(`#tabid_${number}_0_SMER`).find('td span').each(function (i) {
     modelData.winddirection[i] = parseInt($(this).attr('title').match(/\d+/)[0]) - 180
+  })
+
+  // Get temperature
+  $(`#tabid_${number}_0_TMPE`).find('td').each(function (i) {
+    modelData.temperature[i] = $(this).text()
   })
 
   return modelData
