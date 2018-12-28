@@ -53,6 +53,14 @@ function windfinderData (html) {
   })
   utils.spliceToDayHours(windfinder.winddirection)
 
+  // Get temperature
+  $('.data-temp').find($('.units-at')).each(function (i) {
+    windfinder.temperature[i] = $(this).text()
+  })
+  utils.spliceToDayHours(windfinder.temperature)
+
+  console.log(windfinder.temperature)
+
   return windfinder
 }
 
