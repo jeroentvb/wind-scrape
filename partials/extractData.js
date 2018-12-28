@@ -10,7 +10,8 @@ function windfinderData (html) {
     time: [],
     windspeed: [],
     windgust: [],
-    winddirection: []
+    winddirection: [],
+    temperature: []
   }
 
   // Get the spots name
@@ -42,7 +43,7 @@ function windfinderData (html) {
   utils.spliceToDayHours(windfinder.windgust)
 
   // Get the wind direction; do some converting
-  $('.data-direction-arrow').find($('.directionarrow')).each(function (i) {
+  $('.units-wd-sym').find($('.directionarrow')).each(function (i) {
     var data = parseInt($(this).attr('title').replace('°', ' '))
     // This can be used to calculate the wind direction in wind direction instead of angles
     // var val = Math.floor((data / 22.5) + 0.5)
