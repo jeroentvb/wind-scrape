@@ -16,7 +16,10 @@ function windfinder (spotname) {
   return new Promise((resolve, reject) => {
     getHtml(`https://www.windfinder.com/weatherforecast/${spotname}`)
       .then(html => extract.windfinderData(html))
-      .then(windfinder => resolve(windfinder))
+      .then(windfinder => {
+        if (windfinder.spot === '') reject(new Error('The provided windfinder spot doesn\'t exist..'))
+        resolve(windfinder)
+      })
       .catch(err => reject(err))
   })
 }
@@ -26,7 +29,8 @@ function windguru (spotnumber, modelNumbers) {
   if (!modelNumbers) throw new Error('No model numbers specified!')
   if (!Array.isArray(modelNumbers)) throw new Error('Model numbers must be in an array!')
   const nightmare = Nightmare({
-    show: false
+    show: false,
+    waitTimeout: 3000
   })
   return new Promise((resolve, reject) => {
     nightmare
@@ -40,7 +44,10 @@ function windguru (spotnumber, modelNumbers) {
       .end()
       .then(html => extract.windguruData(html, modelNumbers))
       .then(windguru => resolve(windguru))
-      .catch(err => reject(err))
+      .catch(err => {
+        if (err.message === '.wait() for .spot-name timed out after 3000msec') reject(new Error('The provided windguru spot doesn\'t exist..'))
+        reject(err)
+      })
   })
 }
 
