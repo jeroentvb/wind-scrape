@@ -121,7 +121,12 @@ function windguruData (html, modelNumbers) {
 
   modelNumbers.forEach(model => {
     let data = windguruModel(model, $)
-    windguru.models.push(data)
+
+    if (data.name !== '' && data.windspeed.length >= 0) {
+      windguru.models.push(data)
+    } else {
+      console.error(`[Wind-scrape] model number ${model} doesn't exist for windguru spot ${windguru.spot}`)
+    }
   })
 
   return windguru
