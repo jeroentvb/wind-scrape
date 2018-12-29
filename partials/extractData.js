@@ -59,8 +59,6 @@ function windfinderData (html) {
   })
   utils.spliceToDayHours(windfinder.temperature)
 
-  console.log(windfinder.temperature)
-
   return windfinder
 }
 
