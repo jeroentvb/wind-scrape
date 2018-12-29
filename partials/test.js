@@ -3,7 +3,10 @@ const helper = require('jeroentvb-helper')
 
 const url = {
   windfinder: 'tarifa',
-  windguru: '43',
+  windguru: {
+    spot: '43',
+    modelNumbers: [0, 2, 3, 4]
+  },
   windy: {
     lat: '36.012',
     long: '-5.611'
@@ -14,7 +17,7 @@ switch (process.argv[2]) {
   case 'all':
     Promise.all([
       scrape.windfinder(url.windfinder),
-      scrape.windguru(url.windguru, [0, 2, 3, 4]),
+      scrape.windguru(url.windguru.spot, url.windguru.modelNumbers),
       scrape.windy(url.windy.lat, url.windy.long)
     ])
       .then(res => {
@@ -32,7 +35,7 @@ switch (process.argv[2]) {
       .catch(err => console.error(err))
     break
   case 'windguru':
-    scrape.windguru(url.windguru, [0, 2, 3, 4])
+    scrape.windguru(url.windguru.spot, url.windguru.modelNumbers)
       .then(res => {
         console.log(res)
         helper.exportToFile('windguru', res)
