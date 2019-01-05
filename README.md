@@ -2,6 +2,10 @@
 This package scrapes websites. Web scraping is a grey area and may not be allowed by the website.  
 Use with caution and for *personal* use only!
 
+## Windows/Linux
+I personally want to use this package on windows using the linux subshell. However, I'm having a difficult time getting the windguru and windy scrapers to work because they those sites generate dynamic content. A headless browser is needed to scrape dynamic content but [nightmare](https://github.com/segmentio/nightmare) and [puppeteer](https://github.com/GoogleChrome/puppeteer) don't work out of the box.  
+The package does work fine and out of the box on MacOs.
+
 ### Note
 If you are going to use this package in a project I highly recommend implementing writing the scraped data to a file, and using this file if a website has been scraped within a certain amount of time. This avoids spamming a website with unnecessary requests.  
 
