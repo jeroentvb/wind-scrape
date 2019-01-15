@@ -2,10 +2,12 @@
 This package scrapes websites. Web scraping is a grey area and may not be allowed by the website.  
 Use with caution and for *personal* use only!
 
+### Caution
+To be able to use this package with the ubuntu shell on windows 10 (and possibly linux), I've added the flag `--no-sandbox` to puppeteer.launch(). This means that puppeteer will launch without a sandbox. This is a security risk, so only use it to visit sites you trust! More info on this, or how to configure it properly [here](https://github.com/GoogleChrome/puppeteer/blob/master/docs/troubleshooting.md#setting-up-chrome-linux-sandbox).
+In the case of this package, it only visits `www.windguru.cz` and `www.windy.com`. Only use this package for scraping those sites if you deem them safe. I'm not responsible for anything that happens.
+
 ### Note
 If you are going to use this package in a project I highly recommend implementing writing the scraped data to a file, and using this file if a website has been scraped within a certain amount of time. This avoids spamming a website with unnecessary requests.  
-
-Getting data from windguru doesn't seem to work on windows as the package used to scrape windguru ([Nightmare](https://github.com/segmentio/nightmare)) doesn't seem to work.
 
 # Wind scrape
 This package can scrape wind forecast from windfinder superforecast and windguru.

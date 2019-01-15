@@ -52,7 +52,11 @@ function windguru (spotnumber, modelNumbers) {
   // })
   return new Promise((resolve, reject) => {
     (async function () {
-      const browser = await puppeteer.launch()
+      const browser = await puppeteer.launch({
+        args: [
+          '--no-sandbox'
+        ]
+      })
       const page = await browser.newPage()
 
       try {
@@ -94,7 +98,11 @@ function windy (lat, long) {
   // })
   return new Promise((resolve, reject) => {
     (async function () {
-      const browser = await puppeteer.launch()
+      const browser = await puppeteer.launch({
+        args: [
+          '--no-sandbox'
+        ]
+      })
       const page = await browser.newPage()
 
       try {
