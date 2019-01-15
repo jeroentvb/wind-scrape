@@ -3,7 +3,7 @@ This package scrapes websites. Web scraping is a grey area and may not be allowe
 Use with caution and for *personal* use only!
 
 ### Caution
-To be able to use this package with the ubuntu shell on windows 10 (and possibly linux), I've added the flag `--no-sandbox` to puppeteer.launch(). This means that puppeteer will launch without a sandbox. This is a security risk, so only use it to visit sites you trust! More info on this, or how to configure it properly [here](https://github.com/GoogleChrome/puppeteer/blob/master/docs/troubleshooting.md#setting-up-chrome-linux-sandbox).
+To be able to use this package with the ubuntu shell on windows 10 (and possibly linux), I've added the flag `--no-sandbox` to puppeteer.launch(). This means that puppeteer will launch without a sandbox. (Puppeteer is the headless browser used for scraping). This is a security risk, so only use it to visit sites you trust! More info on this, or how to configure it properly [here](https://github.com/GoogleChrome/puppeteer/blob/master/docs/troubleshooting.md#setting-up-chrome-linux-sandbox).
 In the case of this package, it only visits `www.windguru.cz` and `www.windy.com`. Only use this package for scraping those sites if you deem them safe. I'm not responsible for anything that happens.
 
 ### Note
