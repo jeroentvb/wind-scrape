@@ -17,7 +17,7 @@ function windfinder (spotname) {
     getHtml(`https://www.windfinder.com/weatherforecast/${spotname}`)
       .then(html => extract.windfinderData(html))
       .then(windfinder => {
-        if (windfinder.spot === '') reject(new Error('The provided windfinder spot doesn\'t exist..'))
+        if (windfinder.spot === '') reject(new Error(`The provided windfinder spot (${spotname}) doesn't exist..`))
         resolve(windfinder)
       })
       .catch(err => reject(err))
@@ -45,7 +45,7 @@ function windguru (spotnumber, modelNumbers) {
       .then(html => extract.windguruData(html, modelNumbers))
       .then(windguru => resolve(windguru))
       .catch(err => {
-        if (err.message === '.wait() for .spot-name timed out after 3000msec') reject(new Error('The provided windguru spot doesn\'t exist..'))
+        if (err.message === '.wait() for .spot-name timed out after 3000msec') reject(new Error(`The provided windguru spot (number ${spotnumber}) doesn't exist..`))
         reject(err)
       })
   })
