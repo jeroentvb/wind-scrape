@@ -139,12 +139,15 @@ function windyData (html) {
     models: []
   }
 
-  $('.legend-left', '.legend-windCombined').each(function () {
+  // Get model names
+  $('.legend-windCombined', '.legend').find('.legend-left').each(function () {
+    console.log($(this).text())
     windy.models.push({
       name: $(this).text()
     })
   })
 
+  // get model times
   $('td', '.td-hour').each(function () {
     hours.push($(this).text())
   })
@@ -152,6 +155,7 @@ function windyData (html) {
     model.time = hours
   })
 
+  // get windspeed, windgust and winddirection
   $('.td-windCombined', '#detail-data-table').each(function (i) {
     windy.models[i].windspeed = []
     windy.models[i].windgust = []

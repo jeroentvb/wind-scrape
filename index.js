@@ -39,22 +39,7 @@ function windguru (spotnumber, modelNumbers) {
       const page = await browser.newPage()
 
       try {
-        await page.goto(`https://www.windguru.cz/${spotnumber}`)
-        await page.waitFor('.spot-name', {
-          timeout: 3000
-        })
-        await page.waitFor('#tabid_2_0_dates', {
-          timeout: 3000
-        })
-        await page.waitFor('#tabid_2_0_WINDSPD', {
-          timeout: 3000
-        })
-        await page.waitFor('#tabid_2_0_GUST', {
-          timeout: 3000
-        })
-        await page.waitFor('#tabid_2_0_SMER', {
-          timeout: 3000
-        })
+        await page.goto(`https://www.windguru.cz/${spotnumber}`, { waitUntil: 'networkidle0' })
 
         let html = await page.evaluate(() => document.body.innerHTML)
         await browser.close()
@@ -83,9 +68,7 @@ function windy (lat, long) {
       const page = await browser.newPage()
 
       try {
-        await page.goto(`https://www.windy.com/${lat}/${long}/wind?`)
-        await page.waitFor('.legend-left')
-        await page.waitFor('.td-windCombined')
+        await page.goto(`https://www.windy.com/${lat}/${long}/wind?`, { waitUntil: 'networkidle0' })
 
         let html = await page.evaluate(() => document.body.innerHTML)
         await browser.close()
