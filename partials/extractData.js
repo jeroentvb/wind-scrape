@@ -141,7 +141,6 @@ function windyData (html) {
 
   // Get model names
   $('.legend-windCombined', '.legend').find('.legend-left').each(function () {
-    console.log($(this).text())
     windy.models.push({
       name: $(this).text()
     })
