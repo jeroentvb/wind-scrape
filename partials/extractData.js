@@ -66,6 +66,7 @@ function windguruModel (number, $) {
     winddirection: [],
     temperature: []
   }
+
   // Get model name
   $(`#wgtab-obal-tabid_${number}`).find('.nadlegend').each(function () {
     modelData.name = $(this).text()
