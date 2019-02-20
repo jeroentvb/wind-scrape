@@ -44,11 +44,15 @@ Scrapes data from a windfinder superforecast page. Returns a promise which resol
   spot: '',
   days: [
     date: '',
-    time: '',
-    windspeed: [],
-    windgust: [],
-    winddirection: [],
-    temperature: []
+    hours: [
+      {
+        hour: '',
+        windspeed: '',
+        windgust: '',
+        winddirection: '',
+        temperature: ''
+      }
+    ]
   ]
 }
 ```  
