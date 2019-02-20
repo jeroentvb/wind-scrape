@@ -27,5 +27,7 @@
     "puppeteer": "^1.12.2",
     "request": "^2.88.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "jeroentvb-helper": "github:jeroentvb/jeroentvb-helper"
+  }
 }

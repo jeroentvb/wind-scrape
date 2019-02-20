@@ -1,6 +1,7 @@
 const request = require('request')
 const puppeteer = require('puppeteer')
 const extract = require('./partials/extractData')
+const parse = require('./partials/parseData')
 
 function getHtml (url) {
   return new Promise((resolve, reject) => {
@@ -16,6 +17,7 @@ function windfinder (spotname) {
   return new Promise((resolve, reject) => {
     getHtml(`https://www.windfinder.com/weatherforecast/${spotname}`)
       .then(html => extract.windfinderData(html))
+      .then(data => parse.windfinderData(data))
       .then(windfinder => {
         if (windfinder.spot === '') reject(new Error('The provided windfinder spot doesn\'t exist..'))
         resolve(windfinder)

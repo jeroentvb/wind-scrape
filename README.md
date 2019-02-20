@@ -42,15 +42,17 @@ Scrapes data from a windfinder superforecast page. Returns a promise which resol
 {
   name: 'Windfinder',
   spot: '',
-  date: [],
-  time: [],
-  windspeed: [],
-  windgust: [],
-  winddirection: [],
-  temperature: []
+  days: [
+    date: '',
+    time: '',
+    windspeed: [],
+    windgust: [],
+    winddirection: [],
+    temperature: []
+  ]
 }
 ```  
-It also splices the data to only return day hours.
+It also slices the data to only return day hours.
 
 #### spotname  
 A string. Name of the spot to scrape. This is the part after `https://www.windfinder.com/weatherforecast/`.  
