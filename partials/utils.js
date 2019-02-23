@@ -10,10 +10,15 @@ function three (array) {
   return array.slice(55, 70)
 }
 
+function reverseDate (date) {
+  return date.split('-').reverse().join('-')
+}
+
 module.exports = {
   sliceDay: {
     one,
     two,
     three
-  }
+  },
+  reverseDate
 }

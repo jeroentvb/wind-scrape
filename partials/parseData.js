@@ -107,7 +107,55 @@ function windguruData (data) {
   return newData
 }
 
+function windyData (data) {
+  let newData = {
+    name: data.name,
+    models: []
+  }
+
+  data.models.forEach((model, i) => {
+    newData.models[i] = {
+      name: model.name,
+      days: []
+    }
+
+    let day
+    let dayCount = 0
+
+    model.time.forEach((item, j) => {
+      let hour = {
+        hour: model.time[j],
+        windspeed: model.windspeed[j],
+        windgust: model.windgust[j],
+        winddirection: model.winddirection[j]
+      }
+
+      if (j === 0) {
+        newData.models[i].days[0] = {
+          date: data.date[0] ? utils.reverseDate(data.date[0]) : 'undefined',
+          hours: []
+        }
+        newData.models[i].days[0].hours.push(hour)
+      } else if (item < day) {
+        dayCount++
+        newData.models[i].days[dayCount] = {
+          date: data.date[dayCount] ? utils.reverseDate(data.date[dayCount]) : 'undefined',
+          hours: []
+        }
+        newData.models[i].days[dayCount].hours.push(hour)
+      } else {
+        newData.models[i].days[dayCount].hours.push(hour)
+      }
+
+      day = item
+    })
+  })
+
+  return newData
+}
+
 module.exports = {
   windfinderData,
-  windguruData
+  windguruData,
+  windyData
 }

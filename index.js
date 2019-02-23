@@ -76,7 +76,8 @@ function windy (lat, long) {
         let html = await page.evaluate(() => document.body.innerHTML)
         await browser.close()
 
-        let data = extract.windyData(html)
+        let rawData = extract.windyData(html)
+        let data = parse.windyData(rawData)
         resolve(data)
       } catch (err) {
         await browser.close()

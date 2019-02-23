@@ -131,9 +131,14 @@ function windyData (html) {
   let hours = []
   let windy = {
     name: 'Windy',
-    // date: [],
+    date: [],
     models: []
   }
+
+  // Get dates
+  $('.sticky-title-wrapper', '.td-days').each(function () {
+    windy.date.push($(this).data('day'))
+  })
 
   // Get model names
   $('.legend-windCombined', '.legend').find('.legend-left').each(function () {
