@@ -72,11 +72,20 @@ Scrapes data from selected windguru model (tables). Returns a promise which reso
   models: [
     {
       name: 'example model',
-      time: [],
-      windspeed: [],
-      windgust: [],
-      winddirection: [],
-      temperature: []
+      days: [
+        {
+          date: '',
+          hours: [
+            {
+              hour: '',
+              windspeed: '',
+              windgust: '',
+              winddirection: '',
+              temperature: ''
+            }
+          ]
+        }
+      ]
     }
   ]
 }
@@ -99,10 +108,19 @@ Scrapes data for a custom location. Returns a promise which resolves in an objec
   models: [
     {
       name: 'example model',
-      time: [],
-      windspeed: [],
-      windgust: [],
-      winddirection: []
+      days: [
+        {
+          date: '',
+          hours: [
+            {
+              hour: '',
+              windspeed: '',
+              windgust: '',
+              winddirection: ''
+            }
+          ]
+        }
+      ]
     }
   ]
 }
