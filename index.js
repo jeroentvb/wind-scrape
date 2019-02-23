@@ -46,7 +46,8 @@ function windguru (spotnumber, modelNumbers) {
         let html = await page.evaluate(() => document.body.innerHTML)
         await browser.close()
 
-        let data = extract.windguruData(html, modelNumbers)
+        let rawData = extract.windguruData(html, modelNumbers)
+        let data = parse.windguruData(rawData)
         resolve(data)
       } catch (err) {
         await browser.close()

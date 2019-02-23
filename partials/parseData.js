@@ -57,6 +57,57 @@ function windfinderData (data) {
   return windfinder
 }
 
+function windguruData (data) {
+  // TODO: refactor this function
+  let newData = {
+    name: data.name,
+    spot: data.spot,
+    models: []
+  }
+
+  data.models.forEach((model, i) => {
+    newData.models[i] = {
+      name: model.name,
+      days: []
+    }
+
+    let day
+    let dayCount = 0
+
+    model.time.forEach((item, j) => {
+      let hour = {
+        hour: model.time[j].substring(3, 5),
+        windspeed: model.windspeed[j],
+        windgust: model.windgust[j],
+        winddirection: model.winddirection[j],
+        temperature: model.temperature[j]
+      }
+
+      if (j === 0) {
+        newData.models[i].days[0] = {
+          date: item.substring(0, 2),
+          hours: []
+        }
+        newData.models[i].days[0].hours.push(hour)
+      } else if (item.substring(0, 2) !== day) {
+        dayCount++
+        newData.models[i].days[dayCount] = {
+          date: item.substring(0, 2),
+          hours: []
+        }
+        newData.models[i].days[dayCount].hours.push(hour)
+      } else {
+        newData.models[i].days[dayCount].hours.push(hour)
+      }
+
+      day = item.substring(0, 2)
+    })
+  })
+
+  return newData
+}
+
 module.exports = {
-  windfinderData
+  windfinderData,
+  windguruData
 }

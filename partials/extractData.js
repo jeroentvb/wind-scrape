@@ -72,8 +72,8 @@ function windguruModel (number, $) {
     modelData.name = $(this).text()
   })
   // Get time
-  $(`#tabid_${number}_0_dates`).find('td').each(function (i) {
-    modelData.time[i] = $(this).text().split('.')[1].replace('h', '')
+  $(`#tabid_${number}_0_dates`).find('td:not(.spacer)').each(function (i) {
+    modelData.time[i] = $(this).text().substring(2)
   })
 
   // Get windspeed
