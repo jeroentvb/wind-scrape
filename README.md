@@ -42,15 +42,21 @@ Scrapes data from a windfinder superforecast page. Returns a promise which resol
 {
   name: 'Windfinder',
   spot: '',
-  date: [],
-  time: [],
-  windspeed: [],
-  windgust: [],
-  winddirection: [],
-  temperature: []
+  days: [
+    date: '',
+    hours: [
+      {
+        hour: '',
+        windspeed: '',
+        windgust: '',
+        winddirection: '',
+        temperature: ''
+      }
+    ]
+  ]
 }
 ```  
-It also splices the data to only return day hours.
+It also slices the data to only return day hours.
 
 #### spotname  
 A string. Name of the spot to scrape. This is the part after `https://www.windfinder.com/weatherforecast/`.  
@@ -66,11 +72,20 @@ Scrapes data from selected windguru model (tables). Returns a promise which reso
   models: [
     {
       name: 'example model',
-      time: [],
-      windspeed: [],
-      windgust: [],
-      winddirection: [],
-      temperature: []
+      days: [
+        {
+          date: '',
+          hours: [
+            {
+              hour: '',
+              windspeed: '',
+              windgust: '',
+              winddirection: '',
+              temperature: ''
+            }
+          ]
+        }
+      ]
     }
   ]
 }
@@ -93,10 +108,19 @@ Scrapes data for a custom location. Returns a promise which resolves in an objec
   models: [
     {
       name: 'example model',
-      time: [],
-      windspeed: [],
-      windgust: [],
-      winddirection: []
+      days: [
+        {
+          date: '',
+          hours: [
+            {
+              hour: '',
+              windspeed: '',
+              windgust: '',
+              winddirection: ''
+            }
+          ]
+        }
+      ]
     }
   ]
 }

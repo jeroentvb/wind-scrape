@@ -1,9 +1,9 @@
-const utils = require('./utils')
 const cheerio = require('cheerio')
 
 function windfinderData (html) {
   let $ = cheerio.load(html)
-  let windfinder = {
+
+  let data = {
     name: 'Windfinder',
     spot: '',
     date: [],
@@ -16,50 +16,45 @@ function windfinderData (html) {
 
   // Get the spots name
   $('#spotheader-spotname').each(function () {
-    windfinder.spot = $(this).text()
+    data.spot = $(this).text()
   })
 
   // Get the dates
   $('.weathertable__header').find($('h4')).each(function (i) {
-    windfinder.date[i] = $(this).text()
+    data.date[i] = $(this).text()
   })
 
   // Get the time
   $('.data-time').find($('.value')).each(function (i) {
-    windfinder.time[i] = $(this).text().replace('h', '')
+    data.time[i] = $(this).text().replace('h', '')
   })
-  utils.spliceToDayHours(windfinder.time)
 
   // Get the average wind speed
   $('.data--major').find($('.units-ws')).each(function (i) {
-    windfinder.windspeed[i] = $(this).text()
+    data.windspeed[i] = $(this).text()
   })
-  utils.spliceToDayHours(windfinder.windspeed)
 
   // Get the wind gusts
   $('.data-gusts').find($('.units-ws')).each(function (i) {
-    windfinder.windgust[i] = $(this).text()
+    data.windgust[i] = $(this).text()
   })
-  utils.spliceToDayHours(windfinder.windgust)
 
   // Get the wind direction; do some converting
   $('.units-wd-sym').find($('.directionarrow')).each(function (i) {
-    var data = parseInt($(this).attr('title').replace('°', ' '))
+    let direction = parseInt($(this).attr('title').replace('°', ' '))
     // This can be used to calculate the wind direction in wind direction instead of angles
     // var val = Math.floor((data / 22.5) + 0.5)
     // var windDirections = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"];
     // windDirection[i] = windDirections[(val % 16)]
-    windfinder.winddirection[i] = data
+    data.winddirection[i] = direction
   })
-  utils.spliceToDayHours(windfinder.winddirection)
 
   // Get temperature
   $('.data-temp').find($('.units-at')).each(function (i) {
-    windfinder.temperature[i] = $(this).text()
+    data.temperature[i] = $(this).text()
   })
-  utils.spliceToDayHours(windfinder.temperature)
 
-  return windfinder
+  return data
 }
 
 function windguruModel (number, $) {
@@ -71,13 +66,14 @@ function windguruModel (number, $) {
     winddirection: [],
     temperature: []
   }
+
   // Get model name
   $(`#wgtab-obal-tabid_${number}`).find('.nadlegend').each(function () {
     modelData.name = $(this).text()
   })
   // Get time
-  $(`#tabid_${number}_0_dates`).find('td').each(function (i) {
-    modelData.time[i] = $(this).text().split('.')[1].replace('h', '')
+  $(`#tabid_${number}_0_dates`).find('td:not(.spacer)').each(function (i) {
+    modelData.time[i] = $(this).text().substring(2)
   })
 
   // Get windspeed
@@ -135,9 +131,14 @@ function windyData (html) {
   let hours = []
   let windy = {
     name: 'Windy',
-    // date: [],
+    date: [],
     models: []
   }
+
+  // Get dates
+  $('.sticky-title-wrapper', '.td-days').each(function () {
+    windy.date.push($(this).data('day'))
+  })
 
   // Get model names
   $('.legend-windCombined', '.legend').find('.legend-left').each(function () {
