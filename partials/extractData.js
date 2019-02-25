@@ -88,7 +88,7 @@ function windguruModel (number, $) {
 
   // Get winddirection
   $(`#tabid_${number}_0_SMER`).find('td span').each(function (i) {
-    modelData.winddirection[i] = parseInt($(this).attr('title').match(/\d+/)[0]) - 180
+    modelData.winddirection[i] = parseInt($(this).attr('title').match(/\d+/)[0])
   })
 
   // Get temperature
