@@ -52,6 +52,7 @@ function windguru (spotnumber, modelNumbers) {
       } catch (err) {
         await browser.close()
         if (err.message === 'waiting for selector ".spot-name" failed: timeout 3000ms exceeded') reject(new Error('The provided windguru spot doesn\'t exist..'))
+        if (err.name === 'TimeoutError') reject(new Error('The request timed out after 30000ms'))
         reject(err)
       }
     })()
