@@ -13,8 +13,8 @@ const url = {
   }
 }
 
-switch (process.argv[2]) {
-  case 'all':
+class Test {
+  static all () {
     Promise.all([
       scrape.windfinder(url.windfinder),
       scrape.windguru(url.windguru.spot, url.windguru.modelNumbers),
@@ -25,30 +25,48 @@ switch (process.argv[2]) {
         helper.exportToFile('allData', res)
       })
       .catch(err => console.error(err))
-    break
-  case 'windfinder':
+  }
+
+  static windfinder () {
     scrape.windfinder(url.windfinder)
       .then(res => {
         console.log(res)
         helper.exportToFile('windfinder', res)
       })
       .catch(err => console.error(err))
-    break
-  case 'windguru':
+  }
+
+  static windguru () {
     scrape.windguru(url.windguru.spot, url.windguru.modelNumbers)
       .then(res => {
         console.log(res)
         helper.exportToFile('windguru', res)
       })
       .catch(err => console.error(err))
-    break
-  case 'windy':
+  }
+
+  static windy () {
     scrape.windy(url.windy.lat, url.windy.long)
       .then(res => {
         console.log(res)
         helper.exportToFile('windy', res)
       })
       .catch(err => console.error(err))
+  }
+}
+
+switch (process.argv[2]) {
+  case 'all':
+    Test.all()
+    break
+  case 'windfinder':
+    Test.windfinder()
+    break
+  case 'windguru':
+    Test.windguru()
+    break
+  case 'windy':
+    Test.windy()
     break
   default:
     throw new Error('No test specified.')
