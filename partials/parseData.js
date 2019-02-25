@@ -132,14 +132,14 @@ function windyData (data) {
 
       if (j === 0) {
         newData.models[i].days[0] = {
-          date: data.date[0] ? utils.reverseDate(data.date[0]) : 'undefined',
+          date: data.date[0] ? utils.reverseDate(data.date[0]) : null,
           hours: []
         }
         newData.models[i].days[0].hours.push(hour)
-      } else if (item < day) {
+      } else if (parseInt(item) < parseInt(day)) {
         dayCount++
         newData.models[i].days[dayCount] = {
-          date: data.date[dayCount] ? utils.reverseDate(data.date[dayCount]) : 'undefined',
+          date: data.date[dayCount] ? utils.reverseDate(data.date[dayCount]) : null,
           hours: []
         }
         newData.models[i].days[dayCount].hours.push(hour)
