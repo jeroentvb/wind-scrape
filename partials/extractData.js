@@ -92,9 +92,15 @@ function windguruModel (number, $) {
   })
 
   // Get temperature
-  $(`#tabid_${number}_0_TMPE`).find('td').each(function (i) {
-    modelData.temperature[i] = $(this).text()
-  })
+  if ($(`#tabid_${number}_0_TMPE`).length < 1) {
+    $(`#tabid_${number}_0_TMP`).find('td').each(function (i) {
+      modelData.temperature[i] = $(this).text()
+    })
+  } else {
+    $(`#tabid_${number}_0_TMPE`).find('td').each(function (i) {
+      modelData.temperature[i] = $(this).text()
+    })
+  }
 
   return modelData
 }
