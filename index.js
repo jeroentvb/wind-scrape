@@ -14,12 +14,14 @@ function getHtml (url) {
 
 function windfinder (spotname) {
   if (!spotname) throw new Error('No spot specified!')
+  const url = `https://www.windfinder.com/weatherforecast/${spotname}`
   return new Promise((resolve, reject) => {
-    getHtml(`https://www.windfinder.com/weatherforecast/${spotname}`)
+    getHtml(url)
       .then(html => extract.windfinderData(html))
       .then(data => parse.windfinderData(data))
       .then(windfinder => {
         if (windfinder.spot === '') reject(new Error('The provided windfinder spot doesn\'t exist..'))
+        windfinder.url = url
         resolve(windfinder)
       })
       .catch(err => reject(err))
@@ -31,6 +33,8 @@ function windguru (spotnumber, modelNumbers) {
   if (!modelNumbers) throw new Error('No model numbers specified!')
   if (!Array.isArray(modelNumbers)) throw new Error('Model numbers must be in an array!')
 
+  const url = `https://www.windguru.cz/${spotnumber}`
+
   return new Promise((resolve, reject) => {
     (async function () {
       const browser = await puppeteer.launch({
@@ -41,13 +45,14 @@ function windguru (spotnumber, modelNumbers) {
       const page = await browser.newPage()
 
       try {
-        await page.goto(`https://www.windguru.cz/${spotnumber}`, { waitUntil: 'networkidle0' })
+        await page.goto(url, { waitUntil: 'networkidle0' })
 
         let html = await page.evaluate(() => document.body.innerHTML)
         await browser.close()
 
         let rawData = extract.windguruData(html, modelNumbers)
         let data = parse.windguruData(rawData)
+        data.url = url
         resolve(data)
       } catch (err) {
         await browser.close()
@@ -62,6 +67,8 @@ function windguru (spotnumber, modelNumbers) {
 function windy (lat, long) {
   if (!lat || !long) throw new Error('No coordinates specified!')
 
+  const url = `https://www.windy.com/${lat}/${long}/wind?`
+
   return new Promise((resolve, reject) => {
     (async function () {
       const browser = await puppeteer.launch({
@@ -72,13 +79,14 @@ function windy (lat, long) {
       const page = await browser.newPage()
 
       try {
-        await page.goto(`https://www.windy.com/${lat}/${long}/wind?`, { waitUntil: 'networkidle0' })
+        await page.goto(url, { waitUntil: 'networkidle0' })
 
         let html = await page.evaluate(() => document.body.innerHTML)
         await browser.close()
 
         let rawData = extract.windyData(html)
         let data = parse.windyData(rawData)
+        data.url = url
         resolve(data)
       } catch (err) {
         await browser.close()
