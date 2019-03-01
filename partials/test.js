@@ -13,8 +13,8 @@ const url = {
   }
 }
 
-class Test {
-  static all () {
+const test = {
+  all: () => {
     Promise.all([
       scrape.windfinder(url.windfinder),
       scrape.windguru(url.windguru.spot, url.windguru.modelNumbers),
@@ -25,48 +25,51 @@ class Test {
         helper.exportToFile('allData', res)
       })
       .catch(err => console.error(err))
-  }
+  },
+  windfinder: async () => {
+    try {
+      const data = await scrape.windfinder(url.windfinder)
 
-  static windfinder () {
-    scrape.windfinder(url.windfinder)
-      .then(res => {
-        console.log(res)
-        helper.exportToFile('windfinder', res)
-      })
-      .catch(err => console.error(err))
-  }
+      console.log(data)
+      helper.exportToFile('windfinder', data)
+    } catch (err) {
+      console.error(err)
+    }
+  },
+  windguru: async () => {
+    try {
+      const data = await scrape.windguru(url.windguru.spot, url.windguru.modelNumbers)
 
-  static windguru () {
-    scrape.windguru(url.windguru.spot, url.windguru.modelNumbers)
-      .then(res => {
-        console.log(res)
-        helper.exportToFile('windguru', res)
-      })
-      .catch(err => console.error(err))
-  }
+      console.log(data)
+      helper.exportToFile('windguru', data)
+    } catch (err) {
+      console.error(err)
+    }
+  },
+  windy: async () => {
+    try {
+      const data = await scrape.windy(url.windy.lat, url.windy.long)
 
-  static windy () {
-    scrape.windy(url.windy.lat, url.windy.long)
-      .then(res => {
-        console.log(res)
-        helper.exportToFile('windy', res)
-      })
-      .catch(err => console.error(err))
+      console.log(data)
+      helper.exportToFile('windy', data)
+    } catch (err) {
+      console.error(err)
+    }
   }
 }
 
 switch (process.argv[2]) {
   case 'all':
-    Test.all()
+    test.all()
     break
   case 'windfinder':
-    Test.windfinder()
+    test.windfinder()
     break
   case 'windguru':
-    Test.windguru()
+    test.windguru()
     break
   case 'windy':
-    Test.windy()
+    test.windy()
     break
   default:
     throw new Error('No test specified.')
