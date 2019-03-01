@@ -15,16 +15,17 @@ function getHtml (url) {
 function windfinder (spotname) {
   if (!spotname) throw new Error('No spot specified!')
   const url = `https://www.windfinder.com/weatherforecast/${spotname}`
-  return new Promise((resolve, reject) => {
-    getHtml(url)
-      .then(html => extract.windfinderData(html))
-      .then(data => parse.windfinderData(data))
-      .then(windfinder => {
-        if (windfinder.spot === '') reject(new Error('The provided windfinder spot doesn\'t exist..'))
-        windfinder.url = url
-        resolve(windfinder)
-      })
-      .catch(err => reject(err))
+  return new Promise(async (resolve, reject) => {
+    try {
+      const html = await getHtml(url)
+      const data = extract.windfinderData(html)
+      const windfinder = parse.windfinderData(data)
+
+      if (windfinder.spot === '') reject(new Error('The provided windfinder spot doesn\'t exist..'))
+      resolve(windfinder)
+    } catch (err) {
+      reject(err)
+    }
   })
 }
 
