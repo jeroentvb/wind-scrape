@@ -33,6 +33,10 @@ npm install jeroentvb/wind-scrape
 ## Usage
 ```js
 const scrape = require('wind-scrape')
+
+scrape.windfinder('tarifa')
+  .then(data => console.log(data)
+  .catch(err => console.error(err)
 ```
 
 ### windfinder
