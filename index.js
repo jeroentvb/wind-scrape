@@ -15,16 +15,17 @@ function getHtml (url) {
 function windfinder (spotname) {
   if (!spotname) throw new Error('No spot specified!')
   const url = `https://www.windfinder.com/weatherforecast/${spotname}`
-  return new Promise((resolve, reject) => {
-    getHtml(url)
-      .then(html => extract.windfinderData(html))
-      .then(data => parse.windfinderData(data))
-      .then(windfinder => {
-        if (windfinder.spot === '') reject(new Error('The provided windfinder spot doesn\'t exist..'))
-        windfinder.url = url
-        resolve(windfinder)
-      })
-      .catch(err => reject(err))
+  return new Promise(async (resolve, reject) => {
+    try {
+      const html = await getHtml(url)
+      const data = extract.windfinderData(html)
+      const windfinder = parse.windfinderData(data)
+
+      if (windfinder.spot === '') reject(new Error('The provided windfinder spot doesn\'t exist..'))
+      resolve(windfinder)
+    } catch (err) {
+      reject(err)
+    }
   })
 }
 
@@ -35,32 +36,32 @@ function windguru (spotnumber, modelNumbers) {
 
   const url = `https://www.windguru.cz/${spotnumber}`
 
-  return new Promise((resolve, reject) => {
-    (async function () {
-      const browser = await puppeteer.launch({
-        args: [
-          '--no-sandbox'
-        ]
-      })
-      const page = await browser.newPage()
+  return new Promise(async (resolve, reject) => {
+    const browser = await puppeteer.launch({
+      args: [
+        '--no-sandbox'
+      ]
+    })
+    const page = await browser.newPage()
 
-      try {
-        await page.goto(url, { waitUntil: 'networkidle0' })
+    try {
+      await page.goto(url, { waitUntil: 'networkidle0' })
 
-        let html = await page.evaluate(() => document.body.innerHTML)
-        await browser.close()
+      const html = await page.evaluate(() => document.body.innerHTML)
+      await browser.close()
 
-        let rawData = extract.windguruData(html, modelNumbers)
-        let data = parse.windguruData(rawData)
-        data.url = url
-        resolve(data)
-      } catch (err) {
-        await browser.close()
-        if (err.message === 'waiting for selector ".spot-name" failed: timeout 3000ms exceeded') reject(new Error('The provided windguru spot doesn\'t exist..'))
-        if (err.name === 'TimeoutError') reject(new Error('The request timed out after 30000ms'))
-        reject(err)
-      }
-    })()
+      const rawData = extract.windguruData(html, modelNumbers)
+      let data = parse.windguruData(rawData)
+      data.url = url
+      resolve(data)
+    } catch (err) {
+      await browser.close()
+
+      if (err.message === 'waiting for selector ".spot-name" failed: timeout 3000ms exceeded') reject(new Error('The provided windguru spot doesn\'t exist..'))
+      if (err.name === 'TimeoutError') reject(new Error('The request timed out after 30000ms'))
+
+      reject(err)
+    }
   })
 }
 
@@ -69,30 +70,30 @@ function windy (lat, long) {
 
   const url = `https://www.windy.com/${lat}/${long}/wind?`
 
-  return new Promise((resolve, reject) => {
-    (async function () {
-      const browser = await puppeteer.launch({
-        args: [
-          '--no-sandbox'
-        ]
-      })
-      const page = await browser.newPage()
+  return new Promise(async (resolve, reject) => {
+    const browser = await puppeteer.launch({
+      args: [
+        '--no-sandbox'
+      ]
+    })
+    const page = await browser.newPage()
 
-      try {
-        await page.goto(url, { waitUntil: 'networkidle0' })
+    try {
+      await page.goto(url, { waitUntil: 'networkidle0' })
 
-        let html = await page.evaluate(() => document.body.innerHTML)
-        await browser.close()
+      let html = await page.evaluate(() => document.body.innerHTML)
+      await browser.close()
 
-        let rawData = extract.windyData(html)
-        let data = parse.windyData(rawData)
-        data.url = url
-        resolve(data)
-      } catch (err) {
-        await browser.close()
-        reject(err)
-      }
-    })()
+      const rawData = extract.windyData(html)
+      let data = parse.windyData(rawData)
+      data.url = url
+
+      resolve(data)
+    } catch (err) {
+      await browser.close()
+
+      reject(err)
+    }
   })
 }
 
