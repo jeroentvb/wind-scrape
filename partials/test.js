@@ -28,9 +28,9 @@ const test = {
       })
       .catch(err => console.error(err))
   },
-  windfinder: async () => {
+  windfinder: async spot => {
     try {
-      const data = await scrape.windfinder(url.windfinder)
+      const data = await scrape.windfinder(spot || url.windfinder)
 
       console.log(data)
       helper.exportToFile('windfinder', data)
@@ -75,7 +75,7 @@ switch (process.argv[2]) {
     test.all()
     break
   case 'windfinder':
-    test.windfinder()
+    test.windfinder(process.argv[3])
     break
   case 'windguru':
     test.windguru()

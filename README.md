@@ -23,6 +23,7 @@ This package can scrape wind forecast from windfinder superforecast and windguru
   * [Windfinder](#windfinder)
   * [Windguru](#windguru)
   * [Windy](#windy)
+  * [Windfinder report](#report)
 * [Testing](#testing)
 
 ## Installation
@@ -167,6 +168,8 @@ npm test all
 
 # Test the windfinder function
 npm test windfinder  
+# or test with a given spotname
+npm test windfinder tarifa
 
 # Test the windguru function
 npm test windguru
