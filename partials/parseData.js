@@ -154,8 +154,30 @@ function windyData (data) {
   return newData
 }
 
+function reportData (data) {
+  data.report = data.report.map(x => {
+    if (x.wg) {
+      return {
+        windspeed: x.ws,
+        windgust: x.wg,
+        winddirection: x.wd,
+        time: x.dtl
+      }
+    } else {
+      return {
+        windspeed: x.ws,
+        winddirection: x.wd,
+        time: x.dtl
+      }
+    }
+  })
+
+  return data
+}
+
 module.exports = {
   windfinderData,
   windguruData,
-  windyData
+  windyData,
+  reportData
 }

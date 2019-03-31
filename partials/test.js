@@ -10,7 +10,8 @@ const url = {
   windy: {
     lat: '36.012',
     long: '-5.611'
-  }
+  },
+  report: 'tarifa'
 }
 
 const test = {
@@ -18,7 +19,8 @@ const test = {
     Promise.all([
       scrape.windfinder(url.windfinder),
       scrape.windguru(url.windguru.spot, url.windguru.modelNumbers),
-      scrape.windy(url.windy.lat, url.windy.long)
+      scrape.windy(url.windy.lat, url.windy.long),
+      scrape.report(url.report)
     ])
       .then(res => {
         console.log(res)
@@ -55,6 +57,16 @@ const test = {
     } catch (err) {
       console.error(err)
     }
+  },
+  report: async () => {
+    try {
+      const data = await scrape.report(url.report)
+
+      console.log(data)
+      helper.exportToFile('observations', data)
+    } catch (err) {
+      console.error(err)
+    }
   }
 }
 
@@ -70,6 +82,9 @@ switch (process.argv[2]) {
     break
   case 'windy':
     test.windy()
+    break
+  case 'report':
+    test.report()
     break
   default:
     throw new Error('No test specified.')
