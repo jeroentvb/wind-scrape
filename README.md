@@ -23,6 +23,7 @@ This package can scrape wind forecast from windfinder superforecast and windguru
   * [Windfinder](#windfinder)
   * [Windguru](#windguru)
   * [Windy](#windy)
+  * [Windfinder report](#report)
 * [Testing](#testing)
 
 ## Installation
@@ -47,16 +48,18 @@ Scrapes data from a windfinder superforecast page. Returns a promise which resol
   name: 'Windfinder',
   spot: '',
   days: [
-    date: '',
-    hours: [
-      {
-        hour: '',
-        windspeed: '',
-        windgust: '',
-        winddirection: '',
-        temperature: ''
-      }
-    ]
+    {
+      date: '',
+      hours: [
+        {
+          hour: '',
+          windspeed: '',
+          windgust: '',
+          winddirection: '',
+          temperature: ''
+        }
+      ]
+    }
   ]
 }
 ```  
@@ -138,6 +141,25 @@ Longitude of a spot. Together these make up the coordinates of a spot.
 Consider the following windy url `https://www.windy.com/36.012/-5.611/wind?`. `36.012` would be the latitude, `-5.611` the longitude.  
 I recommend using windy specific coordinates. Though, any set of coordinates should work.
 
+### Report
+**scrape.report(spotname)**  
+Gets the report data for a windfinder spot report. Returns a promise which resolves in an object with the following format:
+```js
+{
+  name: 'Windfinder report',
+  spot: '',
+  report: [
+    {
+      windspeed: '',
+      windgust: '',
+      winddirection: '',
+      time: ''
+    }
+  ]
+}
+```  
+Time is given in ISO8601 format.
+
 ## Testing
 To test newly added features just run one of the following commands. The result should be the scraped data logged in the console and a file containing the scraped data will be written to the root of the application. The spot used is *Tarifa*.
 ```shell
@@ -146,6 +168,8 @@ npm test all
 
 # Test the windfinder function
 npm test windfinder  
+# or test with a given spotname
+npm test windfinder tarifa
 
 # Test the windguru function
 npm test windguru

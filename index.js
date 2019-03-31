@@ -3,7 +3,7 @@ const puppeteer = require('puppeteer')
 const extract = require('./partials/extractData')
 const parse = require('./partials/parseData')
 
-function getHtml (url) {
+function fetch (url) {
   return new Promise((resolve, reject) => {
     request(url, (err, res, html) => {
       if (err) reject(err)
@@ -15,9 +15,10 @@ function getHtml (url) {
 function windfinder (spotname) {
   if (!spotname) throw new Error('No spot specified!')
   const url = `https://www.windfinder.com/weatherforecast/${spotname}`
+
   return new Promise(async (resolve, reject) => {
     try {
-      const html = await getHtml(url)
+      const html = await fetch(url)
       const data = extract.windfinderData(html)
       const windfinder = parse.windfinderData(data)
 
@@ -97,8 +98,52 @@ function windy (lat, long) {
   })
 }
 
+function report (spotname) {
+  if (!spotname) throw new Error('No spot specified!')
+  const url = `https://www.windfinder.com/report/${spotname}`
+
+  return new Promise(async (resolve, reject) => {
+    let data = {
+      name: 'Windfinder report',
+      spot: spotname,
+      report: []
+    }
+    const browser = await puppeteer.launch({
+      args: [
+        '--no-sandbox'
+      ]
+    })
+    const page = await browser.newPage()
+
+    try {
+      await page.on('response', async res => {
+        if (res.url().includes('https://api.windfinder.com/v2/spots') && res.url().includes('reports')) {
+          data.report = await res.json()
+        }
+      })
+
+      await page.goto(url, { waitUntil: 'networkidle0' })
+
+      await browser.close()
+
+      if (!data) return reject(new Error('The spot doesn\'t exist or doesn\'t have a report'))
+
+      const report = parse.reportData(data)
+
+      resolve(report)
+    } catch (err) {
+      await browser.close()
+
+      if (err.name === 'TimeoutError') reject(new Error('The request timed out after 30000ms'))
+
+      reject(err)
+    }
+  })
+}
+
 module.exports = {
   windfinder,
   windguru,
-  windy
+  windy,
+  report
 }
