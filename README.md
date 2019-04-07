@@ -43,24 +43,24 @@ scrape.windfinder('tarifa')
 ### windfinder
 **scrape.windfinder(spotname)**  
 Scrapes data from a windfinder superforecast page. Returns a promise which resolves in an object with the following format:
-```js
+```json
 {
-  name: 'Windfinder',
-  spot: '',
-  days: [
-    {
-      date: '',
-      hours: [
+    "name": "Windfinder",
+    "spot": "Tarifa Centro",
+    "days": [
         {
-          hour: '',
-          windspeed: '',
-          windgust: '',
-          winddirection: '',
-          temperature: ''
+            "date": "Sunday, Apr 07",
+            "hours": [
+                {
+                    "hour": 7,
+                    "windspeed": 16,
+                    "windgust": 24,
+                    "winddirection": 265,
+                    "temperature": 14
+                }
+            ]
         }
-      ]
-    }
-  ]
+    ]
 }
 ```  
 It also slices the data to only return day hours.
@@ -72,29 +72,29 @@ Example: to scrape data for Tarifa Centro, use `tarifa`.
 ### windguru
 **scrape.windguru(url, modelNumbers)**  
 Scrapes data from selected windguru model (tables). Returns a promise which resolves in an object with the following format:
-```js
+```json
 {
-  name: 'WindGuru',
-  spot: '',
-  models: [
-    {
-      name: 'example model',
-      days: [
+    "name": "WindGuru",
+    "spot": "Spain - Tarifa  ",
+    "models": [
         {
-          date: '',
-          hours: [
-            {
-              hour: '',
-              windspeed: '',
-              windgust: '',
-              winddirection: '',
-              temperature: ''
-            }
-          ]
+            "name": "GFS 27 km",
+            "days": [
+                {
+                    "date": "07",
+                    "hours": [
+                        {
+                            "hour": 8,
+                            "windspeed": 13,
+                            "windgust": 21,
+                            "winddirection": 259,
+                            "temperature": 14
+                        }
+                    ]
+                }
+            ]
         }
-      ]
-    }
-  ]
+    ]
 }
 ```
 
@@ -109,27 +109,27 @@ You can get these using the inspector in your browser. Or use `0` for the first 
 ### Windy
 **scrape.windy(lat, long)**  
 Scrapes data for a custom location. Returns a promise which resolves in an object with the following format:
-```js
+```json
 {
-  name: 'Windy',
-  models: [
-    {
-      name: 'example model',
-      days: [
+    "name": "Windy",
+    "models": [
         {
-          date: '',
-          hours: [
-            {
-              hour: '',
-              windspeed: '',
-              windgust: '',
-              winddirection: ''
-            }
-          ]
+            "name": "ECMWF 9km",
+            "days": [
+                {
+                    "date": "07-04-2019",
+                    "hours": [
+                        {
+                            "hour": 9,
+                            "windspeed": 20,
+                            "windgust": 30,
+                            "winddirection": 278
+                        }
+                    ]
+                }
+            ]
         }
-      ]
-    }
-  ]
+    ]
 }
 ```  
 
@@ -144,18 +144,18 @@ I recommend using windy specific coordinates. Though, any set of coordinates sho
 ### Report
 **scrape.report(spotname)**  
 Gets the report data for a windfinder spot report. Returns a promise which resolves in an object with the following format:
-```js
+```json
 {
-  name: 'Windfinder report',
-  spot: '',
-  report: [
-    {
-      windspeed: '',
-      windgust: '',
-      winddirection: '',
-      time: ''
-    }
-  ]
+    "name": "Windfinder report",
+    "spot": "tarifa",
+    "report": [
+        {
+            "windspeed": 17,
+            "windgust": 25,
+            "winddirection": 260,
+            "time": "2019-04-06T15:00:00+02:00"
+        }
+    ]
 }
 ```  
 Time is given in ISO8601 format.

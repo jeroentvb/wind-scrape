@@ -76,7 +76,7 @@ function windguruData (data) {
 
     model.time.forEach((item, j) => {
       let hour = {
-        hour: model.time[j].substring(3, 5),
+        hour: parseInt(model.time[j].substring(3, 5)),
         windspeed: model.windspeed[j],
         windgust: model.windgust[j],
         winddirection: model.winddirection[j],
@@ -136,7 +136,7 @@ function windyData (data) {
           hours: []
         }
         newData.models[i].days[0].hours.push(hour)
-      } else if (parseInt(item) < parseInt(day)) {
+      } else if (item < day) {
         dayCount++
         newData.models[i].days[dayCount] = {
           date: data.date[dayCount] ? utils.reverseDate(data.date[dayCount]) : null,
