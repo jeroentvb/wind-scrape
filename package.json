@@ -24,8 +24,8 @@
   "homepage": "https://github.com/jeroentvb/wind-scrape#readme",
   "dependencies": {
     "cheerio": "^1.0.0-rc.2",
-    "puppeteer": "^1.14.0",
-    "request": "^2.88.0"
+    "node-fetch": "^2.3.0",
+    "puppeteer": "^1.14.0"
   },
   "devDependencies": {
     "jeroentvb-helper": "github:jeroentvb/jeroentvb-helper"

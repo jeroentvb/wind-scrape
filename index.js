@@ -1,16 +1,7 @@
-const request = require('request')
 const puppeteer = require('puppeteer')
 const extract = require('./partials/extractData')
 const parse = require('./partials/parseData')
-
-function fetch (url) {
-  return new Promise((resolve, reject) => {
-    request(url, (err, res, html) => {
-      if (err) reject(err)
-      resolve(html)
-    })
-  })
-}
+const fetch = require('node-fetch')
 
 function windfinder (spotname) {
   if (!spotname) throw new Error('No spot specified!')
@@ -18,7 +9,8 @@ function windfinder (spotname) {
 
   return new Promise(async (resolve, reject) => {
     try {
-      const html = await fetch(url)
+      const res = await fetch(url)
+      const html = await res.text()
       const data = extract.windfinderData(html)
       const windfinder = parse.windfinderData(data)
 
