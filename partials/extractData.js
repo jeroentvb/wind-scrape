@@ -26,17 +26,17 @@ function windfinderData (html) {
 
   // Get the time
   $('.data-time').find($('.value')).each(function (i) {
-    data.time[i] = $(this).text().replace('h', '')
+    data.time[i] = parseInt($(this).text().replace('h', ''))
   })
 
   // Get the average wind speed
   $('.data--major').find($('.units-ws')).each(function (i) {
-    data.windspeed[i] = $(this).text()
+    data.windspeed[i] = parseInt($(this).text())
   })
 
   // Get the wind gusts
   $('.data-gusts').find($('.units-ws')).each(function (i) {
-    data.windgust[i] = $(this).text()
+    data.windgust[i] = parseInt($(this).text())
   })
 
   // Get the wind direction; do some converting
@@ -51,7 +51,7 @@ function windfinderData (html) {
 
   // Get temperature
   $('.data-temp').find($('.units-at')).each(function (i) {
-    data.temperature[i] = $(this).text()
+    data.temperature[i] = parseInt($(this).text())
   })
 
   return data
@@ -78,12 +78,12 @@ function windguruModel (number, $) {
 
   // Get windspeed
   $(`#tabid_${number}_0_WINDSPD`).find('td').each(function (i) {
-    modelData.windspeed[i] = $(this).text()
+    modelData.windspeed[i] = parseInt($(this).text())
   })
 
   // Get windgust
   $(`#tabid_${number}_0_GUST`).find('td').each(function (i) {
-    modelData.windgust[i] = $(this).text()
+    modelData.windgust[i] = parseInt($(this).text())
   })
 
   // Get winddirection
@@ -94,11 +94,11 @@ function windguruModel (number, $) {
   // Get temperature
   if ($(`#tabid_${number}_0_TMPE`).length < 1) {
     $(`#tabid_${number}_0_TMP`).find('td').each(function (i) {
-      modelData.temperature[i] = $(this).text()
+      modelData.temperature[i] = parseInt($(this).text())
     })
   } else {
     $(`#tabid_${number}_0_TMPE`).find('td').each(function (i) {
-      modelData.temperature[i] = $(this).text()
+      modelData.temperature[i] = parseInt($(this).text())
     })
   }
 
@@ -155,7 +155,7 @@ function windyData (html) {
 
   // get model times
   $('td', '.td-hour').each(function () {
-    hours.push($(this).text())
+    hours.push(parseInt($(this).text()))
   })
   windy.models.forEach(model => {
     model.time = hours
@@ -168,10 +168,10 @@ function windyData (html) {
     windy.models[i].winddirection = []
 
     $(this).find('td').each(function () {
-      let winddirection = $(this).find('div').css('transform').replace(/\D/g, '')
-      let windgust = $(this).find('small').text()
+      let winddirection = parseInt($(this).find('div').css('transform').replace(/\D/g, ''))
+      let windgust = parseInt($(this).find('small').text())
       $(this).children().remove().end()
-      let windspeed = $(this).text()
+      let windspeed = parseInt($(this).text())
 
       windy.models[i].windspeed.push(windspeed)
       windy.models[i].windgust.push(windgust)

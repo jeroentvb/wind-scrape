@@ -63,7 +63,7 @@ const test = {
       const data = await scrape.report(url.report)
 
       console.log(data)
-      helper.exportToFile('observations', data)
+      helper.exportToFile('report', data)
     } catch (err) {
       console.error(err)
     }
