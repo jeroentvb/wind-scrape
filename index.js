@@ -118,7 +118,7 @@ function report (spotname) {
 
       await browser.close()
 
-      if (!data) return reject(new Error('The spot doesn\'t exist or doesn\'t have a report'))
+      if (data.report < 1) return reject(new Error('The spot doesn\'t exist or doesn\'t have a report'))
 
       const report = parse.reportData(data)
 
