@@ -100,7 +100,7 @@ Scrapes data from selected windguru model (tables). Returns a promise which reso
 
 #### spotnumber
 A string or integer. The number windguru uses for a spot.  
-Example: to scrape data for Tarifa, use `43`.
+Example: to scrape data for Tarifa, use `43`. You can get this number from the url of the forecast for a spot.
 
 #### modelNumbers
 An array. Numbers of the windguru models you want to scrape.  
