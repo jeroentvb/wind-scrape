@@ -49,7 +49,10 @@ scrape.windfinder('tarifa')
 ### windfinder
 **scrape.windfinder(spotname)**  
 Scrapes data from a windfinder superforecast page. Returns a promise which resolves in an object with the following format:
-```json
+<details>
+ <summary>Windfinder data format</summary>
+ 
+ ```json
 {
     "name": "Windfinder",
     "spot": "Tarifa Centro",
@@ -69,6 +72,8 @@ Scrapes data from a windfinder superforecast page. Returns a promise which resol
     ]
 }
 ```  
+</details>
+
 It also slices the data to only return day hours.
 
 #### spotname  
@@ -78,6 +83,9 @@ Example: to scrape data for Tarifa Centro, use `tarifa`.
 ### windguru
 **scrape.windguru(url, modelNumbers)**  
 Scrapes data from selected windguru model (tables). Returns a promise which resolves in an object with the following format:
+<details>
+ <summary>Windguru data format</summary>
+ 
 ```json
 {
     "name": "WindGuru",
@@ -103,6 +111,7 @@ Scrapes data from selected windguru model (tables). Returns a promise which reso
     ]
 }
 ```
+</details>
 
 #### spotnumber
 A string or integer. The number windguru uses for a spot.  
@@ -115,6 +124,9 @@ You can get these using the inspector in your browser. Or use `0` for the first 
 ### Windy
 **scrape.windy(lat, long)**  
 Scrapes data for a custom location. Returns a promise which resolves in an object with the following format:
+<details>
+ <summary>Windguru data format</summary>
+ 
 ```json
 {
     "name": "Windy",
@@ -138,6 +150,7 @@ Scrapes data for a custom location. Returns a promise which resolves in an objec
     ]
 }
 ```  
+</details>
 
 #### lat
 Latitude of a spot
@@ -150,6 +163,9 @@ I recommend using windy specific coordinates. Though, any set of coordinates sho
 ### Report
 **scrape.report(spotname)**  
 Gets the report data for a windfinder spot report. Returns a promise which resolves in an object with the following format:
+<details>
+ <summary>Windguru data format</summary>
+ 
 ```json
 {
     "name": "Windfinder report",
@@ -163,7 +179,8 @@ Gets the report data for a windfinder spot report. Returns a promise which resol
         }
     ]
 }
-```  
+```   
+</details>
 Time is given in ISO8601 format.
 
 ## Testing
