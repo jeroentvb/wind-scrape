@@ -2,14 +2,20 @@
 This package scrapes websites. Web scraping is a grey area and may not be allowed by the website.  
 Use with caution and for *personal* use only!
 
+As per windfinder's [Terms & Conditions](https://www.windfinder.com/contact/terms/)
+> 1.4.2 The data are protected in our favor by copyright or related rights.
+
+> 1.5.2 The data may be used without our consent only for the intended use within the scope of the services offered by us; in particular the data may not be used for own software, apps, web pages, etc., unless we have expressly agreed to this use.
+
+As per windguru's [Terms and Conditions](https://www.windguru.cz/help.php?sec=terms)
+> 3.2. It is forbidden to download website content by automated scripts.
+
+This basically means that you can't use the windfinder & windguru scrape functions in this package.  
+I wan't able to find the terms and conditions for Windy.
 
 ### Caution
 To be able to use this package with the ubuntu shell on windows 10 (and possibly linux), I've added the flag `--no-sandbox` to puppeteer.launch(). This means that puppeteer will launch without a sandbox. (Puppeteer is the headless browser used for scraping). This is a security risk, so only use it to visit sites you trust! More info on this, or how to configure it properly [here](https://github.com/GoogleChrome/puppeteer/blob/master/docs/troubleshooting.md#setting-up-chrome-linux-sandbox).
 In the case of this package, it only visits `www.windguru.cz` and `www.windy.com`. Only use this package for scraping those sites if you deem them safe. I'm not responsible for anything that happens.
-
-## Windows/Linux
-I'm having a difficult time getting the windguru and windy scrapers to work on windows because those sites generate dynamic content. A headless browser is needed to scrape dynamic content but [puppeteer](https://github.com/GoogleChrome/puppeteer) doesn't work out of the box.  
-The package does work fine and out of the box on MacOs.
 
 ### Note
 If you are going to use this package in a project I highly recommend implementing writing the scraped data to a file, and using this file if a website has been scraped within a certain amount of time. This avoids spamming a website with unnecessary requests.  
