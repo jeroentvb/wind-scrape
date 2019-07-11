@@ -68,6 +68,7 @@ function windguruData (data) {
   data.models.forEach((model, i) => {
     newData.models[i] = {
       name: model.name,
+      number: model.number,
       days: []
     }
 

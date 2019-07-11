@@ -93,6 +93,7 @@ Scrapes data from selected windguru model (tables). Returns a promise which reso
     "models": [
         {
             "name": "GFS 27 km",
+            "number": "0",
             "days": [
                 {
                     "date": "07",

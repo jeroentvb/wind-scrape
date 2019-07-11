@@ -60,6 +60,7 @@ function windfinderData (html) {
 function windguruModel (number, $) {
   let modelData = {
     name: '',
+    number: number,
     time: [],
     windspeed: [],
     windgust: [],
