@@ -69,6 +69,8 @@ function windguruData (data) {
     newData.models[i] = {
       name: model.name,
       number: model.number,
+      lastUpdate: model.lastUpdate,
+      nextUpdate: model.nextUpdate,
       days: []
     }
 

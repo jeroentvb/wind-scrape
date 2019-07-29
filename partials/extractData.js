@@ -60,6 +60,8 @@ function windfinderData (html) {
 function windguruModel (number, $) {
   let modelData = {
     name: '',
+    lastUpdate: '',
+    nextUpdate: '',
     number: number,
     time: [],
     windspeed: [],
@@ -72,6 +74,15 @@ function windguruModel (number, $) {
   $(`#wgtab-obal-tabid_${number}`).find('.nadlegend').each(function () {
     modelData.name = $(this).text()
   })
+
+  // Get last update time
+  $(`#wgtab-obal-tabid_${number}`).find('.model-update-info').each(function (i) {
+    if (i === 0) {
+      modelData.lastUpdate = $(this).find('br').get(4).nextSibling.nodeValue.replace('. ', ' ')
+      modelData.nextUpdate = $(this).find('br').get(6).nextSibling.nodeValue.replace('. ', ' ')
+    }
+  })
+
   // Get time
   $(`#tabid_${number}_0_dates`).find('td:not(.spacer)').each(function (i) {
     modelData.time[i] = $(this).text().substring(2)
