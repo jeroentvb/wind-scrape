@@ -41,7 +41,23 @@ npm install jeroentvb/wind-scrape
 ```js
 const scrape = require('wind-scrape')
 
+// Scrape windfinder spot
 scrape.windfinder('tarifa')
+  .then(data => console.log(data)
+  .catch(err => console.error(err)
+
+// Scrape windguru spot
+scrape.windguru(43, [0, 2, 3, 4])
+  .then(data => console.log(data)
+  .catch(err => console.error(err)
+
+// Scrape windy spot
+scrape.windy(36.012, -5.611)
+  .then(data => console.log(data)
+  .catch(err => console.error(err)
+
+// Scrape windreport of a windguru spot
+scrape.windReport('tarifa')
   .then(data => console.log(data)
   .catch(err => console.error(err)
 ```
@@ -161,8 +177,8 @@ Longitude of a spot. Together these make up the coordinates of a spot.
 Consider the following windy url `https://www.windy.com/36.012/-5.611/wind?`. `36.012` would be the latitude, `-5.611` the longitude.  
 I recommend using windy specific coordinates. Though, any set of coordinates should work.
 
-### Report
-**scrape.report(spotname)**  
+### WindReport
+**scrape.windReport(spotname)**  
 Gets the report data for a windfinder spot report. Returns a promise which resolves in an object with the following format:
 <details>
  <summary>Windguru data format</summary>
@@ -185,19 +201,21 @@ Gets the report data for a windfinder spot report. Returns a promise which resol
 Time is given in ISO8601 format.
 
 ## Testing
-To test newly added features just run one of the following commands. The result should be the scraped data logged in the console and a file containing the scraped data will be written to the root of the application. The spot used is *Tarifa*.
-```shell
-# Test all functions specified in partials/test.js
-npm test all  
+To test newly added features just run one of the following commands. If the test is succesful a file containing the scraped data will be written in the root of the project.  
+The spot used is *Tarifa*.
+```sh
+# Test all scrape functions  
+npm test  
 
 # Test the windfinder function
-npm test windfinder  
-# or test with a given spotname
-npm test windfinder tarifa
+npm run test:windfinder  
 
-# Test the windguru function
-npm test windguru
+# Test the windguru function  
+npm run test:windguru  
 
-# Test the windy function
-npm test windy
+# Test the windy function  
+npm run test:windy  
+
+# Test the windReport function
+npm run test:windreport
 ```
