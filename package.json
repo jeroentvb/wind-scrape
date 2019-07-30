@@ -4,7 +4,11 @@
   "description": "Scrape wind forecast from a few websites",
   "main": "index.js",
   "scripts": {
-    "test": "node partials/test.js"
+    "test:windfinder": "mocha tests/windfinder.js",
+    "test:windguru": "mocha tests/windguru.js",
+    "test:windy": "mocha tests/windy.js",
+    "test:windreport": "mocha tests/report.js",
+    "test": "mocha tests/test.js"
   },
   "repository": {
     "type": "git",
@@ -25,9 +29,12 @@
   "dependencies": {
     "cheerio": "^1.0.0-rc.2",
     "node-fetch": "^2.3.0",
-    "puppeteer": "^1.14.0"
+    "puppeteer": "^1.19.0"
   },
   "devDependencies": {
-    "jeroentvb-helper": "github:jeroentvb/jeroentvb-helper"
+    "chai": "^4.2.0",
+    "chai-as-promised": "^7.1.1",
+    "jeroentvb-helper": "github:jeroentvb/jeroentvb-helper",
+    "mocha": "^6.2.0"
   }
 }
