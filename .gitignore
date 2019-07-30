@@ -62,3 +62,4 @@ typings/
 
 # Project specific excludes
 *-export.json
+*.old
