@@ -37,7 +37,7 @@ async function windguru (spotnumber, modelNumbers) {
   const page = await browser.newPage()
 
   try {
-    await page.goto(url, { waitUntil: 'networkidle0' })
+    await page.goto(url, { waitUntil: 'networkidle0', timeout: 0 })
 
     const html = await page.evaluate(() => document.body.innerHTML)
     await browser.close()
@@ -70,7 +70,7 @@ async function windy (lat, long) {
   const page = await browser.newPage()
 
   try {
-    await page.goto(url, { waitUntil: 'networkidle0' })
+    await page.goto(url, { waitUntil: 'networkidle0', timeout: 0 })
 
     let html = await page.evaluate(() => document.body.innerHTML)
     await browser.close()
@@ -112,7 +112,7 @@ async function windReport (spotname) {
       }
     })
 
-    await page.goto(url, { waitUntil: 'networkidle0' })
+    await page.goto(url, { waitUntil: 'networkidle0', timeout: 0 })
 
     await browser.close()
 
