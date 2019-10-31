@@ -11,7 +11,7 @@ As per windguru's [Terms and Conditions](https://www.windguru.cz/help.php?sec=te
 > 3.2. It is forbidden to download website content by automated scripts.
 
 This basically means that you can't use the windfinder & windguru scrape functions in this package.  
-I wan't able to find the terms and conditions for Windy.
+I wasn't able to find the terms and conditions for Windy.
 
 ### Caution
 To be able to use this package with the ubuntu shell on windows 10 (and possibly linux), I've added the flag `--no-sandbox` to puppeteer.launch(). This means that puppeteer will launch without a sandbox. (Puppeteer is the headless browser used for scraping). This is a security risk, so only use it to visit sites you trust! More info on this, or how to configure it properly [here](https://github.com/GoogleChrome/puppeteer/blob/master/docs/troubleshooting.md#setting-up-chrome-linux-sandbox).
