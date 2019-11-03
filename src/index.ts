@@ -2,10 +2,11 @@ import puppeteer from 'puppeteer'
 import extract from './partials/extractData'
 import parse from './partials/parseData'
 import fetch from 'node-fetch'
+import { windfinderData } from './interfaces/data/windfinder'
 
-async function windfinder (spotname: string) {
-  if (!spotname) return new Error('No spot name specified!')
-  if (typeof spotname !== 'string') return new TypeError('Spot name must be a string')
+async function windfinder (spotname: string): Promise<windfinderData> {
+  if (!spotname) throw new Error('No spot name specified!')
+  if (typeof spotname !== 'string') throw new TypeError('Spot name must be a string')
   const url = `https://www.windfinder.com/weatherforecast/${spotname}`
 
   try {
@@ -14,7 +15,7 @@ async function windfinder (spotname: string) {
     const data = extract.windfinderData(html)
     const windfinder = parse.windfinderData(data)
 
-    if (windfinder.spot === '') return new Error('The provided windfinder spot doesn\'t exist..')
+    if (windfinder.spot === '') throw new Error('The provided windfinder spot doesn\'t exist..')
     return windfinder
   } catch (err) {
     return err
