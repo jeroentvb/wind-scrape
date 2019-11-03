@@ -1,14 +1,15 @@
-const utils = require('./utils')
+import utils from './utils'
+import { extractedWindfinderData, windfinderData, parsedWindfinderDay, windfinderDataDay } from '../interfaces/data/windfinder'
 
-function windfinderData (data) {
+function windfinderData (data: extractedWindfinderData): windfinderData {
   // TODO: refactor this function
-  const windfinder = {
+  const windfinder: windfinderData = {
     name: 'Windfinder',
     spot: data.spot,
     days: []
   }
 
-  const days = [
+  const days: parsedWindfinderDay[] = [
     {
       date: data.date[0],
       time: utils.sliceDay.one(data.time),
@@ -35,8 +36,8 @@ function windfinderData (data) {
     }
   ]
 
-  days.forEach((day, i) => {
-    let dayData = {
+  days.forEach((day: parsedWindfinderDay) => {
+    let dayData: windfinderDataDay = {
       date: day.date,
       hours: []
     }
@@ -178,7 +179,7 @@ function reportData (data) {
   return data
 }
 
-module.exports = {
+export default {
   windfinderData,
   windguruData,
   windyData,

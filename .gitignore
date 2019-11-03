@@ -61,5 +61,6 @@ typings/
 .next
 
 # Project specific excludes
+dist
 *-export.json
 *.old

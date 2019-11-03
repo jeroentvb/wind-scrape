@@ -1,9 +1,9 @@
-const puppeteer = require('puppeteer')
-const extract = require('./partials/extractData')
-const parse = require('./partials/parseData')
-const fetch = require('node-fetch')
+import puppeteer from 'puppeteer'
+import extract from './partials/extractData'
+import parse from './partials/parseData'
+import fetch from 'node-fetch'
 
-async function windfinder (spotname) {
+async function windfinder (spotname: string) {
   if (!spotname) return new Error('No spot name specified!')
   if (typeof spotname !== 'string') return new TypeError('Spot name must be a string')
   const url = `https://www.windfinder.com/weatherforecast/${spotname}`
@@ -21,7 +21,7 @@ async function windfinder (spotname) {
   }
 }
 
-async function windguru (spotnumber, modelNumbers) {
+async function windguru (spotnumber: number, modelNumbers: number[]) {
   if (!spotnumber) return new Error('No spot number specified!')
   if (typeof spotnumber !== 'number' && typeof spotnumber !== 'string') return new TypeError('Spotnumber must be a number!')
   if (!modelNumbers) return new Error('No model numbers specified!')
@@ -44,7 +44,7 @@ async function windguru (spotnumber, modelNumbers) {
 
     const rawData = extract.windguruData(html, modelNumbers)
     let data = parse.windguruData(rawData)
-    data.url = url
+    // data.url = url
     return data
   } catch (err) {
     await browser.close()
@@ -56,7 +56,7 @@ async function windguru (spotnumber, modelNumbers) {
   }
 }
 
-async function windy (lat, long) {
+async function windy (lat: string | number, long: string | number) {
   if (!lat || !long) return new Error('No coordinates specified!')
   if ((typeof lat !== 'string' && typeof lat !== 'number') || (typeof long !== 'string' && typeof long !== 'number')) return new TypeError('Coordinates must be a string or a number')
 
@@ -77,7 +77,7 @@ async function windy (lat, long) {
 
     const rawData = extract.windyData(html)
     let data = parse.windyData(rawData)
-    data.url = url
+    // data.url = url
 
     return data
   } catch (err) {
@@ -87,7 +87,7 @@ async function windy (lat, long) {
   }
 }
 
-async function windReport (spotname) {
+async function windReport (spotname: string) {
   if (!spotname) return new Error('No spot specified!')
   if (typeof spotname !== 'string') return new TypeError('Spotname must be a string!')
 
@@ -116,7 +116,7 @@ async function windReport (spotname) {
 
     await browser.close()
 
-    if (data.report < 1) return new Error('The spot doesn\'t exist or doesn\'t have a report')
+    if (data.report.length < 1) return new Error('The spot doesn\'t exist or doesn\'t have a report')
 
     const report = parse.reportData(data)
 
@@ -130,7 +130,7 @@ async function windReport (spotname) {
   }
 }
 
-module.exports = {
+export default {
   windfinder,
   windguru,
   windy,

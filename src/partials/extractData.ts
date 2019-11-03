@@ -1,9 +1,11 @@
-const cheerio = require('cheerio')
+import cheerio from 'cheerio'
 
-function windfinderData (html) {
+import { extractedWindfinderData } from '../interfaces/data/windfinder'
+
+function windfinderData (html: string): extractedWindfinderData {
   let $ = cheerio.load(html)
 
-  let data = {
+  let data: extractedWindfinderData = {
     name: 'Windfinder',
     spot: '',
     date: [],
@@ -194,7 +196,7 @@ function windyData (html) {
   return windy
 }
 
-module.exports = {
+export default {
   windguruData,
   windfinderData,
   windyData
