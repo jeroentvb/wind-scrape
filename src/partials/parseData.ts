@@ -1,15 +1,19 @@
 import utils from './utils'
-import { extractedWindfinderData, windfinderData, parsedWindfinderDay, windfinderDataDay } from '../interfaces/data/windfinder'
 
-function windfinderData (data: extractedWindfinderData): windfinderData {
+import { ExtractedWindfinderData, WindfinderData, ParsedWindfinderDay, WindfinderDataDay } from '../interfaces/data/windfinder'
+import { WindguruData, ExtractedWindguruData, WindguruModelHour } from '../interfaces/data/windguru'
+import { ExtractedWindyData, WindyData, WindyModelHour } from '../interfaces/data/windy'
+import { ExtractedWindReport, WindReport } from '../interfaces/data/wind-report'
+
+function windfinderData (data: ExtractedWindfinderData): WindfinderData {
   // TODO: refactor this function
-  const windfinder: windfinderData = {
+  const windfinder: WindfinderData = {
     name: 'Windfinder',
     spot: data.spot,
     days: []
   }
 
-  const days: parsedWindfinderDay[] = [
+  const days: ParsedWindfinderDay[] = [
     {
       date: data.date[0],
       time: utils.sliceDay.one(data.time),
@@ -36,8 +40,8 @@ function windfinderData (data: extractedWindfinderData): windfinderData {
     }
   ]
 
-  days.forEach((day: parsedWindfinderDay) => {
-    let dayData: windfinderDataDay = {
+  days.forEach((day: ParsedWindfinderDay) => {
+    let dayData: WindfinderDataDay = {
       date: day.date,
       hours: []
     }
@@ -58,9 +62,9 @@ function windfinderData (data: extractedWindfinderData): windfinderData {
   return windfinder
 }
 
-function windguruData (data) {
+function windguruData (data: ExtractedWindguruData): WindguruData {
   // TODO: refactor this function
-  let newData = {
+  let newData: WindguruData = {
     name: data.name,
     spot: data.spot,
     models: []
@@ -75,11 +79,11 @@ function windguruData (data) {
       days: []
     }
 
-    let day
+    let day: string
     let dayCount = 0
 
     model.time.forEach((item, j) => {
-      let hour = {
+      let hour: WindguruModelHour = {
         hour: parseInt(model.time[j].substring(3, 5)),
         windspeed: model.windspeed[j],
         windgust: model.windgust[j],
@@ -111,8 +115,8 @@ function windguruData (data) {
   return newData
 }
 
-function windyData (data) {
-  let newData = {
+function windyData (data: ExtractedWindyData): WindyData {
+  let newData: WindyData = {
     name: data.name,
     models: []
   }
@@ -123,11 +127,11 @@ function windyData (data) {
       days: []
     }
 
-    let day
+    let day: number;
     let dayCount = 0
 
     model.time.forEach((item, j) => {
-      let hour = {
+      let hour: WindyModelHour = {
         hour: model.time[j],
         windspeed: model.windspeed[j],
         windgust: model.windgust[j],
@@ -158,7 +162,7 @@ function windyData (data) {
   return newData
 }
 
-function reportData (data) {
+function reportData (data: ExtractedWindReport): WindReport {
   data.report = data.report.map(x => {
     if (x.wg) {
       return {

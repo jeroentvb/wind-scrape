@@ -2,9 +2,13 @@ import puppeteer from 'puppeteer'
 import extract from './partials/extractData'
 import parse from './partials/parseData'
 import fetch from 'node-fetch'
-import { windfinderData } from './interfaces/data/windfinder'
 
-async function windfinder (spotname: string): Promise<windfinderData> {
+import { WindfinderData } from './interfaces/data/windfinder'
+import { WindguruData } from './interfaces/data/windguru'
+import { WindyData } from './interfaces/data/windy'
+import { WindReport, ExtractedWindReport } from './interfaces/data/wind-report'
+
+async function windfinder (spotname: string): Promise<WindfinderData> {
   if (!spotname) throw new Error('No spot name specified!')
   if (typeof spotname !== 'string') throw new TypeError('Spot name must be a string')
   const url = `https://www.windfinder.com/weatherforecast/${spotname}`
@@ -22,11 +26,11 @@ async function windfinder (spotname: string): Promise<windfinderData> {
   }
 }
 
-async function windguru (spotnumber: number, modelNumbers: number[]) {
-  if (!spotnumber) return new Error('No spot number specified!')
-  if (typeof spotnumber !== 'number' && typeof spotnumber !== 'string') return new TypeError('Spotnumber must be a number!')
-  if (!modelNumbers) return new Error('No model numbers specified!')
-  if (!Array.isArray(modelNumbers)) return new TypeError('Model numbers must be in an array!')
+async function windguru (spotnumber: number | string, modelNumbers: number[]): Promise<WindguruData | Error> {
+  if (!spotnumber) throw new Error('No spot number specified!')
+  if (typeof spotnumber !== 'number' && typeof spotnumber !== 'string') throw new TypeError('Spotnumber must be a number!')
+  if (!modelNumbers) throw new Error('No model numbers specified!')
+  // if (!Array.isArray(modelNumbers)) throw new TypeError('Model numbers must be in an array!')
 
   const url = `https://www.windguru.cz/${spotnumber}`
 
@@ -45,7 +49,8 @@ async function windguru (spotnumber: number, modelNumbers: number[]) {
 
     const rawData = extract.windguruData(html, modelNumbers)
     let data = parse.windguruData(rawData)
-    // data.url = url
+    data.url = url
+
     return data
   } catch (err) {
     await browser.close()
@@ -57,9 +62,9 @@ async function windguru (spotnumber: number, modelNumbers: number[]) {
   }
 }
 
-async function windy (lat: string | number, long: string | number) {
-  if (!lat || !long) return new Error('No coordinates specified!')
-  if ((typeof lat !== 'string' && typeof lat !== 'number') || (typeof long !== 'string' && typeof long !== 'number')) return new TypeError('Coordinates must be a string or a number')
+async function windy (lat: string | number, long: string | number): Promise<WindyData | Error> {
+  if (!lat || !long) throw new Error('No coordinates specified!')
+  if ((typeof lat !== 'string' && typeof lat !== 'number') || (typeof long !== 'string' && typeof long !== 'number')) throw new TypeError('Coordinates must be a string or a number')
 
   const url = `https://www.windy.com/${lat}/${long}/wind?`
 
@@ -78,23 +83,25 @@ async function windy (lat: string | number, long: string | number) {
 
     const rawData = extract.windyData(html)
     let data = parse.windyData(rawData)
-    // data.url = url
+    data.url = url
 
     return data
   } catch (err) {
     await browser.close()
 
+    if (err.name === 'TimeoutError') return new Error('The request timed out after 30000ms')
+
     return err
   }
 }
 
-async function windReport (spotname: string) {
-  if (!spotname) return new Error('No spot specified!')
-  if (typeof spotname !== 'string') return new TypeError('Spotname must be a string!')
+async function windReport (spotname: string): Promise<WindReport | Error> {
+  if (!spotname) throw new Error('No spot specified!')
+  if (typeof spotname !== 'string') throw new TypeError('Spotname must be a string!')
 
   const url = `https://www.windfinder.com/report/${spotname}`
 
-  let data = {
+  let data: ExtractedWindReport = {
     name: 'Windfinder report',
     spot: spotname,
     report: []
@@ -107,7 +114,7 @@ async function windReport (spotname: string) {
   const page = await browser.newPage()
 
   try {
-    await page.on('response', async res => {
+    page.on('response', async res => {
       if (res.url().includes('https://api.windfinder.com/v2/spots') && res.url().includes('reports')) {
         data.report = await res.json()
       }

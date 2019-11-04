@@ -1,11 +1,13 @@
 import cheerio from 'cheerio'
 
-import { extractedWindfinderData } from '../interfaces/data/windfinder'
+import { ExtractedWindfinderData } from '../interfaces/data/windfinder'
+import { ExtractedWindguruData, ExtractedWindguruModelData } from '../interfaces/data/windguru'
+import { ExtractedWindyData } from '../interfaces/data/windy'
 
-function windfinderData (html: string): extractedWindfinderData {
+function windfinderData (html: string): ExtractedWindfinderData {
   let $ = cheerio.load(html)
 
-  let data: extractedWindfinderData = {
+  let data: ExtractedWindfinderData = {
     name: 'Windfinder',
     spot: '',
     date: [],
@@ -59,8 +61,8 @@ function windfinderData (html: string): extractedWindfinderData {
   return data
 }
 
-function windguruModel (number, $) {
-  let modelData = {
+function windguruModel (number: number, $: CheerioStatic): ExtractedWindguruModelData {
+  let modelData: ExtractedWindguruModelData = {
     name: '',
     lastUpdate: '',
     nextUpdate: '',
@@ -119,9 +121,9 @@ function windguruModel (number, $) {
   return modelData
 }
 
-function windguruData (html, modelNumbers) {
+function windguruData (html: string, modelNumbers: number[]): ExtractedWindguruData {
   let $ = cheerio.load(html)
-  let windguru = {
+  let windguru: ExtractedWindguruData = {
     name: 'WindGuru',
     spot: '',
     // date: [],
@@ -146,10 +148,10 @@ function windguruData (html, modelNumbers) {
   return windguru
 }
 
-function windyData (html) {
+function windyData (html: string): ExtractedWindyData {
   let $ = cheerio.load(html)
   let hours = []
-  let windy = {
+  let windy: ExtractedWindyData = {
     name: 'Windy',
     date: [],
     models: []
