@@ -163,24 +163,26 @@ function windyData (data: ExtractedWindyData): WindyData {
 }
 
 function reportData (data: ExtractedWindReport): WindReport {
-  data.report = data.report.map(x => {
-    if (x.wg) {
-      return {
-        windspeed: x.ws,
-        windgust: x.wg,
-        winddirection: x.wd,
-        time: x.dtl
+  return {
+    name: data.name,
+    spot: data.spot,
+    report: data.report.map(x => {
+      if (x.wg) {
+        return {
+          windspeed: x.ws,
+          windgust: x.wg,
+          winddirection: x.wd,
+          time: x.dtl
+        }
+      } else {
+        return {
+          windspeed: x.ws,
+          winddirection: x.wd,
+          time: x.dtl
+        }
       }
-    } else {
-      return {
-        windspeed: x.ws,
-        winddirection: x.wd,
-        time: x.dtl
-      }
-    }
-  })
-
-  return data
+    })
+  }
 }
 
 export default {
