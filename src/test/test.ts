@@ -1,5 +1,5 @@
 import scrape from '../index'
-import helper from 'jeroentvb-helper'
+const helper = require('jeroentvb-helper')
 
 const url = {
   windfinder: 'tarifa',
