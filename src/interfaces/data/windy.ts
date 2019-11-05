@@ -11,7 +11,7 @@ export interface WindyModel {
 }
 
 export interface WindyModelDay {
-  date: string | undefined;
+  date: string | null;
   hours: WindyModelHour[];
 }
 
@@ -31,8 +31,8 @@ export interface ExtractedWindyData {
 
 export interface ExtractedWindyModelData {
   name: string;
-  time?: number[];
-  windspeed?: number[];
-  windgust?: number[];
-  winddirection?: number[];
+  time: number[];
+  windspeed: number[];
+  windgust: number[];
+  winddirection: number[];
 }

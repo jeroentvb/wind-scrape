@@ -3,7 +3,7 @@ import utils from './utils'
 import { ExtractedWindfinderData, WindfinderData, ParsedWindfinderDay, WindfinderDataDay } from '../interfaces/data/windfinder'
 import { WindguruData, ExtractedWindguruData, WindguruModelHour } from '../interfaces/data/windguru'
 import { ExtractedWindyData, WindyData, WindyModelHour } from '../interfaces/data/windy'
-import { ExtractedWindReport, WindReport } from '../interfaces/data/wind-report'
+import { ExtractedWindReport, WindReport, WindReportItem } from '../interfaces/data/wind-report'
 
 function windfinderData (data: ExtractedWindfinderData): WindfinderData {
   // TODO: refactor this function
@@ -147,7 +147,7 @@ function windyData (data: ExtractedWindyData): WindyData {
       } else if (item < day) {
         dayCount++
         newData.models[i].days[dayCount] = {
-          date: data.date[dayCount] ? utils.reverseDate(data.date[dayCount]) : null,
+          date: data.date[dayCount] ? utils.reverseDate(<string>data.date[dayCount]) : null,
           hours: []
         }
         newData.models[i].days[dayCount].hours.push(hour)
@@ -163,26 +163,24 @@ function windyData (data: ExtractedWindyData): WindyData {
 }
 
 function reportData (data: ExtractedWindReport): WindReport {
-  return {
-    name: data.name,
-    spot: data.spot,
-    report: data.report.map(x => {
-      if (x.wg) {
-        return {
-          windspeed: x.ws,
-          windgust: x.wg,
-          winddirection: x.wd,
-          time: x.dtl
-        }
-      } else {
-        return {
-          windspeed: x.ws,
-          winddirection: x.wd,
-          time: x.dtl
-        }
-      }
-    })
-  }
+  (data.report as WindReportItem[]) = data.report.map(x => {
+    if (x.wg) {
+      return {
+        windspeed: x.ws,
+        windgust: x.wg,
+        winddirection: x.wd,
+        time: x.dtl
+      } as WindReportItem
+    } else {
+      return{
+        windspeed: x.ws,
+        winddirection: x.wd,
+        time: x.dtl
+      } as WindReportItem
+    }
+  })
+  
+  return data as WindReport
 }
 
 export default {
