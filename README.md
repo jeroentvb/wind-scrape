@@ -30,7 +30,7 @@ This package can scrape wind forecast from windfinder superforecast and windguru
   * [Windguru](#windguru)
   * [Windy](#windy)
   * [Windfinder report](#report)
-* [Testing](#testing)
+<!-- * [Testing](#testing) -->
 
 ## Installation
 ```
@@ -202,7 +202,7 @@ Gets the report data for a windfinder spot report. Returns a promise which resol
 </details>
 Time is given in ISO8601 format.
 
-## Testing
+<!-- ## Testing
 To test newly added features just run one of the following commands. If the test is succesful a file containing the scraped data will be written in the root of the project.  
 The spot used is *Tarifa*.
 ```sh
@@ -220,4 +220,4 @@ npm run test:windy
 
 # Test the windReport function
 npm run test:windreport
-```
+``` -->
