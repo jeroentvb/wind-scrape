@@ -34,10 +34,11 @@ This package can scrape wind forecast from windfinder superforecast and windguru
 
 ## Installation
 ```
-npm install https://github.com/jeroentvb/wind-scrape/releases/download/v1.3.2/dist.tgz
+npm install https://github.com/jeroentvb/wind-scrape/releases/download/v2.0.0/dist.tgz
 
 ```
-*If there is a newer version available, you can use that version number.*
+*If there is a newer version available, you can use that version number.*  
+Releases can be found [here](https://github.com/jeroentvb/wind-scrape/releases).
 
 ## Usage
 ```js
