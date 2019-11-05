@@ -28,7 +28,7 @@ const test = {
       })
       .catch(err => console.error(err))
   },
-  windfinder: async spot => {
+  windfinder: async (spot: string) => {
     try {
       const data = await scrape.windfinder(spot || url.windfinder)
 
