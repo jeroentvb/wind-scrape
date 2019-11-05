@@ -1,9 +1,11 @@
 {
   "name": "wind-scrape",
-  "version": "1.3.2",
+  "version": "2.0.0",
   "description": "Scrape wind forecast from a few websites",
   "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "private": true,
+  "files": ["dist/**/*"],
   "scripts": {
     "prepack": "tsc",
     "test:windfinder": "mocha tests/windfinder.js",
@@ -37,6 +39,7 @@
   },
   "devDependencies": {
     "@types/cheerio": "^0.22.13",
+    "@types/node": "^12.12.5",
     "@types/node-fetch": "^2.5.3",
     "@types/puppeteer": "^1.20.2",
     "chai": "^4.2.0",
