@@ -1,4 +1,4 @@
-import { ExtractedWindfinderData, ParsedWindfinderDay } from '../interfaces/data/windfinder'
+import { ExtractedWindfinderData, ParsedWindfinderDay } from '../interfaces/windfinder'
 
 function one (array: number[]) {
   return array.slice(7, 23)

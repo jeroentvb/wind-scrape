@@ -1,9 +1,9 @@
 import utils from './utils'
 
-import { ExtractedWindfinderData, WindfinderData, ParsedWindfinderDay, WindfinderDataDay } from '../interfaces/data/windfinder'
-import { WindguruData, ExtractedWindguruData, WindguruModelHour } from '../interfaces/data/windguru'
-import { ExtractedWindyData, WindyData, WindyModelHour } from '../interfaces/data/windy'
-import { ExtractedWindReport, WindReport, WindReportItem } from '../interfaces/data/wind-report'
+import { ExtractedWindfinderData, WindfinderData, ParsedWindfinderDay, WindfinderDataDay } from '../interfaces/windfinder'
+import { WindguruData, ExtractedWindguruData, WindguruModelHour } from '../interfaces/windguru'
+import { ExtractedWindyData, WindyData, WindyModelHour } from '../interfaces/windy'
+import { ExtractedWindReport, WindReport, WindReportItem } from '../interfaces/wind-report'
 
 function windfinderData (data: ExtractedWindfinderData): WindfinderData {
   // TODO: refactor this function
