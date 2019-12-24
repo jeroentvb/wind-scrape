@@ -1,4 +1,4 @@
-import scrape from '../index'
+const scrape = require('../dist/index')
 const helper = require('jeroentvb-helper')
 
 const url = {
@@ -28,7 +28,7 @@ const test = {
       })
       .catch(err => console.error(err))
   },
-  windfinder: async (spot: string) => {
+  windfinder: async spot => {
     try {
       const data = await scrape.windfinder(spot || url.windfinder)
 

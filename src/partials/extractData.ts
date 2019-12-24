@@ -1,8 +1,8 @@
 import cheerio from 'cheerio'
 
-import { ExtractedWindfinderData } from '../interfaces/data/windfinder'
-import { ExtractedWindguruData, ExtractedWindguruModelData } from '../interfaces/data/windguru'
-import { ExtractedWindyData } from '../interfaces/data/windy'
+import { ExtractedWindfinderData } from '../interfaces/windfinder'
+import { ExtractedWindguruData, ExtractedWindguruModelData } from '../interfaces/windguru'
+import { ExtractedWindyData } from '../interfaces/windy'
 
 function windfinderData (html: string): ExtractedWindfinderData {
   let $ = cheerio.load(html)

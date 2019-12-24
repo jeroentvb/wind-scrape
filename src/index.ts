@@ -3,10 +3,10 @@ import extract from './partials/extractData'
 import parse from './partials/parseData'
 import fetch from 'node-fetch'
 
-import { WindfinderData } from './interfaces/data/windfinder'
-import { WindguruData } from './interfaces/data/windguru'
-import { WindyData } from './interfaces/data/windy'
-import { WindReport, ExtractedWindReport } from './interfaces/data/wind-report'
+import { WindfinderData } from './interfaces/windfinder'
+import { WindguruData } from './interfaces/windguru'
+import { WindyData } from './interfaces/windy'
+import { WindReport, ExtractedWindReport } from './interfaces/wind-report'
 
 async function windfinder (spotname: string): Promise<WindfinderData> {
   if (!spotname) throw new Error('No spot name specified!')
@@ -138,7 +138,7 @@ async function windReport (spotname: string): Promise<WindReport | Error> {
   }
 }
 
-export default {
+export {
   windfinder,
   windguru,
   windy,
