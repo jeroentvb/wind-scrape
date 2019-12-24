@@ -7,7 +7,6 @@
   "private": true,
   "files": ["dist/**/*"],
   "scripts": {
-    "prepack": "tsc",
     "test:windfinder": "mocha tests/windfinder.js",
     "test:windguru": "mocha tests/windguru.js",
     "test:windy": "mocha tests/windy.js",
