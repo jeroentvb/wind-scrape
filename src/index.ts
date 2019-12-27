@@ -1,6 +1,6 @@
 import puppeteer from 'puppeteer'
-import extract from './partials/extractData'
-import parse from './partials/parseData'
+import extract from './partials/extract-data'
+import parse from './partials/parse-data'
 import fetch from 'node-fetch'
 
 import { WindfinderData } from './interfaces/windfinder'
