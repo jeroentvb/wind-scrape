@@ -5,15 +5,13 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "private": true,
-  "files": ["dist/**/*"],
+  "files": [
+    "dist/**/*"
+  ],
   "scripts": {
-    "test:windfinder": "mocha tests/windfinder.js",
-    "test:windguru": "mocha tests/windguru.js",
-    "test:windy": "mocha tests/windy.js",
-    "test:windreport": "mocha tests/report.js",
-    "test": "mocha tests/test.js",
+    "test": "jest",
     "watch": "tsc -w",
-    "test-old": "node test/test.js",
+    "test-dev": "node tests/dev-sandbox.js",
     "build": "tsc"
   },
   "repository": {
@@ -42,9 +40,8 @@
     "@types/node": "^12.12.5",
     "@types/node-fetch": "^2.5.3",
     "@types/puppeteer": "^1.20.2",
-    "chai": "^4.2.0",
     "jeroentvb-helper": "github:jeroentvb/jeroentvb-helper",
-    "mocha": "^6.2.2",
+    "jest": "^24.9.0",
     "typescript": "^3.6.4"
   }
 }

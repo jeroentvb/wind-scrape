@@ -36,7 +36,6 @@ function getWindfinderDay (data: ExtractedWindfinderData, day: 'one' | 'two' | '
 }
 
 export default {
-  sliceDay,
   reverseDate,
   getWindfinderDay
 }
