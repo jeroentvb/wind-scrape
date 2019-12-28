@@ -21,7 +21,7 @@ In the case of this package, it only visits `www.windguru.cz` and `www.windy.com
 If you are going to use this package in a project I highly recommend implementing writing the scraped data to a file, and using this file if a website has been scraped within a certain amount of time. This avoids spamming a website with unnecessary requests.  
 
 # Wind scrape
-[![Maintainability](https://api.codeclimate.com/v1/badges/f9070ac5a17f58cd5bf0/maintainability)](https://codeclimate.com/github/jeroentvb/wind-scrape/maintainability)
+[![Maintainability](https://api.codeclimate.com/v1/badges/f9070ac5a17f58cd5bf0/maintainability)](https://codeclimate.com/github/jeroentvb/wind-scrape/maintainability)  
 This package can scrape wind forecast from windfinder superforecast and windguru.
 
 ## Table of contents
@@ -35,7 +35,7 @@ This package can scrape wind forecast from windfinder superforecast and windguru
 
 ## Installation
 ```
-npm install https://github.com/jeroentvb/wind-scrape/releases/download/v2.0.0/dist.tgz
+npm install https://github.com/jeroentvb/wind-scrape/releases/download/v2.0.1/dist.tgz
 
 ```
 *If there is a newer version available, you can use that version number.*  
@@ -44,6 +44,9 @@ Releases can be found [here](https://github.com/jeroentvb/wind-scrape/releases).
 ## Usage
 ```js
 const scrape = require('wind-scrape')
+
+// TypeScript
+import * as scrape from 'wind-scrape'
 
 // Scrape windfinder spot
 scrape.windfinder('tarifa')
