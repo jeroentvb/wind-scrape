@@ -150,8 +150,8 @@ function windguruData (html: string, modelNumbers: number[]): ExtractedWindguruD
 
 function windyData (html: string): ExtractedWindyData {
   let $ = cheerio.load(html)
-  let hours: number[]
-  let windy: ExtractedWindyData = {
+  const hours: number[] = []
+  const windy: ExtractedWindyData = {
     name: 'Windy',
     date: [],
     models: []
