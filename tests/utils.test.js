@@ -2,7 +2,7 @@
 
 const utils = require('../dist/partials/utils').default
 
-const mockData = require('./mock-data')
+const mockData = require('../__mocks__/mock-data')
 
 describe('The utils module', () => {
   it('should reverse the date', () => {
@@ -12,8 +12,8 @@ describe('The utils module', () => {
   })
 
   it('should return the data for a windfinder day', () => {
-    const parsedWindfinderDay = utils.getWindfinderDay(mockData.extractedWindfinderData, 'one')
+    const parsedWindfinderDay = utils.getWindfinderDay(mockData.windfinder.extractedData, 'one')
 
-    expect(parsedWindfinderDay).toEqual(mockData.parsedWindfinderDay)
+    expect(parsedWindfinderDay).toEqual(mockData.windfinder.parsedDay)
   })
 })

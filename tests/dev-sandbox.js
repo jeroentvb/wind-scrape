@@ -24,7 +24,7 @@ const test = {
     ])
       .then(res => {
         console.log(res)
-        helper.exportToFile('allData', res)
+        helper.export.json('allData', res)
       })
       .catch(err => console.error(err))
   },
@@ -33,7 +33,7 @@ const test = {
       const data = await scrape.windfinder(spot || url.windfinder)
 
       console.log(data)
-      helper.exportToFile('windfinder', data)
+      helper.export.json('windfinder', data)
     } catch (err) {
       console.error(err)
     }
@@ -43,7 +43,7 @@ const test = {
       const data = await scrape.windguru(url.windguru.spot, url.windguru.modelNumbers)
 
       console.log(data)
-      helper.exportToFile('windguru', data)
+      helper.export.json('windguru', data)
     } catch (err) {
       console.error(err)
     }
@@ -53,7 +53,7 @@ const test = {
       const data = await scrape.windy(url.windy.lat, url.windy.long)
 
       console.log(data)
-      helper.exportToFile('windy', data)
+      helper.export.json('windy', data)
     } catch (err) {
       console.error(err)
     }
@@ -63,7 +63,7 @@ const test = {
       const data = await scrape.windReport(url.report)
 
       console.log(data)
-      helper.exportToFile('report', data)
+      helper.export.json('report', data)
     } catch (err) {
       console.error(err)
     }

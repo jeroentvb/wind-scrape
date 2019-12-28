@@ -62,5 +62,5 @@ typings/
 
 # Project specific excludes
 dist
-*-export.json
+*-export.*
 *.old
