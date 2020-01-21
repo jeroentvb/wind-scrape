@@ -10,6 +10,7 @@
   ],
   "scripts": {
     "test": "jest",
+    "watch-test": "jest --watch",
     "watch": "tsc -w",
     "test-dev": "node tests/dev-sandbox.js",
     "build": "tsc"
