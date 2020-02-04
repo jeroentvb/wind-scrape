@@ -16,4 +16,34 @@ describe('The utils module', () => {
 
     expect(parsedWindfinderDay).toEqual(mockData.windfinder.parsedDay)
   })
+
+  it('should parse the spot info', () => {
+    const spotInfo = utils.windguru.parseSpotInfo(mockData.windguru.spotString)
+
+    expect(spotInfo).toEqual(mockData.windguru.spotInfo)
+  })
+
+  it('should parse the legend', () => {
+    const legend = utils.windguru.parseLegend(mockData.windguru.legendString)
+
+    expect(legend).toEqual(mockData.windguru.legend)
+  })
+
+  it('should get the date', () => {
+    const date = utils.windguru.getDate(mockData.windguru.fullDateTime)
+
+    expect(date).toEqual(mockData.windguru.date)
+  })
+
+  it('should get the hour', () => {
+    const date = utils.windguru.getHour(mockData.windguru.fullDateTime)
+
+    expect(date).toEqual(mockData.windguru.hour)
+  })
+
+  it('should create a request url', () => {
+    const url = utils.createRequestUrl(43)
+
+    expect(url).toEqual(mockData.windguru.url)
+  })
 })

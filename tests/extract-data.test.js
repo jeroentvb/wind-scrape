@@ -12,7 +12,7 @@ describe('The extract data module', () => {
   })
 
   it('windguruModel should return the ExtractedWindguruData', () => {
-    const extractedWindguruData = extract.windguruData(mockData.windguru.html, [0, 2, 3, 4])
+    const extractedWindguruData = extract.windguruData(mockData.windguru.html)
 
     expect(extractedWindguruData).toEqual(mockData.windguru.extractedData)
   })
