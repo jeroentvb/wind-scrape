@@ -62,5 +62,6 @@ typings/
 
 # Project specific excludes
 dist
+releases
 *-export.*
 *.old

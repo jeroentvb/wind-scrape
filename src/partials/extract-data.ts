@@ -1,7 +1,9 @@
 import cheerio from 'cheerio'
 
+import utils from './utils'
+
 import { ExtractedWindfinderData } from '../interfaces/windfinder'
-import { ExtractedWindguruData, ExtractedWindguruModelData } from '../interfaces/windguru'
+import { SpotInfo, ExtractedWindguruData, ExtractedWindguruModelData } from '../interfaces/windguru'
 import { ExtractedWindyData } from '../interfaces/windy'
 
 function windfinderData (html: string): ExtractedWindfinderData {
@@ -61,91 +63,94 @@ function windfinderData (html: string): ExtractedWindfinderData {
   return data
 }
 
-function windguruModel (number: number, $: CheerioStatic): ExtractedWindguruModelData {
-  let modelData: ExtractedWindguruModelData = {
+function windguruData (data: string): ExtractedWindguruData {
+  let foundPre = false
+  let spot: SpotInfo = {
     name: '',
-    lastUpdate: '',
-    nextUpdate: '',
-    number: number,
-    time: [],
-    windspeed: [],
-    windgust: [],
-    winddirection: [],
-    temperature: []
+    coordinates: {
+      lat: '',
+      lng: ''
+    },
+    altitude: '',
+    temperature: ''
   }
+  
+  const filteredData = data
+    .split('\n')
+    // Get the data from the HTML
+    .filter(row => {
+      if (row.includes('</pre>')) foundPre = false
 
-  // Get model name
-  $(`#wgtab-obal-tabid_${number}`).find('.nadlegend').each(function (this: CheerioElement) {
-    modelData.name = $(this).text()
-  })
+      if (foundPre && row !== '') return true
 
-  // Get last update time
-  $(`#wgtab-obal-tabid_${number}`).find('.model-update-info').each(function (this: CheerioElement, i) {
-    if (i === 0) {
-      modelData.lastUpdate = $(this).find('br').get(4).nextSibling.nodeValue.replace('. ', ' ')
-      modelData.nextUpdate = $(this).find('br').get(6).nextSibling.nodeValue.replace('. ', ' ')
+      if (row.includes('<pre>')) foundPre = true
+    })
+    // Filter unneeded rows from the data, including the spot info
+    .filter((row, i) => {
+      if (i === 1) spot = utils.windguru.parseSpotInfo(row)
+      if (i < 2) return false
+      return true
+    })
+  
+  // Group the modeldata in its own object
+  const rawData = extractWindguruModel(filteredData)
+
+  const models = rawData.map((modelData): ExtractedWindguruModelData => {
+    let modelInfo: string = ''
+    let legend: string[] = []
+
+    // Filter the modelInfo and legend from the data
+    const extractedModelData = modelData.filter((row, i) => {
+      if (i === 0) modelInfo = utils.windguru.parseModelInfo(row)
+      if (i === 1) legend = utils.windguru.parseLegend(row)
+
+      if (i < 3) return
+
+      return true
+    })
+    // Split the rows into an array of data
+    .map(row => {
+      return row
+        .trim()
+        .split(/  +/g)
+    })
+    // Transform the array of values into an object
+    .map(values => {
+      const dataObj: {[key: string]: any} = {}
+
+      legend.forEach((item, i) => {
+        dataObj[item] = values[i]
+      })
+
+      return dataObj
+    })
+
+    return {
+      name: modelInfo,
+      data: extractedModelData
     }
   })
 
-  // Get time
-  $(`#tabid_${number}_0_dates`).find('td:not(.spacer)').each(function (this: CheerioElement, i) {
-    modelData.time[i] = $(this).text().substring(2)
-  })
-
-  // Get windspeed
-  $(`#tabid_${number}_0_WINDSPD`).find('td').each(function (this: CheerioElement, i) {
-    modelData.windspeed[i] = parseInt($(this).text())
-  })
-
-  // Get windgust
-  $(`#tabid_${number}_0_GUST`).find('td').each(function (this: CheerioElement, i) {
-    modelData.windgust[i] = parseInt($(this).text())
-  })
-
-  // Get winddirection
-  $(`#tabid_${number}_0_SMER`).find('td span').each(function (this: CheerioElement, i) {
-    modelData.winddirection[i] = parseInt($(this).attr('title').match(/\d+/)![0])
-  })
-
-  // Get temperature
-  if ($(`#tabid_${number}_0_TMPE`).length < 1) {
-    $(`#tabid_${number}_0_TMP`).find('td').each(function (this: CheerioElement, i) {
-      modelData.temperature[i] = parseInt($(this).text())
-    })
-  } else {
-    $(`#tabid_${number}_0_TMPE`).find('td').each(function (this: CheerioElement, i) {
-      modelData.temperature[i] = parseInt($(this).text())
-    })
+  return {
+    spot,
+    models
   }
-
-  return modelData
 }
 
-function windguruData (html: string, modelNumbers: number[]): ExtractedWindguruData {
-  let $ = cheerio.load(html)
-  let windguru: ExtractedWindguruData = {
-    name: 'WindGuru',
-    spot: '',
-    // date: [],
-    models: []
-  }
+function extractWindguruModel (data: string[]): string[][] {
+  let extractedData: string[][] = []
+  let index = -1
 
-  // Get spot name
-  $('.spot-name').each(function (this: CheerioElement) {
-    windguru.spot = $(this).text()
-  })
-
-  modelNumbers.forEach(model => {
-    let data = windguruModel(model, $)
-
-    if (data.name !== '' && data.windspeed.length >= 0) {
-      windguru.models.push(data)
-    } else {
-      console.error(`[Wind-scrape] model number ${model} doesn't exist for windguru spot ${windguru.spot}`)
+  data.forEach(row => {
+    if (row[0] !== ' ') {
+      index++
+      extractedData[index] = []
     }
+
+    extractedData[index].push(row)
   })
 
-  return windguru
+  return extractedData
 }
 
 function windyData (html: string): ExtractedWindyData {

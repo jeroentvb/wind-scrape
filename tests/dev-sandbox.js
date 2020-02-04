@@ -4,8 +4,7 @@ const helper = require('jeroentvb-helper')
 const url = {
   windfinder: 'tarifa',
   windguru: {
-    spot: 43,
-    modelNumbers: [0, 2, 3, 4]
+    spot: 43
   },
   windy: {
     lat: '36.012',
@@ -40,9 +39,9 @@ const test = {
   },
   windguru: async () => {
     try {
-      const data = await scrape.windguru(url.windguru.spot, url.windguru.modelNumbers)
+      const data = await scrape.windguru(url.windguru.spot)
 
-      console.log(data)
+      // console.log(data)
       helper.export.json('windguru', data)
     } catch (err) {
       console.error(err)

@@ -1,11 +1,11 @@
 import utils from './utils'
 
 import { ExtractedWindfinderData, WindfinderData, ParsedWindfinderDay, WindfinderDataDay } from '../interfaces/windfinder'
-import { WindguruData, ExtractedWindguruData, WindguruModelHour } from '../interfaces/windguru'
+import { WindguruData, ExtractedWindguruData, WindguruModelHour, WindguruModelDay } from '../interfaces/windguru'
 import { ExtractedWindyData, WindyData, WindyModelHour } from '../interfaces/windy'
 import { ExtractedWindReport, WindReport, WindReportItem } from '../interfaces/wind-report'
 
-function windfinderData (data: ExtractedWindfinderData): WindfinderData {
+function windfinder (data: ExtractedWindfinderData): WindfinderData {
   // TODO: refactor this function
   const windfinder: WindfinderData = {
     name: 'Windfinder',
@@ -41,60 +41,45 @@ function windfinderData (data: ExtractedWindfinderData): WindfinderData {
   return windfinder
 }
 
-function windguruData (data: ExtractedWindguruData): WindguruData {
-  // TODO: refactor this function
-  let newData: WindguruData = {
-    name: data.name,
-    spot: data.spot,
-    models: []
-  }
+function windguru (extractedData: ExtractedWindguruData): WindguruData {
+  // Group the data by day
+  const models = extractedData.models.map(model => {
+    const days: WindguruModelDay[] = []
+    let currentDay: string = ''
+    let count = -1
 
-  data.models.forEach((model, i) => {
-    newData.models[i] = {
-      name: model.name,
-      number: model.number,
-      lastUpdate: model.lastUpdate,
-      nextUpdate: model.nextUpdate,
-      days: []
-    }
+    // Group the data by hour
+    model.data.forEach(modelData => {
+      const parsedDate = utils.windguru.getDate(modelData.date)
 
-    let day: string
-    let dayCount = 0
-
-    model.time.forEach((item, j) => {
-      let hour: WindguruModelHour = {
-        hour: parseInt(model.time[j].substring(3, 5)),
-        windspeed: model.windspeed[j],
-        windgust: model.windgust[j],
-        winddirection: model.winddirection[j],
-        temperature: model.temperature[j]
-      }
-
-      if (j === 0) {
-        newData.models[i].days[0] = {
-          date: item.substring(0, 2),
+      if (currentDay !== parsedDate) {
+        currentDay = parsedDate
+        count++
+        days[count] = {
+          date: parsedDate,
           hours: []
         }
-        newData.models[i].days[0].hours.push(hour)
-      } else if (item.substring(0, 2) !== day) {
-        dayCount++
-        newData.models[i].days[dayCount] = {
-          date: item.substring(0, 2),
-          hours: []
-        }
-        newData.models[i].days[dayCount].hours.push(hour)
-      } else {
-        newData.models[i].days[dayCount].hours.push(hour)
       }
 
-      day = item.substring(0, 2)
+      modelData.hour = utils.windguru.getHour(modelData.date)
+      delete modelData.date
+
+      days[count].hours.push(modelData)
     })
+
+    return {
+      name: model.name,
+      days
+    }
   })
 
-  return newData
+  return {
+    spot: extractedData.spot,
+    models
+  }
 }
 
-function windyData (data: ExtractedWindyData): WindyData {
+function windy (data: ExtractedWindyData): WindyData {
   let newData: WindyData = {
     name: data.name,
     models: []
@@ -119,7 +104,7 @@ function windyData (data: ExtractedWindyData): WindyData {
 
       if (j === 0) {
         newData.models[i].days[0] = {
-          date: data.date[0] ? utils.reverseDate(data.date[0]) : null,
+          date: data.date[0] ? utils.reverseDate(data.date[0] as string) : null,
           hours: []
         }
         newData.models[i].days[0].hours.push(hour)
@@ -141,7 +126,7 @@ function windyData (data: ExtractedWindyData): WindyData {
   return newData
 }
 
-function reportData (data: ExtractedWindReport): WindReport {
+function windReport (data: ExtractedWindReport): WindReport {
   (data.report as WindReportItem[]) = data.report.map(x => {
     if (x.wg) {
       return {
@@ -163,8 +148,8 @@ function reportData (data: ExtractedWindReport): WindReport {
 }
 
 export default {
-  windfinderData,
-  windguruData,
-  windyData,
-  reportData
+  windfinder,
+  windguru,
+  windy,
+  windReport
 }
