@@ -1,16 +1,21 @@
 // parsed Windguru data
 export interface WindguruData {
-  name: string;
-  spot: string;
+  spot: SpotInfo;
   models: WindguruModel[];
-  url?: string;
+}
+
+export interface SpotInfo {
+  name: string
+  coordinates: {
+    lat: string
+    lng: string
+  }
+  altitude: string
+  temperature: string
 }
 
 export interface WindguruModel {
   name: string;
-  number: number;
-  lastUpdate: string;
-  nextUpdate: string;
   days: WindguruModelDay[];
 }
 
@@ -20,28 +25,15 @@ export interface WindguruModelDay {
 }
 
 export interface WindguruModelHour {
-  hour: number;
-  windspeed: number;
-  windgust: number;
-  winddirection: number;
-  temperature: number;
+  [key: string]: string
 }
 
-// Extracted Windguru data
 export interface ExtractedWindguruData {
-  name: string;
-  spot: string;
-  models: ExtractedWindguruModelData[];
+  spot: SpotInfo
+  models: ExtractedWindguruModelData[]
 }
 
 export interface ExtractedWindguruModelData {
-  name: string;
-  lastUpdate: string;
-  nextUpdate: string;
-  number: number;
-  time: string[];
-  windspeed: number[];
-  windgust: number[];
-  winddirection: number[];
-  temperature: number[];
+  name: string
+  data: { [key: string]: string }[]
 }

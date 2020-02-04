@@ -54,7 +54,7 @@ scrape.windfinder('tarifa')
   .catch(err => console.error(err)
 
 // Scrape windguru spot
-scrape.windguru(43, [0, 2, 3, 4])
+scrape.windguru(43)
   .then(data => console.log(data)
   .catch(err => console.error(err)
 
@@ -111,39 +111,44 @@ Scrapes data from selected windguru model (tables). Returns a promise which reso
  
 ```json
 {
-    "name": "WindGuru",
-    "spot": "Spain - Tarifa  ",
+    "spot": {
+        "name": "Spain - Tarifa",
+        "coordinates": {
+            "lat": "36",
+            "lng": "-5.65"
+        },
+        "altitude": "16 C"
+    },
     "models": [
         {
             "name": "GFS 27 km",
-            "number": "0",
             "days": [
                 {
-                    "date": "07",
+                    "date": "Tue 4",
                     "hours": [
                         {
-                            "hour": 8,
-                            "windspeed": 13,
-                            "windgust": 21,
-                            "winddirection": 259,
-                            "temperature": 14
+                            "wspd": "1",
+                            "gust": "2",
+                            "wdirn": "N",
+                            "wdeg": "352",
+                            "tmp": "16",
+                            "slp": "1027",
+                            "hcld": "0",
+                            "mcld": "0",
+                            "lcld": "-",
+                            "apcp": "0",
+                            "rh": "68",
+                            "hour": "10"
                         }
-                    ]
-                }
-            ]
-        }
-    ]
-}
 ```
 </details>
+
+The included data may vary per forecast model. You can find the keys of variables on the [windguru micro help page](http://micro.windguru.cz/help.php). The only variable all hours have is `hour`.  
+Wave models are now included as well. They have different variables.
 
 #### spotnumber
 A string or integer. The number windguru uses for a spot.  
 Example: to scrape data for Tarifa, use `43`. You can get this number from the url of the forecast for a spot.
-
-#### modelNumbers
-An array. Numbers of the windguru models you want to scrape.  
-You can get these using the inspector in your browser. Or use `0` for the first model, `1` for the second, `2` for the third, e.t.c.
 
 ### Windy
 **scrape.windy(lat, long)**  

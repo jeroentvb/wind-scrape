@@ -4,8 +4,7 @@ const helper = require('jeroentvb-helper')
 const url = {
   windfinder: 'tarifa',
   windguru: {
-    spot: 43,
-    modelNumbers: [0, 2, 3, 4]
+    spot: 43
   },
   windy: {
     lat: '36.012',
@@ -24,7 +23,7 @@ const test = {
     ])
       .then(res => {
         console.log(res)
-        helper.exportToFile('allData', res)
+        helper.export.json('allData', res)
       })
       .catch(err => console.error(err))
   },
@@ -33,17 +32,17 @@ const test = {
       const data = await scrape.windfinder(spot || url.windfinder)
 
       console.log(data)
-      helper.exportToFile('windfinder', data)
+      helper.export.json('windfinder', data)
     } catch (err) {
       console.error(err)
     }
   },
   windguru: async () => {
     try {
-      const data = await scrape.windguru(url.windguru.spot, url.windguru.modelNumbers)
+      const data = await scrape.windguru(url.windguru.spot)
 
-      console.log(data)
-      helper.exportToFile('windguru', data)
+      // console.log(data)
+      helper.export.json('windguru', data)
     } catch (err) {
       console.error(err)
     }
@@ -53,7 +52,7 @@ const test = {
       const data = await scrape.windy(url.windy.lat, url.windy.long)
 
       console.log(data)
-      helper.exportToFile('windy', data)
+      helper.export.json('windy', data)
     } catch (err) {
       console.error(err)
     }
@@ -63,7 +62,7 @@ const test = {
       const data = await scrape.windReport(url.report)
 
       console.log(data)
-      helper.exportToFile('report', data)
+      helper.export.json('report', data)
     } catch (err) {
       console.error(err)
     }
