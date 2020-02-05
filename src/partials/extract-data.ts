@@ -47,7 +47,7 @@ function windfinderData (html: string): ExtractedWindfinderData {
 
   // Get the wind direction; do some converting
   $('.units-wd-sym').find($('.directionarrow')).each(function (this: CheerioElement, i) {
-    let direction = parseInt($(this).attr('title').replace('°', ' '))
+    let direction = parseInt(($(this).attr('title') as string).replace('°', ' '))
     // This can be used to calculate the wind direction in wind direction instead of angles
     // var val = Math.floor((data / 22.5) + 0.5)
     // var windDirections = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"];
