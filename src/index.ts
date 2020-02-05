@@ -52,11 +52,7 @@ async function windy (lat: string | number, long: string | number): Promise<Wind
 
   const url = `https://www.windy.com/${lat}/${long}/wind?`
 
-  const browser = await puppeteer.launch({
-    args: [
-      '--no-sandbox'
-    ]
-  })
+  const browser = await puppeteer.launch()
   const page = await browser.newPage()
 
   try {
@@ -90,11 +86,7 @@ async function windReport (spotname: string): Promise<WindReport | Error> {
     spot: spotname,
     report: []
   }
-  const browser = await puppeteer.launch({
-    args: [
-      '--no-sandbox'
-    ]
-  })
+  const browser = await puppeteer.launch()
   const page = await browser.newPage()
 
   try {
