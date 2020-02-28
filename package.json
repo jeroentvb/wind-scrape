@@ -1,0 +1,49 @@
+{
+  "name": "wind-scrape",
+  "version": "3.0.1",
+  "description": "Scrape wind forecast from a few websites",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "private": true,
+  "files": [
+    "dist/**/*"
+  ],
+  "scripts": {
+    "test": "jest",
+    "watch-test": "jest --watch",
+    "watch": "tsc -w",
+    "test-dev": "node tests/dev-sandbox.js",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jeroentvb/wind-scrape.git"
+  },
+  "keywords": [
+    "package",
+    "scraper",
+    "wind",
+    "forecast"
+  ],
+  "author": "jeroentvb",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jeroentvb/wind-scrape/issues"
+  },
+  "homepage": "https://github.com/jeroentvb/wind-scrape#readme",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.3",
+    "node-fetch": "^2.6.0",
+    "puppeteer": "^1.20.0"
+  },
+  "devDependencies": {
+    "@types/cheerio": "^0.22.16",
+    "@types/jest": "^25.1.1",
+    "@types/node": "^12.12.26",
+    "@types/node-fetch": "^2.5.4",
+    "@types/puppeteer": "^1.20.3",
+    "jeroentvb-helper": "github:jeroentvb/jeroentvb-helper",
+    "jest": "^24.9.0",
+    "typescript": "^3.7.5"
+  }
+}
