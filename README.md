@@ -30,11 +30,14 @@ This package can scrape wind forecast from windfinder superforecast and windguru
 <!-- * [Testing](#testing) -->
 
 ## Installation
-```
-npm install https://github.com/jeroentvb/wind-scrape/releases/download/v3.0.0/dist.tgz
+```sh
+npm install jeroentvb/wind-scrape#dist
 
+# Or get a specific version e.g. v3.0.1
+
+npm install https://github.com/jeroentvb/wind-scrape/releases/download/{ VERSION }/dist.tgz
 ```
-*If there is a newer version available, you can use that version number.*  
+The upper command always gets the newest version (on every `npm install`) from the dist branch. With the second command you can specify a release version (which won't be updated on every `npm install`).
 Releases can be found [here](https://github.com/jeroentvb/wind-scrape/releases).
 
 ## Usage
