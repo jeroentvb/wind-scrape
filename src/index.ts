@@ -118,5 +118,9 @@ export {
   windfinder,
   windguru,
   windy,
-  windReport
+  windReport,
+  WindfinderData,
+  WindguruData,
+  WindyData,
+  WindReport
 }
