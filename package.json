@@ -1,6 +1,6 @@
 {
   "name": "wind-scrape",
-  "version": "3.0.3",
+  "version": "3.0.4",
   "description": "Scrape wind forecast from a few websites",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

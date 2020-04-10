@@ -24,7 +24,7 @@ async function windfinder(spotname) {
         return windfinder;
     }
     catch (err) {
-        return err;
+        throw err;
     }
 }
 exports.windfinder = windfinder;
@@ -42,7 +42,7 @@ async function windguru(spot) {
         return data;
     }
     catch (err) {
-        return err;
+        throw err;
     }
 }
 exports.windguru = windguru;
@@ -66,8 +66,8 @@ async function windy(lat, long) {
     catch (err) {
         await browser.close();
         if (err.name === 'TimeoutError')
-            return new Error('The request timed out after 30000ms');
-        return err;
+            throw new Error('The request timed out after 30000ms');
+        throw err;
     }
 }
 exports.windy = windy;
@@ -100,8 +100,8 @@ async function windReport(spotname) {
     catch (err) {
         await browser.close();
         if (err.name === 'TimeoutError')
-            return new Error('The request timed out after 30000ms');
-        return err;
+            throw new Error('The request timed out after 30000ms');
+        throw err;
     }
 }
 exports.windReport = windReport;
