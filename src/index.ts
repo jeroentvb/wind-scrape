@@ -23,7 +23,7 @@ async function windfinder (spotname: string): Promise<WindfinderData> {
     if (windfinder.spot === '') throw new Error('The provided windfinder spot doesn\'t exist..')
     return windfinder
   } catch (err) {
-    return err
+    throw err
   }
 }
 
@@ -42,7 +42,7 @@ async function windguru (spot: number | string): Promise<WindguruData> {
 
     return data
   } catch (err) {
-    return err
+    throw err
   }
 }
 
@@ -69,9 +69,9 @@ async function windy (lat: string | number, long: string | number): Promise<Wind
   } catch (err) {
     await browser.close()
 
-    if (err.name === 'TimeoutError') return new Error('The request timed out after 30000ms')
+    if (err.name === 'TimeoutError') throw new Error('The request timed out after 30000ms')
 
-    return err
+    throw err
   }
 }
 
@@ -108,9 +108,9 @@ async function windReport (spotname: string): Promise<WindReport | Error> {
   } catch (err) {
     await browser.close()
 
-    if (err.name === 'TimeoutError') return new Error('The request timed out after 30000ms')
+    if (err.name === 'TimeoutError') throw new Error('The request timed out after 30000ms')
 
-    return err
+    throw err
   }
 }
 
