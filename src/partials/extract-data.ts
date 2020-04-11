@@ -17,7 +17,10 @@ function windfinderData (html: string): ExtractedWindfinderData {
     windspeed: [],
     windgust: [],
     winddirection: [],
-    temperature: []
+    temperature: [],
+    wavedirection: [],
+    waveheight: [],
+    waveinterval: []
   }
 
   // Get the spots name
@@ -47,7 +50,7 @@ function windfinderData (html: string): ExtractedWindfinderData {
 
   // Get the wind direction; do some converting
   $('.units-wd-sym').find($('.directionarrow')).each(function (this: CheerioElement, i) {
-    let direction = parseInt(($(this).attr('title') as string).replace('°', ' '))
+    const direction = parseInt(($(this).attr('title') as string).replace('°', ' '))
     // This can be used to calculate the wind direction in wind direction instead of angles
     // var val = Math.floor((data / 22.5) + 0.5)
     // var windDirections = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"];
@@ -59,6 +62,26 @@ function windfinderData (html: string): ExtractedWindfinderData {
   $('.data-temp').find($('.units-at')).each(function (this: CheerioElement, i) {
     data.temperature[i] = parseInt($(this).text())
   })
+
+  // Get wave direction
+  $('.units-wad-sym').find($('.directionarrow')).each(function (this: CheerioElement, i) {
+    const direction = parseInt(($(this).attr('title') as string).replace('°', ' '))
+
+    data.wavedirection[i] = direction
+  })
+
+  // Get wave height
+  $('.data-waveheight').find($('.units-wh')).each(function (this: CheerioElement, i) {
+    console.log(parseFloat($(this).text()))
+    data.waveheight[i] = parseFloat($(this).text())
+  })
+
+  // Get wave interval
+  $('.data-wavefreq').each(function (this: CheerioElement, i) {
+    data.waveinterval[i] = parseInt($(this).text())
+  })
+
+  // console.log(data)
 
   return data
 }

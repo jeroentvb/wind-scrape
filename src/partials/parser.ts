@@ -31,7 +31,10 @@ function windfinder (data: ExtractedWindfinderData): WindfinderData {
         windspeed: day.windspeed[j],
         windgust: day.windgust[j],
         winddirection: day.winddirection[j],
-        temperature: day.temperature[j]
+        temperature: day.temperature[j],
+        wavedirection: day.wavedirection[j],
+        waveheight: day.waveheight[j],
+        waveinterval: day.waveinterval[j]
       })
     })
 
