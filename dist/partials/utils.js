@@ -18,7 +18,7 @@ const sliceDay = {
     three
 };
 function getWindfinderDay(data, day) {
-    const dayNum = day === 'one' ? 1 : (day === 'two' ? 2 : 3);
+    const dayNum = day === 'one' ? 0 : (day === 'two' ? 1 : 2);
     return {
         date: data.date[dayNum],
         time: sliceDay[day](data.time),
