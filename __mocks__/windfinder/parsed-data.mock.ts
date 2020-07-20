@@ -3,7 +3,7 @@ module.exports = {
   'spot': 'Tarifa Centro',
   'days': [
       {
-          'date': 'Saturday, Dec 28',
+          'date': 'Friday, Dec 27',
           'hours': [
               {
                   'hour': 7,
@@ -120,7 +120,7 @@ module.exports = {
           ]
       },
       {
-          'date': 'Sunday, Dec 29',
+          'date': 'Saturday, Dec 28',
           'hours': [
               {
                   'hour': 7,
@@ -237,6 +237,7 @@ module.exports = {
           ]
       },
       {
+          'date': 'Sunday, Dec 29',
           'hours': [
               {
                   'hour': 7,
