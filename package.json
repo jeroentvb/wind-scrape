@@ -9,11 +9,11 @@
     "dist/**/*"
   ],
   "scripts": {
-    "test": "jest",
+    "test": "npm run build && jest",
     "watch-test": "jest --watch",
     "watch": "tsc -w",
     "test-dev": "node tests/dev-sandbox.js",
-    "build": "tsc"
+    "build": "rm -r ./dist && tsc"
   },
   "repository": {
     "type": "git",
