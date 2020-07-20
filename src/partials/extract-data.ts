@@ -72,7 +72,6 @@ function windfinderData (html: string): ExtractedWindfinderData {
 
   // Get wave height
   $('.data-waveheight').find($('.units-wh')).each(function (this: CheerioElement, i) {
-    console.log(parseFloat($(this).text()))
     data.waveheight[i] = parseFloat($(this).text())
   })
 
@@ -80,8 +79,6 @@ function windfinderData (html: string): ExtractedWindfinderData {
   $('.data-wavefreq').each(function (this: CheerioElement, i) {
     data.waveinterval[i] = parseInt($(this).text())
   })
-
-  // console.log(data)
 
   return data
 }
