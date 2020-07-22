@@ -13,7 +13,7 @@
     "watch-test": "jest --watch",
     "watch": "tsc -w",
     "test-dev": "node tests/dev-sandbox.js",
-    "build": "rm -r ./dist && tsc"
+    "build": "rm -rf ./dist && tsc"
   },
   "repository": {
     "type": "git",
