@@ -15,7 +15,10 @@ function windfinderData(html) {
         windspeed: [],
         windgust: [],
         winddirection: [],
-        temperature: []
+        temperature: [],
+        wavedirection: [],
+        waveheight: [],
+        waveinterval: []
     };
     // Get the spots name
     $('#spotheader-spotname').each(function () {
@@ -39,7 +42,7 @@ function windfinderData(html) {
     });
     // Get the wind direction; do some converting
     $('.units-wd-sym').find($('.directionarrow')).each(function (i) {
-        let direction = parseInt($(this).attr('title').replace('°', ' '));
+        const direction = parseInt($(this).attr('title').replace('°', ' '));
         // This can be used to calculate the wind direction in wind direction instead of angles
         // var val = Math.floor((data / 22.5) + 0.5)
         // var windDirections = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"];
@@ -49,6 +52,19 @@ function windfinderData(html) {
     // Get temperature
     $('.data-temp').find($('.units-at')).each(function (i) {
         data.temperature[i] = parseInt($(this).text());
+    });
+    // Get wave direction
+    $('.units-wad-sym').find($('.directionarrow')).each(function (i) {
+        const direction = parseInt($(this).attr('title').replace('°', ' '));
+        data.wavedirection[i] = direction;
+    });
+    // Get wave height
+    $('.data-waveheight').find($('.units-wh')).each(function (i) {
+        data.waveheight[i] = parseFloat($(this).text());
+    });
+    // Get wave interval
+    $('.data-wavefreq').each(function (i) {
+        data.waveinterval[i] = parseInt($(this).text());
     });
     return data;
 }

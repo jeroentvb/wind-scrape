@@ -25,7 +25,10 @@ function getWindfinderDay(data, day) {
         windspeed: sliceDay[day](data.windspeed),
         windgust: sliceDay[day](data.windgust),
         winddirection: sliceDay[day](data.winddirection),
-        temperature: sliceDay[day](data.temperature)
+        temperature: sliceDay[day](data.temperature),
+        wavedirection: sliceDay[day](data.wavedirection),
+        waveheight: sliceDay[day](data.waveheight),
+        waveinterval: sliceDay[day](data.waveinterval)
     };
 }
 function parseSpotInfo(str) {

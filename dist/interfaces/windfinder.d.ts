@@ -13,6 +13,9 @@ export interface WindfinderDataHour {
     windgust: number;
     winddirection: number;
     temperature: number;
+    wavedirection: number;
+    waveheight: number;
+    waveinterval: number;
 }
 export interface ExtractedWindfinderData {
     name: string;
@@ -23,6 +26,9 @@ export interface ExtractedWindfinderData {
     windgust: number[];
     winddirection: number[];
     temperature: number[];
+    wavedirection: number[];
+    waveheight: number[];
+    waveinterval: number[];
 }
 export interface ParsedWindfinderDay {
     date: string;
@@ -31,4 +37,7 @@ export interface ParsedWindfinderDay {
     windgust: number[];
     winddirection: number[];
     temperature: number[];
+    wavedirection: number[];
+    waveheight: number[];
+    waveinterval: number[];
 }
