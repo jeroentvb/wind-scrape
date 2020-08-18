@@ -10,8 +10,12 @@ As per windfinder's [Terms & Conditions](https://www.windfinder.com/contact/term
 As per windguru's [Terms and Conditions](https://www.windguru.cz/help.php?sec=terms)
 > 3.2. It is forbidden to download website content by automated scripts.
 
-This basically means that you can't use the windfinder & windguru scrape functions in this package.  
-I wasn't able to find the terms and conditions for Windy.
+As per windy's [General Terms of Use](https://account.windy.com/agreements/windy-terms-of-use)
+> 5.6.1 The following activities are considered a misuse of the Services and material breach of the Agreements, and may lead to the termination of the provision of the Services:
+> * continuous scanning of a significant amount of the Content and/or downloading of significant portions of the Content;
+> * “crawling” of the Services or otherwise using any automated means to view, access, or collect information from the Services;
+
+This basically means that you can't use any of the scrape functions in this package.  
 
 ### Note
 If you are going to use this package in a project I highly recommend implementing writing the scraped data to a file, and using this file if a website has been scraped within a certain amount of time. This avoids spamming a website with unnecessary requests.  
@@ -26,8 +30,7 @@ This package can scrape wind forecast from windfinder superforecast and windguru
   * [Windfinder](#windfinder)
   * [Windguru](#windguru)
   * [Windy](#windy)
-  * [Windfinder report](#report)
-<!-- * [Testing](#testing) -->
+  * [Windfinder report](#windreport)
 
 ## Installation
 ```sh
