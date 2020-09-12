@@ -3,6 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.windReport = exports.windy = exports.windguru = exports.windfinder = void 0;
 const puppeteer_1 = __importDefault(require("puppeteer"));
 const node_fetch_1 = __importDefault(require("node-fetch"));
 const extract_data_1 = __importDefault(require("./partials/extract-data"));

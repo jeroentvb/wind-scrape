@@ -1,6 +1,6 @@
 {
   "name": "wind-scrape",
-  "version": "3.1.0",
+  "version": "3.1.1",
   "description": "Scrape wind forecast from a few websites",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -33,17 +33,17 @@
   "homepage": "https://github.com/jeroentvb/wind-scrape#readme",
   "dependencies": {
     "cheerio": "^1.0.0-rc.3",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^2.6.1",
     "puppeteer": "^1.20.0"
   },
   "devDependencies": {
-    "@types/cheerio": "^0.22.17",
-    "@types/jest": "^25.2.1",
-    "@types/node": "^12.12.34",
-    "@types/node-fetch": "^2.5.5",
-    "@types/puppeteer": "^1.20.4",
+    "@types/cheerio": "^0.22.21",
+    "@types/jest": "^25.2.3",
+    "@types/node": "^12.12.58",
+    "@types/node-fetch": "^2.5.7",
+    "@types/puppeteer": "^1.20.7",
     "jeroentvb-helper": "github:jeroentvb/jeroentvb-helper",
     "jest": "^24.9.0",
-    "typescript": "^3.8.3"
+    "typescript": "^3.9.7"
   }
 }
