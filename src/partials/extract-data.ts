@@ -6,82 +6,82 @@ import { ExtractedWindfinderData } from '../interfaces/windfinder'
 import { SpotInfo, ExtractedWindguruData, ExtractedWindguruModelData } from '../interfaces/windguru'
 import { ExtractedWindyData } from '../interfaces/windy'
 
-function windfinderData (html: string): ExtractedWindfinderData {
-  let $ = cheerio.load(html)
+// function windfinderData (html: string): ExtractedWindfinderData {
+//   let $ = cheerio.load(html)
 
-  let data: ExtractedWindfinderData = {
-    name: 'Windfinder',
-    spot: '',
-    date: [],
-    time: [],
-    windspeed: [],
-    windgust: [],
-    winddirection: [],
-    temperature: [],
-    wavedirection: [],
-    waveheight: [],
-    waveinterval: []
-  }
+//   let data: ExtractedWindfinderData = {
+//     name: 'Windfinder',
+//     spot: '',
+//     date: [],
+//     time: [],
+//     windspeed: [],
+//     windgust: [],
+//     winddirection: [],
+//     temperature: [],
+//     wavedirection: [],
+//     waveheight: [],
+//     waveinterval: []
+//   }
 
-  // Get the spots name
-  $('#spotheader-spotname').each(function (this: CheerioElement) {
-    data.spot = $(this).text()
-  })
+//   // Get the spots name
+//   $('#spotheader-spotname').each(function (this: CheerioElement) {
+//     data.spot = $(this).text()
+//   })
 
-  // Get the dates
-  $('.weathertable__header').find($('h4')).each(function (this: CheerioElement, i) {
-    data.date[i] = $(this).text()
-  })
+//   // Get the dates
+//   $('.weathertable__header').find($('h4')).each(function (this: CheerioElement, i) {
+//     data.date[i] = $(this).text()
+//   })
 
-  // Get the time
-  $('.data-time').find($('.value')).each(function (this: CheerioElement, i) {
-    data.time[i] = parseInt($(this).text().replace('h', ''))
-  })
+//   // Get the time
+//   $('.data-time').find($('.value')).each(function (this: CheerioElement, i) {
+//     data.time[i] = parseInt($(this).text().replace('h', ''))
+//   })
 
-  // Get the average wind speed
-  $('.data--major').find($('.units-ws')).each(function (this: CheerioElement, i) {
-    data.windspeed[i] = parseInt($(this).text())
-  })
+//   // Get the average wind speed
+//   $('.data--major').find($('.units-ws')).each(function (this: CheerioElement, i) {
+//     data.windspeed[i] = parseInt($(this).text())
+//   })
 
-  // Get the wind gusts
-  $('.data-gusts').find($('.units-ws')).each(function (this: CheerioElement, i) {
-    data.windgust[i] = parseInt($(this).text())
-  })
+//   // Get the wind gusts
+//   $('.data-gusts').find($('.units-ws')).each(function (this: CheerioElement, i) {
+//     data.windgust[i] = parseInt($(this).text())
+//   })
 
-  // Get the wind direction; do some converting
-  $('.units-wd-sym').find($('.directionarrow')).each(function (this: CheerioElement, i) {
-    const direction = parseInt(($(this).attr('title') as string).replace('°', ' '))
-    // This can be used to calculate the wind direction in wind direction instead of angles
-    // var val = Math.floor((data / 22.5) + 0.5)
-    // var windDirections = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"];
-    // windDirection[i] = windDirections[(val % 16)]
-    data.winddirection[i] = direction
-  })
+//   // Get the wind direction; do some converting
+//   $('.units-wd-sym').find($('.directionarrow')).each(function (this: CheerioElement, i) {
+//     const direction = parseInt(($(this).attr('title') as string).replace('°', ' '))
+//     // This can be used to calculate the wind direction in wind direction instead of angles
+//     // var val = Math.floor((data / 22.5) + 0.5)
+//     // var windDirections = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"];
+//     // windDirection[i] = windDirections[(val % 16)]
+//     data.winddirection[i] = direction
+//   })
 
-  // Get temperature
-  $('.data-temp').find($('.units-at')).each(function (this: CheerioElement, i) {
-    data.temperature[i] = parseInt($(this).text())
-  })
+//   // Get temperature
+//   $('.data-temp').find($('.units-at')).each(function (this: CheerioElement, i) {
+//     data.temperature[i] = parseInt($(this).text())
+//   })
 
-  // Get wave direction
-  $('.units-wad-sym').find($('.directionarrow')).each(function (this: CheerioElement, i) {
-    const direction = parseInt(($(this).attr('title') as string).replace('°', ' '))
+//   // Get wave direction
+//   $('.units-wad-sym').find($('.directionarrow')).each(function (this: CheerioElement, i) {
+//     const direction = parseInt(($(this).attr('title') as string).replace('°', ' '))
 
-    data.wavedirection[i] = direction
-  })
+//     data.wavedirection[i] = direction
+//   })
 
-  // Get wave height
-  $('.data-waveheight').find($('.units-wh')).each(function (this: CheerioElement, i) {
-    data.waveheight[i] = parseFloat($(this).text())
-  })
+//   // Get wave height
+//   $('.data-waveheight').find($('.units-wh')).each(function (this: CheerioElement, i) {
+//     data.waveheight[i] = parseFloat($(this).text())
+//   })
 
-  // Get wave interval
-  $('.data-wavefreq').each(function (this: CheerioElement, i) {
-    data.waveinterval[i] = parseInt($(this).text())
-  })
+//   // Get wave interval
+//   $('.data-wavefreq').each(function (this: CheerioElement, i) {
+//     data.waveinterval[i] = parseInt($(this).text())
+//   })
 
-  return data
-}
+//   return data
+// }
 
 function windguruData (data: string): ExtractedWindguruData {
   let foundPre = false
@@ -229,6 +229,6 @@ function windyData (html: string): ExtractedWindyData {
 
 export default {
   windguruData,
-  windfinderData,
+  // windfinderData,
   windyData
 }

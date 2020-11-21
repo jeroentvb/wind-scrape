@@ -1,4 +1,3 @@
-// Extracted and parsed Windfinder data
 export interface WindfinderData {
   name: string
   spot: string
@@ -14,35 +13,32 @@ export interface WindfinderDataHour {
   hour: number
   windspeed: number
   windgust: number
-  winddirection: number
+  winddirectionDegrees: number
+  winddirectionLetters: string
   temperature: number
   wavedirection: number
   waveheight: number
   waveinterval: number
 }
 
-// extracted Windfinder data
-export interface ExtractedWindfinderData {
+
+export interface ExtractedWindfinderData extends WindfinderBase {
   name: string
   spot: string
   date: string[]
-  time: number[]
-  windspeed: number[]
-  windgust: number[]
-  winddirection: number[]
-  temperature: number[]
-  wavedirection: number[]
-  waveheight: number[]
-  waveinterval: number[]
 }
 
-// partially parsed Windfinder days
-export interface ParsedWindfinderDay {
+
+export interface ParsedWindfinderDay extends WindfinderBase {
   date: string
+}
+
+interface WindfinderBase {
   time: number[]
   windspeed: number[]
   windgust: number[]
-  winddirection: number[]
+  winddirectionDegrees: number[]
+  winddirectionLetters: string[]
   temperature: number[]
   wavedirection: number[]
   waveheight: number[]

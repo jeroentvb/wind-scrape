@@ -4,10 +4,13 @@ import extract from './partials/extract-data'
 import parse from './partials/parser'
 import utils from './partials/utils'
 
+import fs from 'fs'
+
 import { WindfinderData } from './interfaces/windfinder'
 import { WindguruData } from './interfaces/windguru'
 import { WindyData } from './interfaces/windy'
 import { WindReport, ExtractedWindReport } from './interfaces/wind-report'
+import Windfinder from './partials/windfinder'
 
 async function windfinder (spotname: string): Promise<WindfinderData> {
   if (!spotname) throw new Error('No spot name specified!')
@@ -15,13 +18,18 @@ async function windfinder (spotname: string): Promise<WindfinderData> {
   const url = `https://www.windfinder.com/weatherforecast/${spotname}`
 
   try {
-    const res = await fetch(url)
-    const html = await res.text()
-    const data = extract.windfinderData(html)
-    const windfinder = parse.windfinder(data)
+    // const res = await fetch(url)
+    // const html = await res.text()
+    
+    const html = fs.readFileSync('html-export.txt', 'utf8')
 
-    if (windfinder.spot === '') throw new Error('The provided windfinder spot doesn\'t exist..')
-    return windfinder
+    const data = new Windfinder(html)
+      .extract()
+      .parse()
+      .get()
+
+    if (data.spot === '') throw new Error('The provided windfinder spot doesn\'t exist..')
+    return data
   } catch (err) {
     throw err
   }

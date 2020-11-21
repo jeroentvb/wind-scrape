@@ -1,42 +1,9 @@
 import { ExtractedWindfinderData, ParsedWindfinderDay } from '../interfaces/windfinder'
 import { SpotInfo } from '../interfaces/windguru'
 
-function one (array: number[]) {
-  return array.slice(7, 23)
-}
-
-function two (array: number[]) {
-  return array.slice(31, 47)
-}
-
-function three (array: number[]) {
-  return array.slice(55, 70)
-}
 
 function reverseDate (date: string) {
   return date.split('-').reverse().join('-')
-}
-
-const sliceDay = {
-  one,
-  two,
-  three
-}
-
-function getWindfinderDay (data: ExtractedWindfinderData, day: 'one' | 'two' | 'three'): ParsedWindfinderDay {
-  const dayNum = day === 'one' ? 0 : (day === 'two' ? 1 : 2)
-
-  return {
-    date: data.date[dayNum],
-    time: sliceDay[day](data.time),
-    windspeed: sliceDay[day](data.windspeed),
-    windgust: sliceDay[day](data.windgust),
-    winddirection: sliceDay[day](data.winddirection),
-    temperature: sliceDay[day](data.temperature),
-    wavedirection: sliceDay[day](data.wavedirection),
-    waveheight: sliceDay[day](data.waveheight),
-    waveinterval: sliceDay[day](data.waveinterval)
-  }
 }
 
 function parseSpotInfo (str: string): SpotInfo {
@@ -78,7 +45,6 @@ function createRequestUrl (spot: number | string): string {
 
 export default {
   reverseDate,
-  getWindfinderDay,
   windguru: {
     parseSpotInfo,
     parseModelInfo,
