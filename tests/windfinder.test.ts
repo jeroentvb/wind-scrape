@@ -1,3 +1,5 @@
+/* global describe, it, expect */
+
 const Windfinder = require('../dist/partials/windfinder').default
 const mockData = require('../__mocks__/mock-data')
 
