@@ -11,12 +11,6 @@ describe('The utils module', () => {
     expect(reversedDate).toEqual('27-12-2019')
   })
 
-  // it('should return the data for a windfinder day', () => {
-  //   const parsedWindfinderDay = utils.getWindfinderDay(mockData.windfinder.extractedData, 'one')
-
-  //   expect(parsedWindfinderDay).toEqual(mockData.windfinder.parsedDay)
-  // })
-
   it('should parse the spot info', () => {
     const spotInfo = utils.windguru.parseSpotInfo(mockData.windguru.spotString)
 
