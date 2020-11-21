@@ -1,4 +1,4 @@
-export default class Utils {
+export default class WindfinderUtils {
   private readonly windDirections = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"]
 
   protected sliceDay<T>(array: T[], index: number): T[] {

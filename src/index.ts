@@ -2,7 +2,6 @@ import puppeteer from 'puppeteer'
 import fetch from 'node-fetch'
 import extract from './partials/extract-data'
 import parse from './partials/parser'
-import utils from './partials/utils'
 
 import fs from 'fs'
 
@@ -11,6 +10,7 @@ import { WindguruData } from './interfaces/windguru'
 import { WindyData } from './interfaces/windy'
 import { WindReport, ExtractedWindReport } from './interfaces/wind-report'
 import Windfinder from './partials/windfinder'
+import Windguru from './partials/windguru'
 
 async function windfinder (spotname: string): Promise<WindfinderData> {
   if (!spotname) throw new Error('No spot name specified!')
@@ -37,16 +37,20 @@ async function windguru (spot: number | string): Promise<WindguruData> {
   if (!spot) throw new Error('No spot number specified!')
   if (typeof spot !== 'number' && typeof spot !== 'string') throw new TypeError('Spotnumber must be a number or a string!')
 
-  const url = utils.createRequestUrl(spot)
+  const url = `http://micro.windguru.cz/?s=${spot}&m=all`
 
   try {
-    const res = await fetch(url)
-    const html = await res.text()
+    // const res = await fetch(url)
+    // const txt = await res.text()
 
-    const extractedData = extract.windguruData(html)
-    const data = parse.windguru(extractedData)
+    const txt = fs.readFileSync('windguru_data-export.txt', 'utf8')
 
-    return data
+    const windguru = new Windguru(txt)
+      .extract()
+      .parse()
+      .get()
+
+    return windguru
   } catch (err) {
     throw err
   }

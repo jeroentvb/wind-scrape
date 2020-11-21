@@ -1,8 +1,8 @@
 import cheerio from "cheerio"
-import { ExtractedWindfinderData, ParsedWindfinderDay, WindfinderData, WindfinderDataDay } from '../interfaces/windfinder'
-import Utils from './utils2'
+import { ExtractedWindfinderData, ParsedWindfinderDay, WindfinderData } from '../interfaces/windfinder'
+import WindfinderUtils from "./windfinder-utils"
 
-export default class Windfinder extends Utils {
+export default class Windfinder extends WindfinderUtils {
   private readonly html: string
   private readonly $: CheerioStatic
   private extractedData!: ExtractedWindfinderData

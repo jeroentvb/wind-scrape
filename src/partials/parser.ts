@@ -1,47 +1,7 @@
 import utils from './utils'
 
-import { ExtractedWindfinderData, WindfinderData, ParsedWindfinderDay, WindfinderDataDay } from '../interfaces/windfinder'
-import { WindguruData, ExtractedWindguruData, WindguruModelHour, WindguruModelDay } from '../interfaces/windguru'
 import { ExtractedWindyData, WindyData, WindyModelHour } from '../interfaces/windy'
 import { ExtractedWindReport, WindReport, WindReportItem } from '../interfaces/wind-report'
-
-function windguru (extractedData: ExtractedWindguruData): WindguruData {
-  // Group the data by day
-  const models = extractedData.models.map(model => {
-    const days: WindguruModelDay[] = []
-    let currentDay: string = ''
-    let count = -1
-
-    // Group the data by hour
-    model.data.forEach(modelData => {
-      const parsedDate = utils.windguru.getDate(modelData.date)
-
-      if (currentDay !== parsedDate) {
-        currentDay = parsedDate
-        count++
-        days[count] = {
-          date: parsedDate,
-          hours: []
-        }
-      }
-
-      modelData.hour = utils.windguru.getHour(modelData.date)
-      delete modelData.date
-
-      days[count].hours.push(modelData)
-    })
-
-    return {
-      name: model.name,
-      days
-    }
-  })
-
-  return {
-    spot: extractedData.spot,
-    models
-  }
-}
 
 function windy (data: ExtractedWindyData): WindyData {
   let newData: WindyData = {
@@ -112,7 +72,6 @@ function windReport (data: ExtractedWindReport): WindReport {
 }
 
 export default {
-  windguru,
   windy,
   windReport
 }
