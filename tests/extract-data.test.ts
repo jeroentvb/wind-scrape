@@ -5,11 +5,11 @@ const extract = require('../dist/partials/extract-data').default
 const mockData = require('../__mocks__/mock-data')
 
 describe('The extract data module', () => {
-  it('windfinderData should return ExtractedWindfinderData', () => {
-    const extractedWindfinderData = extract.windfinderData(mockData.windfinder.html)
+  // it('windfinderData should return ExtractedWindfinderData', () => {
+  //   const extractedWindfinderData = extract.windfinderData(mockData.windfinder.html)
 
-    expect(extractedWindfinderData).toEqual(mockData.windfinder.extractedData)
-  })
+  //   expect(extractedWindfinderData).toEqual(mockData.windfinder.extractedData)
+  // })
 
   it('windguruModel should return the ExtractedWindguruData', () => {
     const extractedWindguruData = extract.windguruData(mockData.windguru.html)

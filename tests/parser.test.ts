@@ -5,11 +5,11 @@ const parse = require('../dist/partials/parser').default
 const mockData = require('../__mocks__/mock-data')
 
 describe('The parse-data module', () => {
-  it('windfinderData should return WindfinderData ', () => {
-    const windfinderData = parse.windfinder(mockData.windfinder.extractedData)
+  // it('windfinderData should return WindfinderData ', () => {
+  //   const windfinderData = parse.windfinder(mockData.windfinder.extractedData)
 
-    expect(windfinderData).toEqual(mockData.windfinder.parsedData)
-  })
+  //   expect(windfinderData).toEqual(mockData.windfinder.parsedData)
+  // })
 
   it('windguruData should return WindguruData', () => {
     const windguruData = parse.windguru(mockData.windguru.extractedData)

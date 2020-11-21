@@ -1,9 +1,7 @@
 module.exports = {
   windfinder: {
     html: require('./windfinder/html.mock'),
-    extractedData: require('./windfinder/extracted-data.mock'),
-    parsedDay: require('./windfinder/parsed-day-data.mock'),
-    parsedData: require('./windfinder/parsed-data.mock'),
+    data: require('./windfinder/windfinder-data.mock'),
     report: {
       extractedData: require('./wind-report/extracted-data.mock'),
       parsedData: require('./wind-report/parsed-data.mock')

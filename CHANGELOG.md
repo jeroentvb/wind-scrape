@@ -1,0 +1,1 @@
+Rename windfinder winddirection to winddirectionDegrees & winddirectionLetters
