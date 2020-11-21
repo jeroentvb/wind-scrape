@@ -18,10 +18,8 @@ async function windfinder (spotname: string): Promise<WindfinderData> {
   const url = `https://www.windfinder.com/weatherforecast/${spotname}`
 
   try {
-    // const res = await fetch(url)
-    // const html = await res.text()
-    
-    const html = fs.readFileSync('html-export.txt', 'utf8')
+    const res = await fetch(url)
+    const html = await res.text()
 
     const data = new Windfinder(html)
       .extract()
