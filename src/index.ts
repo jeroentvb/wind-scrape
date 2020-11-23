@@ -1,6 +1,5 @@
 import puppeteer from 'puppeteer'
 import fetch from 'node-fetch'
-import extract from './partials/extract-data'
 import parse from './partials/parser'
 
 import fs from 'fs'
@@ -11,11 +10,14 @@ import { WindyData } from './interfaces/windy'
 import { WindReport, ExtractedWindReport } from './interfaces/wind-report'
 import Windfinder from './partials/windfinder'
 import Windguru from './partials/windguru'
+import UrlBuilder from './partials/url-builder'
+import Windy from './partials/windy'
 
 async function windfinder (spotname: string): Promise<WindfinderData> {
   if (!spotname) throw new Error('No spot name specified!')
   if (typeof spotname !== 'string') throw new TypeError('Spot name must be a string')
-  const url = `https://www.windfinder.com/weatherforecast/${spotname}`
+
+  const url = UrlBuilder.windfinder(spotname)
 
   try {
     const res = await fetch(url)
@@ -37,13 +39,11 @@ async function windguru (spot: number | string): Promise<WindguruData> {
   if (!spot) throw new Error('No spot number specified!')
   if (typeof spot !== 'number' && typeof spot !== 'string') throw new TypeError('Spotnumber must be a number or a string!')
 
-  const url = `http://micro.windguru.cz/?s=${spot}&m=all`
+  const url = UrlBuilder.windguru(spot)
 
   try {
-    // const res = await fetch(url)
-    // const txt = await res.text()
-
-    const txt = fs.readFileSync('windguru_data-export.txt', 'utf8')
+    const res = await fetch(url)
+    const txt = await res.text()
 
     const windguru = new Windguru(txt)
       .extract()
@@ -56,28 +56,35 @@ async function windguru (spot: number | string): Promise<WindguruData> {
   }
 }
 
-async function windy (lat: string | number, long: string | number): Promise<WindyData | Error> {
+async function windy (lat: string | number, long: string | number): Promise<any> {
   if (!lat || !long) throw new Error('No coordinates specified!')
   if ((typeof lat !== 'string' && typeof lat !== 'number') || (typeof long !== 'string' && typeof long !== 'number')) throw new TypeError('Coordinates must be a string or a number')
 
-  const url = `https://www.windy.com/${lat}/${long}/wind?`
+  const url = UrlBuilder.windy(lat, long)
 
-  const browser = await puppeteer.launch()
-  const page = await browser.newPage()
+  // const browser = await puppeteer.launch()
+  // const page = await browser.newPage()
 
   try {
-    await page.goto(url, { waitUntil: 'networkidle0', timeout: 0 })
+    // await page.goto(url, { waitUntil: 'networkidle0', timeout: 0 })
 
-    let html = await page.evaluate(() => document.body.innerHTML)
-    await browser.close()
+    // let html = await page.evaluate(() => document.body.innerHTML)
+    // await browser.close()
 
-    const rawData = extract.windyData(html)
-    let data = parse.windy(rawData)
-    data.url = url
+    const html = fs.readFileSync('windy_data-export.txt', 'utf8')
 
-    return data
+    const windy = new Windy(html)
+      .extract()
+      .parse()
+      .get()
+
+    // const rawData = extract.windyData(txt)
+    // let data = parse.windy(rawData)
+    // data.url = url
+
+    return windy
   } catch (err) {
-    await browser.close()
+    // await browser.close()
 
     if (err.name === 'TimeoutError') throw new Error('The request timed out after 30000ms')
 
@@ -89,7 +96,7 @@ async function windReport (spotname: string): Promise<WindReport | Error> {
   if (!spotname) throw new Error('No spot specified!')
   if (typeof spotname !== 'string') throw new TypeError('Spotname must be a string!')
 
-  const url = `https://www.windfinder.com/report/${spotname}`
+  const url = UrlBuilder.windReport(spotname)
 
   let data: ExtractedWindReport = {
     name: 'Windfinder report',

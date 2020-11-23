@@ -1,5 +1,11 @@
-export default class WindfinderUtils {
+import DataHelper from "./data-helper"
+
+export default class WindfinderUtils extends DataHelper {
   private readonly windDirections = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"]
+
+  constructor (html: string) {
+    super(html)
+  }
 
   protected sliceDay<T>(array: T[], index: number): T[] {
     switch (index) {

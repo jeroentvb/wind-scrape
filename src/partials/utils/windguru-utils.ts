@@ -1,4 +1,4 @@
-import { SpotInfo } from '../interfaces/windguru'
+import { SpotInfo } from '../../interfaces/windguru'
 
 export default class WindguruUtils {
   protected parseSpotInfo (str: string): SpotInfo {

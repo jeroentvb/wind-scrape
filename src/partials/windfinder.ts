@@ -1,18 +1,13 @@
-import cheerio from "cheerio"
+import cheerio from 'cheerio'
 import { ExtractedWindfinderData, ParsedWindfinderDay, WindfinderData } from '../interfaces/windfinder'
-import WindfinderUtils from "./windfinder-utils"
+import WindfinderUtils from './utils/windfinder-utils'
 
 export default class Windfinder extends WindfinderUtils {
-  private readonly html: string
-  private readonly $: CheerioStatic
   private extractedData!: ExtractedWindfinderData
   private parsedData!: WindfinderData
 
   constructor (html: string) {
-    super()
-
-    this.html = html
-    this.$ = cheerio.load(this.html)
+    super(html)
 
     return this
   }
@@ -89,14 +84,6 @@ export default class Windfinder extends WindfinderUtils {
       waveheight: this.sliceDay(this.extractedData.waveheight, index),
       waveinterval: this.sliceDay(this.extractedData.waveinterval, index)
     }
-  }
-
-  private getDataArray<T> ([selector, context, root]: string[], modifier?: (el: CheerioElement) => T): T[] {
-    return this.$(selector, context, root)
-      .map((_, el) => {
-        return !!modifier ? modifier(el) : parseInt(this.$(el).text()) // TODO fix typing on this
-      })
-      .get()
   }
 
 }
