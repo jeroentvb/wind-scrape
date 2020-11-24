@@ -1,6 +1,5 @@
 import puppeteer from 'puppeteer'
 import fetch from 'node-fetch'
-import parse from './partials/parser'
 
 import fs from 'fs'
 
@@ -12,6 +11,7 @@ import Windfinder from './partials/windfinder'
 import Windguru from './partials/windguru'
 import UrlBuilder from './partials/url-builder'
 import Windy from './partials/windy'
+import Report from './partials/windfinder-report'
 
 async function windfinder (spotname: string): Promise<WindfinderData> {
   if (!spotname) throw new Error('No spot name specified!')
@@ -62,29 +62,23 @@ async function windy (lat: string | number, long: string | number): Promise<any>
 
   const url = UrlBuilder.windy(lat, long)
 
-  // const browser = await puppeteer.launch()
-  // const page = await browser.newPage()
+  const browser = await puppeteer.launch()
+  const page = await browser.newPage()
 
   try {
-    // await page.goto(url, { waitUntil: 'networkidle0', timeout: 0 })
+    await page.goto(url, { waitUntil: 'networkidle0', timeout: 0 })
 
-    // let html = await page.evaluate(() => document.body.innerHTML)
-    // await browser.close()
-
-    const html = fs.readFileSync('windy_data-export.txt', 'utf8')
+    let html = await page.evaluate(() => document.body.innerHTML)
+    await browser.close()
 
     const windy = new Windy(html)
       .extract()
       .parse()
       .get()
 
-    // const rawData = extract.windyData(txt)
-    // let data = parse.windy(rawData)
-    // data.url = url
-
     return windy
   } catch (err) {
-    // await browser.close()
+    await browser.close()
 
     if (err.name === 'TimeoutError') throw new Error('The request timed out after 30000ms')
 
@@ -98,28 +92,26 @@ async function windReport (spotname: string): Promise<WindReport | Error> {
 
   const url = UrlBuilder.windReport(spotname)
 
-  let data: ExtractedWindReport = {
-    name: 'Windfinder report',
-    spot: spotname,
-    report: []
-  }
+  let data: ExtractedWindReport = []
+
   const browser = await puppeteer.launch()
   const page = await browser.newPage()
 
   try {
-    page.on('response', async res => {
+    page.on('response', async (res) => {
       if (res.url().includes('https://api.windfinder.com/v2/spots') && res.url().includes('reports')) {
-        data.report = await res.json()
+        data = await res.json()
       }
     })
 
     await page.goto(url, { waitUntil: 'networkidle0', timeout: 0 })
-
     await browser.close()
 
-    if (data.report.length < 1) return new Error('The spot doesn\'t exist or doesn\'t have a report')
-
-    const report = parse.windReport(data)
+    if (data.length < 1) throw new Error('The spot doesn\'t exist or doesn\'t have a report')
+  
+    const report = new Report(spotname, data)
+      .parse()
+      .get()
 
     return report
   } catch (err) {
