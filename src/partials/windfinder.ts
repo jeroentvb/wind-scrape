@@ -1,6 +1,6 @@
-import cheerio from 'cheerio'
-import { ExtractedWindfinderData, ParsedWindfinderDay, WindfinderData } from '../interfaces/windfinder'
 import WindfinderUtils from './utils/windfinder-utils'
+
+import { ExtractedWindfinderData, ParsedWindfinderDay, WindfinderData } from '../interfaces/windfinder'
 
 export default class Windfinder extends WindfinderUtils {
   private extractedData!: ExtractedWindfinderData

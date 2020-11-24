@@ -4,7 +4,7 @@ const helper = require('jeroentvb-helper')
 const url = {
   windfinder: 'tarifa',
   windguru: {
-    spot: 43
+    spot: 3424234234242
   },
   windy: {
     lat: '36.012',

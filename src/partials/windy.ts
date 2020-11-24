@@ -1,5 +1,6 @@
-import { ExtractedWindyData, WindyData, WindyModelDay, WindyModelHour } from '../interfaces/windy'
 import WindyUtils from './utils/windy-utils'
+
+import { ExtractedWindyData, WindyData, WindyModelDay, WindyModelHour } from '../interfaces/windy'
 
 export default class Windy extends WindyUtils {
   private extractedData!: ExtractedWindyData

@@ -1,6 +1,8 @@
+
+import WindguruUtils from './utils/windguru-utils'
+
 import { ExtractedWindguruModelData, SpotInfo, WindguruData, WindguruModelDay } from '../interfaces/windguru'
 import { ExtractedWindguruData } from '../interfaces/windguru'
-import WindguruUtils from './utils/windguru-utils'
 
 export default class Windguru extends WindguruUtils {
   readonly data: string
