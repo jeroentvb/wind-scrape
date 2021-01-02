@@ -32,18 +32,18 @@
   },
   "homepage": "https://github.com/jeroentvb/wind-scrape#readme",
   "dependencies": {
-    "cheerio": "^1.0.0-rc.3",
+    "cheerio": "^1.0.0-rc.5",
     "node-fetch": "^2.6.1",
     "puppeteer": "^1.20.0"
   },
   "devDependencies": {
-    "@types/cheerio": "^0.22.21",
+    "@types/cheerio": "^0.22.23",
     "@types/jest": "^25.2.3",
-    "@types/node": "^12.12.58",
+    "@types/node": "^12.19.11",
     "@types/node-fetch": "^2.5.7",
     "@types/puppeteer": "^1.20.7",
     "jeroentvb-helper": "github:jeroentvb/jeroentvb-helper",
-    "jest": "^24.9.0",
+    "jest": "^26.6.3",
     "typescript": "^3.9.7"
   }
 }

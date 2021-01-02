@@ -4,13 +4,13 @@ const helper = require('jeroentvb-helper')
 const url = {
   windfinder: 'tarifa',
   windguru: {
-    spot: 43
+    spot: 3424234234242
   },
   windy: {
     lat: '36.012',
     long: '-5.611'
   },
-  report: 'tarifa'
+  report: 'maui_honolua_bay'
 }
 
 const test = {
@@ -86,5 +86,5 @@ switch (process.argv[2]) {
     test.windReport()
     break
   default:
-    throw new Error('No test specified.')
+    throw new Error('No test specified. Available: all, windfinder, windguru, windy, report')
 }

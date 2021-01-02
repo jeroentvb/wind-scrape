@@ -1,4 +1,3 @@
-// parsed Windy data
 export interface WindyData {
   name: string;
   models: WindyModel[];
@@ -22,7 +21,6 @@ export interface WindyModelHour {
   winddirection: number;
 }
 
-// extracted Windy data
 export interface ExtractedWindyData {
   name: string;
   date: (string | undefined)[];
