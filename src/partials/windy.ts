@@ -28,9 +28,9 @@ export default class Windy extends WindyUtils {
           if (index !== i) return
 
           this.$(el).find('td').each((_index, elem) => {
-            const windspeed = this.$(elem).contents().filter((_, item) => {
+            const windspeed = (this.$(elem).contents().filter((_, item) => {
               return item.type === 'text'
-            })[0].nodeValue
+            })[0] as cheerio.TagElement).nodeValue
             const windgust = this.$(elem).find('div').css('transform').replace(/\D/g, '')
             const winddirection = this.$(elem).find('small').text()
   

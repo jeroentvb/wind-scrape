@@ -1,9 +1,9 @@
 import cheerio from 'cheerio'
 
-export type DataModifierFunction<T> = (el: CheerioElement, index: number) => T
+export type DataModifierFunction<T> = (el: cheerio.Element, index: number) => T
 
 export default class DataHelper {
-  protected $: CheerioStatic
+  protected $: cheerio.Root
 
   constructor (html: string) {
     this.$ = cheerio.load(html)
