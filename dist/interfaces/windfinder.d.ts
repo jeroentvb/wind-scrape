@@ -11,33 +11,30 @@ export interface WindfinderDataHour {
     hour: number;
     windspeed: number;
     windgust: number;
-    winddirection: number;
+    winddirectionDegrees: number;
+    winddirectionLetters: string;
     temperature: number;
     wavedirection: number;
     waveheight: number;
     waveinterval: number;
 }
-export interface ExtractedWindfinderData {
+export interface ExtractedWindfinderData extends WindfinderBase {
     name: string;
     spot: string;
     date: string[];
-    time: number[];
-    windspeed: number[];
-    windgust: number[];
-    winddirection: number[];
-    temperature: number[];
-    wavedirection: number[];
-    waveheight: number[];
-    waveinterval: number[];
 }
-export interface ParsedWindfinderDay {
+export interface ParsedWindfinderDay extends WindfinderBase {
     date: string;
+}
+interface WindfinderBase {
     time: number[];
     windspeed: number[];
     windgust: number[];
-    winddirection: number[];
+    winddirectionDegrees: number[];
+    winddirectionLetters: string[];
     temperature: number[];
     wavedirection: number[];
     waveheight: number[];
     waveinterval: number[];
 }
+export {};

@@ -8,18 +8,15 @@ export interface WindReportItem {
     windgust?: number;
     winddirection?: number;
     time: string;
+    temperature?: number;
+    airPressure?: number;
 }
-export interface ExtractedWindReport {
-    name: string;
-    spot: string;
-    report: ExtractedWindReportItem[];
-}
-export interface ExtractedWindReportItem {
+export declare type ExtractedWindReport = {
     ws?: number;
     wg?: number;
     wd?: number;
     at?: number;
     ap?: number;
-    dtl?: string;
+    dtl: string;
     dtl_s?: string;
-}
+}[];
