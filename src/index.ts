@@ -13,6 +13,7 @@ import { WindyData } from './interfaces/windy'
 import { WindReport, ExtractedWindReport } from './interfaces/wind-report'
 
 import { REQUEST_TIMEOUT, WindfinderErrors, WindguruErrors, WindReportErrors, WindyErrors, WIND_REPORT_API_URL } from './constants'
+import { readFileSync } from 'fs'
 
 async function windfinder (spotname: string): Promise<WindfinderData> {
   if (!spotname) throw new Error(WindfinderErrors.NO_SPOT_NAME)
@@ -73,7 +74,7 @@ async function windy (lat: string | number, long: string | number): Promise<Wind
   try {
     await page.goto(url, { waitUntil: 'networkidle0', timeout: 0 })
 
-    let html = await page.evaluate(() => document.body.innerHTML)
+    const html = await page.evaluate(() => document.body.innerHTML)
     await browser.close()
 
     const windy = new Windy(html)
@@ -113,7 +114,7 @@ async function windReport (spotname: string): Promise<WindReport> {
     await browser.close()
 
     if (data.length < 1) throw new Error(WindReportErrors.NO_SPOT_OR_REPORT)
-  
+
     const report = new Report(spotname, data)
       .parse()
       .get()

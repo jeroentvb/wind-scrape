@@ -8,9 +8,4 @@ export default class WindyUtils extends DataHelper {
   protected reverseDate (date: string) {
     return date.split('-').reverse().join('-')
   }
-
-  protected getWindData <T>(callback: DataModifierFunction<T>): T[] {
-    return this.getDataArray(['td' ,'.td-windCombined'], callback)
-  }
-
 }
