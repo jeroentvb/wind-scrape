@@ -10,6 +10,6 @@ describe('The windguru class', () => {
       .parse()
       .get()
 
-    expect(windguru).toEqual(mockData.windguru.parsedData)
+    expect(windguru).toEqual(mockData.windguru.data)
   })
 })
