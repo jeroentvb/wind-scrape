@@ -17,7 +17,7 @@ class Windfinder extends windfinder_utils_1.default {
         this.extractedData = {
             name: 'Windfinder',
             spot: this.$('#spotheader-spotname').contents().first().text(),
-            date: this.getDataArray(['h4', '.weathertable__header'], (el) => this.$(el).text()),
+            date: this.getDataArray(['h3', '.weathertable__header'], (el) => this.$(el).text().trim()),
             time: this.getDataArray(['.value', '.data-time'], (el) => parseInt(this.$(el).text().replace('h', ''))),
             windspeed: this.getDataArray(['.units-ws', '.data--major']),
             windgust: this.getDataArray(['.units-ws', '.data-gusts']),

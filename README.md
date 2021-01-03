@@ -86,11 +86,12 @@ Scrapes data from a windfinder superforecast page. Returns a promise which resol
             "date": "Sunday, Apr 07",
             "hours": [
                 {
-                    "hour": 7,
-                    "windspeed": 16,
-                    "windgust": 24,
-                    "winddirection": 265,
-                    "temperature": 14
+                    "hour": 0,
+                    "windspeed": 22,
+                    "windgust": 31,
+                    "winddirectionDegrees": 75,
+                    "winddirectionLetters": "ENE",
+                    "temperature": 18
                 }
             ]
         }
