@@ -21,7 +21,7 @@ export default class Windfinder extends WindfinderUtils {
     this.extractedData = {
       name: 'Windfinder',
       spot: this.$('#spotheader-spotname').contents().first().text(),
-      date: this.getDataArray(['h4', '.weathertable__header'], (el) => this.$(el).text()),
+      date: this.getDataArray(['h3', '.weathertable__header'], (el) => this.$(el).text().trim()),
       time: this.getDataArray<number>(['.value', '.data-time'], (el) => parseInt(this.$(el).text().replace('h', ''))),
       windspeed: this.getDataArray<number>(['.units-ws', '.data--major']),
       windgust: this.getDataArray<number>(['.units-ws', '.data-gusts']),
@@ -71,7 +71,7 @@ export default class Windfinder extends WindfinderUtils {
     return this.parsedData
   }
 
-  private getWindfinderDay (index: number): ParsedWindfinderDay {  
+  private getWindfinderDay (index: number): ParsedWindfinderDay {
     return {
       date: this.extractedData.date[index],
       time: this.sliceDay(this.extractedData.time, index),
