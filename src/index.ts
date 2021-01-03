@@ -13,7 +13,6 @@ import { WindyData } from './interfaces/windy'
 import { WindReport, ExtractedWindReport } from './interfaces/wind-report'
 
 import { REQUEST_TIMEOUT, WindfinderErrors, WindguruErrors, WindReportErrors, WindyErrors, WIND_REPORT_API_URL } from './constants'
-import { readFileSync } from 'fs'
 
 async function windfinder (spotname: string): Promise<WindfinderData> {
   if (!spotname) throw new Error(WindfinderErrors.NO_SPOT_NAME)
