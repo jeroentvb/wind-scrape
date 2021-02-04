@@ -37,22 +37,26 @@ async function windfinder (spotname: string): Promise<WindfinderData> {
   }
 }
 
-async function windguru (spot: number | string): Promise<WindguruData> {
+async function windguru (spot: number | string, model?: string | number): Promise<WindguruData> {
   if (!spot) throw new Error(WindguruErrors.NO_SPOT_NUMBER)
   if (typeof spot !== 'number' && typeof spot !== 'string') throw new TypeError(WindguruErrors.INCORRECT_SPOT_TYPE)
+  if (model && (typeof model !== 'string'&& typeof model !== 'number')) throw new TypeError(WindguruErrors.INCORRECT_MODEL_TYPE)
 
-  const url = UrlBuilder.windguru(spot)
+  const url = UrlBuilder.windguru(spot, model)
 
   try {
     const res = await fetch(url)
     const txt = await res.text()
+
+    console.log(txt)
 
     const windguru = new Windguru(txt)
       .extract()
       .parse()
       .get()
 
-    if (!windguru.spot) throw new Error(WindfinderErrors.SPOT_DOES_NOT_EXIST)
+    if (!windguru.spot) throw new Error(WindguruErrors.SPOT_DOES_NOT_EXIST)
+    if (windguru.models.length < 1) throw new Error(WindguruErrors.SELECTED_MODEL_DOES_NOT_EXIST)
 
     return windguru
   } catch (err) {
