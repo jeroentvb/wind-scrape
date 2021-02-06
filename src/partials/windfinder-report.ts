@@ -1,37 +1,45 @@
-import { ExtractedWindReport } from '../interfaces/wind-report';
-import { WindReport } from '../interfaces/wind-report';
+import puppeteer from 'puppeteer'
 
-export default class Report {
-  readonly data: ExtractedWindReport
-  readonly spot: string
-  private parsedData!: WindReport
+import Report from '../partials/data-parsers/windfinder-report-parser'
+import TypeCheck from '../partials/utils/type-check'
+import UrlBuilder from '../partials/utils/url-builder'
 
-  constructor (spot: string, data: ExtractedWindReport) {
-    this.spot = spot
-    this.data = data
+import { WindReport, ExtractedWindReport } from '../interfaces/wind-report'
+
+import { REQUEST_TIMEOUT, WindReportErrors, WIND_REPORT_API_URL } from '../constants'
+
+export default async function windReport (spotname: string): Promise<WindReport> {
+  TypeCheck.windReport(spotname)
+  
+  const url = UrlBuilder.windReport(spotname)
+
+  let data: ExtractedWindReport = []
+
+  const browser = await puppeteer.launch()
+  const page = await browser.newPage()
+
+  try {
+    page.on('response', async (res) => {
+      if (res.url().includes(WIND_REPORT_API_URL) && res.url().includes('reports')) {
+        data = await res.json()
+      }
+    })
+
+    await page.goto(url, { waitUntil: 'networkidle0', timeout: 0 })
+    await browser.close()
+
+    if (data.length < 1) throw new Error(WindReportErrors.NO_SPOT_OR_REPORT)
+
+    const report = new Report(spotname, data)
+      .parse()
+      .get()
+
+    return report
+  } catch (err) {
+    await browser.close()
+
+    if (err.name === 'TimeoutError') throw new Error(REQUEST_TIMEOUT)
+
+    throw err
   }
-
-  parse (): this {
-    const report = this.data.map(datapoint => ({
-      windspeed: datapoint.ws,
-      winddirection: datapoint.wd,
-      time: datapoint.dtl,
-      ...(datapoint.wg && { windgust: datapoint.wg }),
-      ...(datapoint.at && { temperature: datapoint.at }),
-      ...(datapoint.ap && { airPressure: datapoint.ap })
-    }))
-
-    this.parsedData = {
-      name: 'Windfinder report',
-      spot: this.spot,
-      report
-    }
-    
-    return this
-  }
-
-  get (): WindReport {
-    return this.parsedData
-  }
-
 }

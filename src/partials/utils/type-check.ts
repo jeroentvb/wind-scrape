@@ -1,4 +1,4 @@
-import { WindfinderErrors, WindguruErrors, WindReportErrors, WindyErrors } from '../constants'
+import { WindfinderErrors, WindguruErrors, WindReportErrors, WindyErrors } from '../../constants'
 
 export default class TypeCheck {
 
