@@ -3,24 +3,23 @@ import fetch from 'node-fetch'
 
 import Windfinder from './partials/windfinder'
 import Windguru from './partials/windguru'
-import UrlBuilder from './partials/url-builder'
 import Windy from './partials/windy'
 import Report from './partials/windfinder-report'
+import UrlBuilder from './partials/url-builder'
+import TypeCheck from './partials/type-check'
 
 import { WindfinderData } from './interfaces/windfinder'
 import { WindguruData } from './interfaces/windguru'
 import { WindyData } from './interfaces/windy'
 import { WindReport, ExtractedWindReport } from './interfaces/wind-report'
 
-import { REQUEST_TIMEOUT, WindfinderErrors, WindguruErrors, WindReportErrors, WindyErrors, WIND_REPORT_API_URL } from './constants'
+import { REQUEST_TIMEOUT, WindfinderErrors, WindguruErrors, WindReportErrors, WIND_REPORT_API_URL } from './constants'
 
 async function windfinder (spotname: string): Promise<WindfinderData> {
-  if (!spotname) throw new Error(WindfinderErrors.NO_SPOT_NAME)
-  if (typeof spotname !== 'string') throw new TypeError(WindfinderErrors.INCORRECT_SPOT_TYPE)
-
-  const url = UrlBuilder.windfinder(spotname)
-
   try {
+    TypeCheck.windfinder(spotname)
+
+    const url = UrlBuilder.windfinder(spotname)
     const res = await fetch(url)
     const html = await res.text()
 
@@ -38,13 +37,10 @@ async function windfinder (spotname: string): Promise<WindfinderData> {
 }
 
 async function windguru (spot: number | string, model?: string | number): Promise<WindguruData> {
-  if (!spot) throw new Error(WindguruErrors.NO_SPOT_NUMBER)
-  if (typeof spot !== 'number' && typeof spot !== 'string') throw new TypeError(WindguruErrors.INCORRECT_SPOT_TYPE)
-  if (model && (typeof model !== 'string'&& typeof model !== 'number')) throw new TypeError(WindguruErrors.INCORRECT_MODEL_TYPE)
-
-  const url = UrlBuilder.windguru(spot, model)
-
   try {
+    TypeCheck.windguru(spot, model)
+
+    const url = UrlBuilder.windguru(spot, model)
     const res = await fetch(url)
     const txt = await res.text()
 
@@ -65,16 +61,14 @@ async function windguru (spot: number | string, model?: string | number): Promis
 }
 
 async function windy (lat: string | number, long: string | number): Promise<WindyData> {
-  if (!lat || !long) throw new Error(WindyErrors.NO_COORDINATES)
-  if ((typeof lat !== 'string' && typeof lat !== 'number') || (typeof long !== 'string' && typeof long !== 'number'))
-    throw new TypeError(WindyErrors.INCORRECT_COORDINATES_TYPE)
+  TypeCheck.windy(lat, long)
 
   const url = UrlBuilder.windy(lat, long)
-
   const browser = await puppeteer.launch()
-  const page = await browser.newPage()
 
   try {
+    const page = await browser.newPage()
+
     await page.goto(url, { waitUntil: 'networkidle0', timeout: 0 })
 
     const html = await page.evaluate(() => document.body.innerHTML)
@@ -96,9 +90,8 @@ async function windy (lat: string | number, long: string | number): Promise<Wind
 }
 
 async function windReport (spotname: string): Promise<WindReport> {
-  if (!spotname) throw new Error(WindReportErrors.NO_SPOT)
-  if (typeof spotname !== 'string') throw new TypeError(WindReportErrors.INCORRECT_SPOT_TYPE)
-
+  TypeCheck.windReport(spotname)
+  
   const url = UrlBuilder.windReport(spotname)
 
   let data: ExtractedWindReport = []
