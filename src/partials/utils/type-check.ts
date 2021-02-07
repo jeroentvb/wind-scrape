@@ -26,6 +26,38 @@ export default class TypeCheck {
     }
   }
 
+  static customWindguru (coordinates: any, credentials: any, model?: any) {
+    if (!coordinates || !credentials) {
+      throw new TypeError(WindguruErrors.NO_COORDINATES_OR_CREDENTIALS)
+    }
+
+    if (!coordinates.lat || !coordinates.lon) {
+      throw new TypeError(WindguruErrors.NO_COORDINATES_SPECIFIED)
+    }
+
+    if (
+      (typeof coordinates.lat !== 'string' && typeof coordinates.lat !== 'number') ||
+      (typeof coordinates.lon !== 'string' && typeof coordinates.lon !== 'number')
+    ) {
+      throw new TypeError(WindguruErrors.COORDINATES_INCORRECT_TYPE)
+    }
+
+    if (!credentials.username || !credentials.password) {
+      throw new TypeError(WindguruErrors.NO_CREDENTIALS_SPECIFIED)
+    }
+
+    if (
+      typeof credentials.username !== 'string' ||
+      typeof credentials.password !== 'string'
+    ) {
+      throw new TypeError(WindguruErrors.CREDENTIALS_INCORRECT_TYPE)
+    }
+
+    if (model && (typeof model !== 'string'&& typeof model !== 'number')) {
+      throw new TypeError(WindguruErrors.INCORRECT_MODEL_TYPE)
+    }
+  }
+
   static windy (lat: any, lon: any) {
     if (!lat || !lon) {
       throw new Error(WindyErrors.NO_COORDINATES)

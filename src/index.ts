@@ -1,5 +1,5 @@
 import windfinder from './partials/windfinder'
-import windguru from './partials/windguru'
+import { windguru, customWindguru } from './partials/windguru'
 import windy from './partials/windy'
 import windReport from './partials/windfinder-report'
 
@@ -11,6 +11,7 @@ import { WindReport } from './interfaces/wind-report'
 export {
   windfinder,
   windguru,
+  customWindguru,
   windy,
   windReport,
 
