@@ -28,13 +28,13 @@ async function customWindguru (coordinates: Coordinates, credentials: Credential
 
     const url = UrlBuilder.customWindguru(coordinates, credentials)
 
-    return getWindguru(url)
+    return getWindguru(url, true)
   } catch (err) {
     throw err
   }
 }
 
-async function getWindguru (url: string): Promise<WindguruData> {
+async function getWindguru (url: string, custom = false): Promise<WindguruData> {
   try {
     const res = await fetch(url)
     const txt = await res.text()
@@ -45,7 +45,8 @@ async function getWindguru (url: string): Promise<WindguruData> {
       .get()
       
     if (!windguru.spot) throw new Error(WindguruErrors.SPOT_DOES_NOT_EXIST)
-    if (windguru.models.length < 1) throw new Error(WindguruErrors.SELECTED_MODEL_DOES_NOT_EXIST)  
+    if (windguru.models.length < 1 && !custom) throw new Error(WindguruErrors.SELECTED_MODEL_DOES_NOT_EXIST)  
+    if (windguru.models.length < 1 && custom) throw new Error(WindguruErrors.MODEL_NOT_AVAILABLE)  
 
     return windguru
   } catch (err) {
