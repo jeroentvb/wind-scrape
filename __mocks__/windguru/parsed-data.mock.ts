@@ -5,7 +5,8 @@ module.exports = {
           "lat": "36",
           "lng": "-5.65"
       },
-      "altitude": "16 C"
+      "altitude": undefined,
+      "temperature": "16 C"
   },
   "models": [
       {

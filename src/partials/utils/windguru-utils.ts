@@ -1,20 +1,26 @@
-import { SpotInfo } from '../../interfaces/windguru'
+import { ExtractedWindguruSpotData, SpotInfo } from '../../interfaces/windguru'
 
 export default class WindguruUtils {
   protected parseSpotInfo (str: string): SpotInfo {
-    const spotData =  str
+    const spotDataString = str
       .split(',')
       .map(item => item.trim())
-      .map(item => (item.split(':')[1] ? item.split(':')[1] : item.split(':')[0]).trim())
+      .filter((item) => item.includes(':'))
+      .map(item => item.trim())
+      .map(item => item.split(':').map(item2 => '\"' + item2.trim() + '\"').join(':'))
+      .join(',')
+
+    const spotData: ExtractedWindguruSpotData = JSON.parse('{' + spotDataString + '}')
+    const spotName = str.split(',')[0].trim()
 
     return {
-      name: spotData[0],
+      name: spotName.includes(':') ? undefined : spotName,
       coordinates: {
-        lat: spotData[1],
-        lng: spotData[2]
+        lat: spotData.lat,
+        lng: spotData.lon
       },
-      altitude: spotData[3],
-      temperature: spotData[4]
+      altitude: spotData.alt,
+      temperature: spotData.SST
     }
   }
 
