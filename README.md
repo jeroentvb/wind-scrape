@@ -22,7 +22,10 @@ If you are going to use this package in a project I highly recommend implementin
 
 # Wind scrape
 [![Maintainability](https://api.codeclimate.com/v1/badges/f9070ac5a17f58cd5bf0/maintainability)](https://codeclimate.com/github/jeroentvb/wind-scrape/maintainability)  
-This package can scrape wind forecast from windfinder superforecast and windguru.
+Wind-scrape can scrape wind forecasts from the following websites:
+* Windfinder (superforecast & observations)
+* Windguru (spots & custom spots (custom spots requires windguru PRO))
+* Windy
 
 ## Table of contents
 * [Installation](#installation)
@@ -60,6 +63,17 @@ scrape.windguru(43)
   .then(data => console.log(data)
   .catch(err => console.error(err)
 
+// Scrape custom windguru spot
+scrape.customWindguru({
+    lat: 31.510627,
+    lon: -40.718838
+}, {
+    username: 'your windguru username',
+    password: 'your secondary windguru pasword'
+})
+  .then(data => console.log(data)
+  .catch(err => console.error(err)
+
 // Scrape windy spot
 scrape.windy(36.012, -5.611)
   .then(data => console.log(data)
@@ -72,7 +86,9 @@ scrape.windReport('tarifa')
 ```
 
 ### windfinder
-**scrape.windfinder(spotname)**  
+```js
+scrape.windfinder(spotname)
+```
 Scrapes data from a windfinder superforecast page. Returns a promise which resolves in an object with the following format:
 <details>
  <summary>Windfinder data format</summary>
@@ -107,8 +123,10 @@ A string. Name of the spot to scrape. This is the part after `https://www.windfi
 Example: to scrape data for Tarifa Centro, use `tarifa`.
 
 ### windguru
-**scrape.windguru(url, modelNumbers)**  
-Scrapes data from selected windguru model (tables). Returns a promise which resolves in an object with the following format:
+```js
+scrape.windguru(spot, model)
+```
+Scrapes data from give windguru spot. Optionally get a specific model. Returns a promise which resolves in an object with the following format:
 <details>
  <summary>Windguru data format</summary>
  
@@ -120,7 +138,7 @@ Scrapes data from selected windguru model (tables). Returns a promise which reso
             "lat": "36",
             "lng": "-5.65"
         },
-        "altitude": "16 C"
+        "temperature": "16 C"
     },
     "models": [
         {
@@ -149,12 +167,78 @@ Scrapes data from selected windguru model (tables). Returns a promise which reso
 The included data may vary per forecast model. You can find the keys of variables on the [windguru micro help page](http://micro.windguru.cz/help.php). The only variable all hours have is `hour`.  
 Wave models are now included as well. They have different variables.
 
-#### spotnumber
-A string or integer. The number windguru uses for a spot.  
+#### spot
+A string or number. The number windguru uses for a spot.  
 Example: to scrape data for Tarifa, use `43`. You can get this number from the url of the forecast for a spot.
 
+#### model
+A string or number. If provided, wind-scrape will only get the forecastmode for the given spot. Model identifiers can be found [here](http://micro.windguru.cz/help.php).
+
+### custom windguru
+```js
+scrape.customWindguru(coordinates, credentials, model)
+```
+> ⚠️ **Requires a windguru PRO account**
+
+Scrapes data for the given coordinates. Optionally get a specific model. Returns a promise which resolves in an object with the following format:
+<details>
+ <summary>Windguru data format</summary>
+ 
+```json
+{
+    "spot": {
+        "coordinates": {
+            "lat": "36",
+            "lng": "-5.65"
+        },
+        "temperature": "25 C"
+    },
+    "models": [
+        {
+            "name": "GFS 27 km",
+            "days": [
+                {
+                    "date": "Tue 4",
+                    "hours": [
+                        {
+                            "wspd": "1",
+                            "gust": "2",
+                            "wdirn": "N",
+                            "wdeg": "352",
+                            "tmp": "16",
+                            "slp": "1027",
+                            "hcld": "0",
+                            "mcld": "0",
+                            "lcld": "-",
+                            "apcp": "0",
+                            "rh": "68",
+                            "hour": "10"
+                        }
+```
+</details>
+
+The included data may vary per forecast model. You can find the keys of variables on the [windguru micro help page](http://micro.windguru.cz/help.php). The only variable all hours have is `hour`.  
+Wave models are now included as well. They have different variables.
+
+#### coordinates
+Object in the following format:
+```json
+{
+    lat: 36,
+    lon: -5.65
+}
+```
+
+#### credentials
+
+
+#### model
+A string or number. If provided, wind-scrape will only get the forecastmode for the given spot. Model identifiers can be found [here](http://micro.windguru.cz/help.php).
+
 ### Windy
-**scrape.windy(lat, long)**  
+```js
+scrape.windy(lat, long)
+```
 Scrapes data for a custom location. Returns a promise which resolves in an object with the following format:
 <details>
  <summary>Windguru data format</summary>
@@ -189,11 +273,12 @@ Latitude of a spot
 
 #### long
 Longitude of a spot. Together these make up the coordinates of a spot.
-Consider the following windy url `https://www.windy.com/36.012/-5.611/wind?`. `36.012` would be the latitude, `-5.611` the longitude.  
-I recommend using windy specific coordinates. Though, any set of coordinates should work.
+Consider the following windy url `https://www.windy.com/36.012/-5.611/wind?`. `36.012` would be the latitude, `-5.611` the longitude.
 
 ### WindReport
-**scrape.windReport(spotname)**  
+```js
+scrape.windReport(spotname)
+```
 Gets the report data for a windfinder spot report. Returns a promise which resolves in an object with the following format:
 <details>
  <summary>Windguru data format</summary>
