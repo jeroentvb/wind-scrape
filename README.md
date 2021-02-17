@@ -222,7 +222,7 @@ Wave models are now included as well. They have different variables.
 
 #### coordinates
 Object in the following format:
-```json
+```js
 {
     lat: 36,
     lon: -5.65
@@ -230,7 +230,14 @@ Object in the following format:
 ```
 
 #### credentials
-
+Object in the following format:
+```js
+{
+    username: 'your windguru username',
+    password: 'your secondary windguru password'
+}
+```
+You can find/set your secondary windguru password on windguru under settings -> login -> secondary password.
 
 #### model
 A string or number. If provided, wind-scrape will only get the forecastmode for the given spot. Model identifiers can be found [here](http://micro.windguru.cz/help.php).
