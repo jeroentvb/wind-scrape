@@ -3,12 +3,12 @@ export interface WindguruData {
     models: WindguruModel[];
 }
 export interface SpotInfo {
-    name: string;
+    name?: string;
     coordinates: {
         lat: string;
         lng: string;
     };
-    altitude: string;
+    altitude?: string;
     temperature: string;
 }
 export interface WindguruModel {
@@ -31,4 +31,10 @@ export interface ExtractedWindguruModelData {
     data: {
         [key: string]: string;
     }[];
+}
+export interface ExtractedWindguruSpotData {
+    lat: string;
+    lon: string;
+    alt?: string;
+    SST: string;
 }

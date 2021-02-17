@@ -1,12 +1,6 @@
-import WindguruUtils from './utils/windguru-utils';
 import { WindguruData } from '../interfaces/windguru';
-export default class Windguru extends WindguruUtils {
-    readonly data: string;
-    private extractedData;
-    private parsedData;
-    constructor(data: string);
-    extract(): this;
-    parse(): this;
-    get(): WindguruData;
-    private extractModel;
-}
+import { Coordinates } from '../interfaces/coordinates';
+import { Credentials } from '../interfaces/credentials';
+declare function windguru(spot: number | string, model?: string | number): Promise<WindguruData>;
+declare function customWindguru(coordinates: Coordinates, credentials: Credentials, model?: string | number): Promise<WindguruData>;
+export { windguru, customWindguru };

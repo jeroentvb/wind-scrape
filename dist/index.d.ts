@@ -1,9 +1,9 @@
+import windfinder from './partials/windfinder';
+import { windguru, customWindguru } from './partials/windguru';
+import windy from './partials/windy';
+import windReport from './partials/windfinder-report';
 import { WindfinderData } from './interfaces/windfinder';
 import { WindguruData } from './interfaces/windguru';
 import { WindyData } from './interfaces/windy';
 import { WindReport } from './interfaces/wind-report';
-declare function windfinder(spotname: string): Promise<WindfinderData>;
-declare function windguru(spot: number | string): Promise<WindguruData>;
-declare function windy(lat: string | number, long: string | number): Promise<WindyData>;
-declare function windReport(spotname: string): Promise<WindReport>;
-export { windfinder, windguru, windy, windReport, WindfinderData, WindguruData, WindyData, WindReport };
+export { windfinder, windguru, customWindguru, windy, windReport, WindfinderData, WindguruData, WindyData, WindReport };
