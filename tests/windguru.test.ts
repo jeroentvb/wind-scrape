@@ -1,7 +1,7 @@
 /* global describe, it, expect */
 
-const Windguru = require('../dist/partials/windguru').default
-const mockData = require('../__mocks__/mock-data')
+const Windguru = require('../dist/partials/data-parsers/windguru-parser').default
+const mockData = require('./mocks/mock-data')
 
 describe('The windguru class', () => {
   it('should return the parsed data after calling extract, parse and get', () => {

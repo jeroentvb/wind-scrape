@@ -1,10 +1,22 @@
 const scrape = require('../dist/index')
 const helper = require('jeroentvb-helper')
 
+require('dotenv').config()
+
 const url = {
   windfinder: 'tarifa',
   windguru: {
-    spot: 3424234234242
+    spot: 43
+  },
+  customWindguru: {
+    coordinates: {
+      lat: 20.933591,
+      lon: -156.357992
+    },
+    credentials: {
+      username: process.env.WINDGURU_USERNAME,
+      password: process.env.WINDGURU_PASSWORD
+    }
   },
   windy: {
     lat: '36.012',
@@ -15,12 +27,21 @@ const url = {
 
 const test = {
   all: () => {
-    Promise.all([
+    const promises = [
       scrape.windfinder(url.windfinder),
-      scrape.windguru(url.windguru.spot, url.windguru.modelNumbers),
+      scrape.windguru(url.windguru.spot),
       scrape.windy(url.windy.lat, url.windy.long),
       scrape.windReport(url.report)
-    ])
+    ]
+
+    if (url.customWindguru.credentials.username && url.customWindguru.credentials.password) {
+      promises.push(scrape.customWindguru(
+        url.customWindguru.coordinates,
+        url.customWindguru.credentials
+      ))
+    }
+
+    Promise.all(promises)
       .then(res => {
         console.log(res)
         helper.export.json('allData', res)
@@ -41,8 +62,21 @@ const test = {
     try {
       const data = await scrape.windguru(url.windguru.spot)
 
-      // console.log(data)
+      console.log(data)
       helper.export.json('windguru', data)
+    } catch (err) {
+      console.error(err)
+    }
+  },
+  customWindguru: async () => {
+    try {
+      const data = await scrape.customWindguru(
+        url.customWindguru.coordinates,
+        url.customWindguru.credentials
+      )
+
+      console.log(data)
+      helper.export.json('custom-windguru', data)
     } catch (err) {
       console.error(err)
     }
@@ -79,6 +113,9 @@ switch (process.argv[2]) {
   case 'windguru':
     test.windguru()
     break
+  case 'customWindguru':
+    test.customWindguru()
+    break
   case 'windy':
     test.windy()
     break
@@ -86,5 +123,5 @@ switch (process.argv[2]) {
     test.windReport()
     break
   default:
-    throw new Error('No test specified. Available: all, windfinder, windguru, windy, report')
+    throw new Error('No test specified. Available: all, windfinder, windguru, customWindguru, windy, report')
 }
