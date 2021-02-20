@@ -46,7 +46,8 @@ async function getWindguru (url: string, custom = false): Promise<WindguruData> 
       
     if (!windguru.spot) throw new Error(WindguruErrors.SPOT_DOES_NOT_EXIST)
     if (windguru.models.length < 1 && !custom) throw new Error(WindguruErrors.SELECTED_MODEL_DOES_NOT_EXIST)  
-    if (windguru.models.length < 1 && custom) throw new Error(WindguruErrors.MODEL_NOT_AVAILABLE)  
+    if (windguru.models.length < 1 && custom) throw new Error(WindguruErrors.MODEL_NOT_AVAILABLE)
+    if (windguru.models[0].name.includes('Wrong password')) throw new Error(WindguruErrors.PRO_ACCOUNT_REQUIRED)
 
     return windguru
   } catch (err) {
