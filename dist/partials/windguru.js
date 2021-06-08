@@ -45,6 +45,8 @@ async function getWindguru(url, custom = false) {
             throw new Error(constants_1.WindguruErrors.SELECTED_MODEL_DOES_NOT_EXIST);
         if (windguru.models.length < 1 && custom)
             throw new Error(constants_1.WindguruErrors.MODEL_NOT_AVAILABLE);
+        if (windguru.models[0].name.includes('Wrong password'))
+            throw new Error(constants_1.WindguruErrors.PRO_ACCOUNT_REQUIRED);
         return windguru;
     }
     catch (err) {

@@ -20,6 +20,7 @@ var WindguruErrors;
     WindguruErrors["NO_CREDENTIALS_SPECIFIED"] = "no credentials specified. Please check if the keys are correct";
     WindguruErrors["CREDENTIALS_INCORRECT_TYPE"] = "coordinates.username and .password must be of type string or number";
     WindguruErrors["MODEL_NOT_AVAILABLE"] = "the selected model isn't available for the provided coordinates, or the provided coordinates are incorrect";
+    WindguruErrors["PRO_ACCOUNT_REQUIRED"] = "getting a custom windguru spot requires a windguru PRO account";
 })(WindguruErrors = exports.WindguruErrors || (exports.WindguruErrors = {}));
 var WindyErrors;
 (function (WindyErrors) {
