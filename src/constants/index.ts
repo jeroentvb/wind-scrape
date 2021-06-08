@@ -15,7 +15,8 @@ export enum WindguruErrors {
   COORDINATES_INCORRECT_TYPE = 'coordinates.lat and .lon must be of type string or number',
   NO_CREDENTIALS_SPECIFIED = 'no credentials specified. Please check if the keys are correct',
   CREDENTIALS_INCORRECT_TYPE = 'coordinates.username and .password must be of type string or number',
-  MODEL_NOT_AVAILABLE = 'the selected model isn\'t available for the provided coordinates, or the provided coordinates are incorrect'
+  MODEL_NOT_AVAILABLE = 'the selected model isn\'t available for the provided coordinates, or the provided coordinates are incorrect',
+  PRO_ACCOUNT_REQUIRED = 'getting a custom windguru spot requires a windguru PRO account'
 }
 
 export enum WindyErrors {
