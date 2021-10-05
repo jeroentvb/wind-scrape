@@ -38,8 +38,8 @@
   },
   "devDependencies": {
     "@types/cheerio": "^0.22.29",
-    "@types/jest": "^26.0.23",
-    "@types/node": "^15.12.3",
+    "@types/jest": "^27.0.2",
+    "@types/node": "^16.10.2",
     "@types/node-fetch": "^2.5.10",
     "@types/puppeteer": "^5.4.3",
     "dotenv": "^10.0.0",
