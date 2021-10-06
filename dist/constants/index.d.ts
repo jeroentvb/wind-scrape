@@ -28,3 +28,4 @@ export declare enum WindReportErrors {
 }
 export declare const REQUEST_TIMEOUT = "The request timed out after 30000ms";
 export declare const WIND_REPORT_API_URL = "https://api.windfinder.com/v2/spots";
+export declare const PPTR_TIMEOUT = "TimeoutError";

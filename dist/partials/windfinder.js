@@ -12,7 +12,7 @@ async function windfinder(spotname) {
     try {
         type_check_1.default.windfinder(spotname);
         const url = url_builder_1.default.windfinder(spotname);
-        const res = await node_fetch_1.default(url);
+        const res = await (0, node_fetch_1.default)(url);
         const html = await res.text();
         const windfinder = new windfinder_parser_1.default(html)
             .extract()

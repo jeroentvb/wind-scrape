@@ -23,9 +23,9 @@ async function windy(lat, long) {
             .get();
         return windy;
     }
-    catch (err) {
+    catch (err) { // TODO type correctly
         await browser.close();
-        if (err.name === 'TimeoutError')
+        if (err.name === constants_1.PPTR_TIMEOUT)
             throw new Error(constants_1.REQUEST_TIMEOUT);
         throw err;
     }

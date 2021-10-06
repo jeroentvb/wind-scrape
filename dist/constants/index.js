@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.WIND_REPORT_API_URL = exports.REQUEST_TIMEOUT = exports.WindReportErrors = exports.WindyErrors = exports.WindguruErrors = exports.WindfinderErrors = void 0;
+exports.PPTR_TIMEOUT = exports.WIND_REPORT_API_URL = exports.REQUEST_TIMEOUT = exports.WindReportErrors = exports.WindyErrors = exports.WindguruErrors = exports.WindfinderErrors = void 0;
 var WindfinderErrors;
 (function (WindfinderErrors) {
     WindfinderErrors["NO_SPOT_NAME"] = "no spot name specified";
@@ -35,3 +35,4 @@ var WindReportErrors;
 })(WindReportErrors = exports.WindReportErrors || (exports.WindReportErrors = {}));
 exports.REQUEST_TIMEOUT = 'The request timed out after 30000ms';
 exports.WIND_REPORT_API_URL = 'https://api.windfinder.com/v2/spots';
+exports.PPTR_TIMEOUT = 'TimeoutError';

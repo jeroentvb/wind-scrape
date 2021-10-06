@@ -33,7 +33,7 @@ async function customWindguru(coordinates, credentials, model) {
 exports.customWindguru = customWindguru;
 async function getWindguru(url, custom = false) {
     try {
-        const res = await node_fetch_1.default(url);
+        const res = await (0, node_fetch_1.default)(url);
         const txt = await res.text();
         const windguru = new windguru_parser_1.default(txt)
             .extract()
