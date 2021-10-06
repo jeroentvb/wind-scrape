@@ -1,4 +1,4 @@
-import puppeteer from 'puppeteer'
+import puppeteer, { PuppeteerErrors } from 'puppeteer'
 
 import Report from '../partials/data-parsers/windfinder-report-parser'
 import TypeCheck from '../partials/utils/type-check'
@@ -6,7 +6,7 @@ import UrlBuilder from '../partials/utils/url-builder'
 
 import { WindReport, ExtractedWindReport } from '../interfaces/wind-report'
 
-import { REQUEST_TIMEOUT, WindReportErrors, WIND_REPORT_API_URL } from '../constants'
+import { REQUEST_TIMEOUT, WindReportErrors, WIND_REPORT_API_URL, PPTR_TIMEOUT } from '../constants'
 
 export default async function windReport (spotname: string): Promise<WindReport> {
   TypeCheck.windReport(spotname)
@@ -35,10 +35,10 @@ export default async function windReport (spotname: string): Promise<WindReport>
       .get()
 
     return report
-  } catch (err) {
+  } catch (err: any) { // TODO type correctly
     await browser.close()
 
-    if (err.name === 'TimeoutError') throw new Error(REQUEST_TIMEOUT)
+    if (err.name === PPTR_TIMEOUT) throw new Error(REQUEST_TIMEOUT)
 
     throw err
   }

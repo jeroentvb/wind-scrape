@@ -33,3 +33,5 @@ export enum WindReportErrors {
 export const REQUEST_TIMEOUT = 'The request timed out after 30000ms'
 
 export const WIND_REPORT_API_URL = 'https://api.windfinder.com/v2/spots'
+
+export const PPTR_TIMEOUT = 'TimeoutError'
