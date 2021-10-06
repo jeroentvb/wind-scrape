@@ -6,7 +6,7 @@ import UrlBuilder from '../partials/utils/url-builder'
 
 import { WindyData } from '../interfaces/windy'
 
-import { REQUEST_TIMEOUT } from '../constants'
+import { PPTR_TIMEOUT, REQUEST_TIMEOUT } from '../constants'
 
 export default async function windy (lat: string | number, long: string | number): Promise<WindyData> {
   TypeCheck.windy(lat, long)
@@ -28,10 +28,10 @@ export default async function windy (lat: string | number, long: string | number
       .get()
 
     return windy
-  } catch (err) {
+  } catch (err: any) { // TODO type correctly
     await browser.close()
 
-    if (err.name === 'TimeoutError') throw new Error(REQUEST_TIMEOUT)
+    if (err.name === PPTR_TIMEOUT) throw new Error(REQUEST_TIMEOUT)
 
     throw err
   }
