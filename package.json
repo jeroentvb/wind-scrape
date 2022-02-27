@@ -35,7 +35,7 @@
   "homepage": "https://github.com/jeroentvb/wind-scrape#readme",
   "dependencies": {
     "cheerio": "^1.0.0-rc.10",
-    "node-fetch": "^2.6.1",
+    "node-fetch": "^2.6.7",
     "puppeteer": "^13.4.0"
   },
   "devDependencies": {
