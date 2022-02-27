@@ -1,3 +1,6 @@
+# v4.1.3
+* Update dependencies
+
 # v4.1.0
 * Add functionality to scrape a custom windguru spot
 * Add possibility to get a single windguru model
