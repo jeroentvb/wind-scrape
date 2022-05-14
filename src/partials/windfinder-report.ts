@@ -1,45 +1,45 @@
-import puppeteer, { PuppeteerErrors } from 'puppeteer'
+import puppeteer from 'puppeteer';
 
-import Report from '../partials/data-parsers/windfinder-report-parser'
-import TypeCheck from '../partials/utils/type-check'
-import UrlBuilder from '../partials/utils/url-builder'
+import Report from '../partials/data-parsers/windfinder-report-parser';
+import TypeCheck from '../partials/utils/type-check';
+import UrlBuilder from '../partials/utils/url-builder';
 
-import { WindReport, ExtractedWindReport } from '../interfaces/wind-report'
+import { WindReport, ExtractedWindReport } from '../interfaces/wind-report';
 
-import { REQUEST_TIMEOUT, WindReportErrors, WIND_REPORT_API_URL, PPTR_TIMEOUT } from '../constants'
+import { REQUEST_TIMEOUT, WindReportErrors, WIND_REPORT_API_URL, PPTR_TIMEOUT } from '../constants';
 
-export default async function windReport (spotname: string): Promise<WindReport> {
-  TypeCheck.windReport(spotname)
-  
-  const url = UrlBuilder.windReport(spotname)
+export default async function windReport(spotname: string): Promise<WindReport> {
+   TypeCheck.windReport(spotname);
 
-  let data: ExtractedWindReport = []
+   const url = UrlBuilder.windReport(spotname);
 
-  const browser = await puppeteer.launch()
-  const page = await browser.newPage()
+   let data: ExtractedWindReport = [];
 
-  try {
-    page.on('response', async (res) => {
-      if (res.url().includes(WIND_REPORT_API_URL) && res.url().includes('reports')) {
-        data = await res.json()
-      }
-    })
+   const browser = await puppeteer.launch();
+   const page = await browser.newPage();
 
-    await page.goto(url, { waitUntil: 'networkidle0', timeout: 0 })
-    await browser.close()
+   try {
+      page.on('response', async (res) => {
+         if (res.url().includes(WIND_REPORT_API_URL) && res.url().includes('reports')) {
+            data = await res.json();
+         }
+      });
 
-    if (data.length < 1) throw new Error(WindReportErrors.NO_SPOT_OR_REPORT)
+      await page.goto(url, { waitUntil: 'networkidle0', timeout: 0 });
+      await browser.close();
 
-    const report = new Report(spotname, data)
-      .parse()
-      .get()
+      if (data.length < 1) throw new Error(WindReportErrors.NO_SPOT_OR_REPORT);
 
-    return report
-  } catch (err: any) { // TODO type correctly
-    await browser.close()
+      const report = new Report(spotname, data)
+         .parse()
+         .get();
 
-    if (err.name === PPTR_TIMEOUT) throw new Error(REQUEST_TIMEOUT)
+      return report;
+   } catch (err: any) { // TODO type correctly
+      await browser.close();
 
-    throw err
-  }
+      if (err.name === PPTR_TIMEOUT) throw new Error(REQUEST_TIMEOUT);
+
+      throw err;
+   }
 }

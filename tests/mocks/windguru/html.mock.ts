@@ -991,4 +991,4 @@ GWAM 27 km (init: 2020-02-04 12 UTC)
 &copy; 2000 - 2020 Windguru    
 </body>
 </html>
-`
+`;
