@@ -30,8 +30,8 @@ export enum WindReportErrors {
   NO_SPOT_OR_REPORT = 'the spot doesn\'t exist or doesn\'t have a report'
 }
 
-export const REQUEST_TIMEOUT = 'The request timed out after 30000ms'
+export const REQUEST_TIMEOUT = 'The request timed out after 30000ms';
 
-export const WIND_REPORT_API_URL = 'https://api.windfinder.com/v2/spots'
+export const WIND_REPORT_API_URL = 'https://api.windfinder.com/v2/spots';
 
-export const PPTR_TIMEOUT = 'TimeoutError'
+export const PPTR_TIMEOUT = 'TimeoutError';
