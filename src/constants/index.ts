@@ -1,4 +1,4 @@
-export * from './messages';
+export * from './messages.js';
 
 export const WIND_REPORT_API_URL = 'https://api.windfinder.com/v2/spots';
 

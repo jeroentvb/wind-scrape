@@ -1,4 +1,4 @@
-import { WIND_DIRECTIONS } from '../../constants';
+import { WIND_DIRECTIONS } from '../../constants/index.js';
 
 export function sliceDay<T>(array: T[], index: number): T[] {
    switch (index) {

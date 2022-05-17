@@ -1,5 +1,4 @@
-import { ExtractedWindReport } from '../../interfaces/wind-report';
-import { WindReport } from '../../interfaces/wind-report';
+import type { ExtractedWindReport, WindReport } from '../../interfaces/wind-report.js';
 
 export default class Report {
    readonly data: ExtractedWindReport;

@@ -1,6 +1,6 @@
-import DataHelper from '../utils/data-helper';
-import { reverseDate } from '../utils/windy-utils';
-import type { ExtractedWindyData, WindyData, WindyModelDay, WindyModelHour } from '../../interfaces/windy';
+import DataHelper from '../utils/data-helper.js';
+import { reverseDate } from '../utils/windy-utils.js';
+import type { ExtractedWindyData, WindyData, WindyModelDay, WindyModelHour } from '../../interfaces/windy.js';
 
 export default class Windy extends DataHelper {
    private extractedData!: ExtractedWindyData;

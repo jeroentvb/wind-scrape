@@ -1,5 +1,5 @@
-import { getDate, getHour, parseLegend, parseModelInfo, parseSpotInfo } from '../utils/windguru-utils';
-import type { ExtractedWindguruData, ExtractedWindguruModelData, SpotInfo, WindguruData, WindguruModelDay } from '../../interfaces/windguru';
+import { getDate, getHour, parseLegend, parseModelInfo, parseSpotInfo } from '../utils/windguru-utils.js';
+import type { ExtractedWindguruData, ExtractedWindguruModelData, SpotInfo, WindguruData, WindguruModelDay } from '../../interfaces/windguru.js';
 
 export default class Windguru {
    readonly data: string;

@@ -1,7 +1,7 @@
-const scrape = require('../dist/index');
-const helper = require('jeroentvb-helper');
+import * as scrape from '../dist/index.js';
+import helper from 'jeroentvb-helper';
 
-require('dotenv').config();
+import 'dotenv/config';
 
 const url = {
    windfinder: 'tarifa',
@@ -113,7 +113,7 @@ switch (process.argv[2]) {
    case 'windguru':
       test.windguru();
       break;
-   case 'customWindguru':
+   case 'custom-windguru':
       test.customWindguru();
       break;
    case 'windy':
