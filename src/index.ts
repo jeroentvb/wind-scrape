@@ -5,7 +5,7 @@ import windReport from './partials/windfinder-report.js';
 
 import type { WindfinderData } from './interfaces/windfinder.js';
 import type { WindguruData } from './interfaces/windguru.js';
-import type { WindyData } from './interfaces/windy.js';
+import type { WindyModel } from './interfaces/windy.js';
 import type { WindReport } from './interfaces/wind-report.js';
 
 export {
@@ -18,6 +18,6 @@ export {
    // Expose types
    WindfinderData,
    WindguruData,
-   WindyData,
+   WindyModel,
    WindReport
 };

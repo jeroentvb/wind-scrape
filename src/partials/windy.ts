@@ -6,10 +6,10 @@ import { getWindyUrl } from '../partials/utils/url-builder.js';
 
 import { PPTR_TIMEOUT, REQUEST_TIMEOUT } from '../constants/index.js';
 
-import type { WindyData } from '../interfaces/windy.js';
+import type { WindyModel } from '../interfaces/windy.js';
 
 
-export default async function windy(lat: string | number, long: string | number): Promise<WindyData> {
+export default async function windy(lat: string | number, long: string | number): Promise<WindyModel[]> {
    typeCheckWindy(lat, long);
 
    const url = getWindyUrl(lat, long);

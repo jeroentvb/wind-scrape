@@ -1,10 +1,10 @@
 import DataHelper from '../utils/data-helper.js';
 import { reverseDate } from '../utils/windy-utils.js';
-import type { ExtractedWindyData, WindyData, WindyModelDay, WindyModelHour } from '../../interfaces/windy.js';
+import type { ExtractedWindyData, WindyModel, WindyModelDay, WindyModelHour } from '../../interfaces/windy.js';
 
 export default class Windy extends DataHelper {
    private extractedData!: ExtractedWindyData;
-   private parsedData!: WindyData;
+   private parsedData!: WindyModel[];
 
    constructor(html: string) {
       super(html);
@@ -14,7 +14,6 @@ export default class Windy extends DataHelper {
 
    extract(): this {
       this.extractedData = {
-         name: 'Windy',
          date: this.getDataArray(['.sticky-title-wrapper', '.td-days'], (el) => this.$(el).data('day')),
          models: this.getDataArray(['.legend-left', '.legend-windCombined'], (el, i) => {
             const windData: { windspeed: number[], windgust: number[], winddirection: number[] } = {
@@ -52,56 +51,53 @@ export default class Windy extends DataHelper {
    }
 
    parse(): this {
-      this.parsedData = {
-         name: this.extractedData.name,
-         models: this.extractedData.models.map((model) => {
-            const hours: WindyModelHour[] = model.time.map((hour, i) => ({
-               hour,
-               windspeed: model.windspeed[i],
-               windgust: model.windgust[i],
-               winddirection: model.winddirection[i]
-            }));
-            const days: WindyModelDay[] = [];
+      this.parsedData = this.extractedData.models.map((model) => {
+         const hours: WindyModelHour[] = model.time.map((hour, i) => ({
+            hour,
+            windspeed: model.windspeed[i],
+            windgust: model.windgust[i],
+            winddirection: model.winddirection[i]
+         }));
+         const days: WindyModelDay[] = [];
 
-            let dayIndex = 0;
-            let previousHour: WindyModelHour;
+         let dayIndex = 0;
+         let previousHour: WindyModelHour;
 
-            hours.forEach((hour, i) => {
-               if (i === 0) {
-                  days[0] = {
-                     date: this.extractedData.date[0] ? reverseDate(this.extractedData.date[0]) : null,
-                     hours: []
-                  };
+         hours.forEach((hour, i) => {
+            if (i === 0) {
+               days[0] = {
+                  date: this.extractedData.date[0] ? reverseDate(this.extractedData.date[0]) : null,
+                  hours: []
+               };
 
-                  days[0].hours.push(hour);
-               } else if (hour.hour < previousHour.hour) {
-                  // New day
-                  dayIndex++;
+               days[0].hours.push(hour);
+            } else if (hour.hour < previousHour.hour) {
+               // New day
+               dayIndex++;
 
-                  days[dayIndex] = {
-                     date: this.extractedData.date[dayIndex] ? reverseDate(this.extractedData.date[dayIndex] as string) : null,
-                     hours: []
-                  };
+               days[dayIndex] = {
+                  date: this.extractedData.date[dayIndex] ? reverseDate(this.extractedData.date[dayIndex] as string) : null,
+                  hours: []
+               };
 
-                  days[dayIndex].hours.push(hour);
-               } else {
-                  days[dayIndex].hours.push(hour);
-               }
+               days[dayIndex].hours.push(hour);
+            } else {
+               days[dayIndex].hours.push(hour);
+            }
 
-               previousHour = hour;
-            });
+            previousHour = hour;
+         });
 
-            return {
-               name: model.name,
-               days
-            };
-         })
-      };
+         return {
+            name: model.name,
+            days
+         };
+      });
 
       return this;
    }
 
-   get(): WindyData {
+   get(): WindyModel[] {
       return this.parsedData;
    }
 

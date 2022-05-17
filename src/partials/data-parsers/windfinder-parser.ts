@@ -40,7 +40,6 @@ export default class Windfinder extends DataHelper {
 
    parse(): this {
       this.parsedData = {
-         name: 'Windfinder',
          spot: this.extractedData.spot,
          days: this.extractedData.date
             .map((_, i) => this.getWindfinderDay(i))

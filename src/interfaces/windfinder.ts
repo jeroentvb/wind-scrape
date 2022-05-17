@@ -1,5 +1,4 @@
 export interface WindfinderData {
-  name: string
   spot: string
   days: WindfinderDataDay[]
 }

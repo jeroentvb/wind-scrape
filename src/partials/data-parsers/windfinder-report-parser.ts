@@ -21,7 +21,6 @@ export default class Report {
       }));
 
       this.parsedData = {
-         name: 'Windfinder report',
          spot: this.spot,
          report
       };

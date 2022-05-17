@@ -1,5 +1,4 @@
 export interface WindReport {
-  name: string
   spot: string
   report: WindReportItem[]
 }
