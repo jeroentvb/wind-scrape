@@ -1,17 +1,17 @@
 import puppeteer from 'puppeteer';
 
 import Windy from '../partials/data-parsers/windy-parser';
-import TypeCheck from '../partials/utils/type-check';
-import UrlBuilder from '../partials/utils/url-builder';
+import { typeCheckWindy } from '../partials/utils/type-check';
+import { getWindyUrl } from '../partials/utils/url-builder';
 
-import { WindyData } from '../interfaces/windy';
+import type { WindyData } from '../interfaces/windy';
 
 import { PPTR_TIMEOUT, REQUEST_TIMEOUT } from '../constants';
 
 export default async function windy(lat: string | number, long: string | number): Promise<WindyData> {
-   TypeCheck.windy(lat, long);
+   typeCheckWindy(lat, long);
 
-   const url = UrlBuilder.windy(lat, long);
+   const url = getWindyUrl(lat, long);
    const browser = await puppeteer.launch();
 
    try {
