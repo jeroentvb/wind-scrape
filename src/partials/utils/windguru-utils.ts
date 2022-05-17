@@ -1,4 +1,4 @@
-import type { ExtractedWindguruSpotData, SpotInfo } from '../../interfaces/windguru';
+import type { ExtractedWindguruSpotData, SpotInfo } from '../../interfaces/windguru.js';
 
 export function parseSpotInfo(str: string): SpotInfo {
    const spotDataString = str

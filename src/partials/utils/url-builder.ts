@@ -1,5 +1,5 @@
-import { Credentials } from '../../interfaces/credentials';
-import { Coordinates } from '../../interfaces/coordinates';
+import type { Credentials } from '../../interfaces/credentials.js';
+import type { Coordinates } from '../../interfaces/coordinates.js';
 
 export function getWindfinderUrl(spotname: string): string {
    return `https://www.windfinder.com/weatherforecast/${spotname}`;

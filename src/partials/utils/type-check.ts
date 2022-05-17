@@ -1,4 +1,4 @@
-import { WindfinderErrors, WindguruErrors, WindReportErrors, WindyErrors } from '../../constants';
+import { WindfinderErrors, WindguruErrors, WindReportErrors, WindyErrors } from '../../constants/index.js';
 
 export function typeCheckWindfinder(spotname: unknown) {
    if (!spotname) {

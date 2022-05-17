@@ -5,14 +5,15 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "private": true,
+  "type": "module",
   "files": [
     "dist/**/*"
   ],
   "scripts": {
     "test": "jest",
-    "watch-test": "jest --watch",
+    "test:watch": "jest --watch",
     "watch": "tsc -w",
-    "test-dev": "node tests/dev-sandbox.js",
+    "test:dev": "node tests/dev-sandbox.js",
     "build": "rm -rf ./dist && tsc",
     "build:prod": "npm run build && npm run package",
     "package": "npm pack && node scripts/unpack.js",

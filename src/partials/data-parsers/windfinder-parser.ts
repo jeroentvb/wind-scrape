@@ -1,6 +1,6 @@
-import { getWindDirection, sliceDay } from '../utils/windfinder-utils';
-import type { ExtractedWindfinderData, ParsedWindfinderDay, WindfinderData } from '../../interfaces/windfinder';
-import DataHelper from '../utils/data-helper';
+import { getWindDirection, sliceDay } from '../utils/windfinder-utils.js';
+import DataHelper from '../utils/data-helper.js';
+import type { ExtractedWindfinderData, ParsedWindfinderDay, WindfinderData } from '../../interfaces/windfinder.js';
 
 export default class Windfinder extends DataHelper {
    private extractedData!: ExtractedWindfinderData;

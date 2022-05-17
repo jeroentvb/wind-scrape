@@ -1,14 +1,14 @@
 import fetch from 'node-fetch';
 
-import Windguru from '../partials/data-parsers/windguru-parser';
-import { typeCheckWindguru, typeCheckCustomWindguru } from '../partials/utils/type-check';
-import { getWindguruUrl, getCustomWindguruUrl } from '../partials/utils/url-builder';
+import Windguru from '../partials/data-parsers/windguru-parser.js';
+import { typeCheckWindguru, typeCheckCustomWindguru } from '../partials/utils/type-check.js';
+import { getWindguruUrl, getCustomWindguruUrl } from '../partials/utils/url-builder.js';
 
-import type { WindguruData } from '../interfaces/windguru';
-import type { Coordinates } from '../interfaces/coordinates';
-import type { Credentials } from '../interfaces/credentials';
+import type { WindguruData } from '../interfaces/windguru.js';
+import type { Coordinates } from '../interfaces/coordinates.js';
+import type { Credentials } from '../interfaces/credentials.js';
 
-import { WindguruErrors } from '../constants';
+import { WindguruErrors } from '../constants/index.js';
 
 export async function windguru(spot: number | string, model?: string | number): Promise<WindguruData> {
    typeCheckWindguru(spot, model);

@@ -1,12 +1,12 @@
-import windfinder from './partials/windfinder';
-import { windguru, customWindguru } from './partials/windguru';
-import windy from './partials/windy';
-import windReport from './partials/windfinder-report';
+import windfinder from './partials/windfinder.js';
+import { windguru, customWindguru } from './partials/windguru.js';
+import windy from './partials/windy.js';
+import windReport from './partials/windfinder-report.js';
 
-import { WindfinderData } from './interfaces/windfinder';
-import { WindguruData } from './interfaces/windguru';
-import { WindyData } from './interfaces/windy';
-import { WindReport } from './interfaces/wind-report';
+import type { WindfinderData } from './interfaces/windfinder.js';
+import type { WindguruData } from './interfaces/windguru.js';
+import type { WindyData } from './interfaces/windy.js';
+import type { WindReport } from './interfaces/wind-report.js';
 
 export {
    windfinder,

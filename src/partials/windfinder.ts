@@ -1,12 +1,12 @@
 import fetch from 'node-fetch';
 
-import Windfinder from '../partials/data-parsers/windfinder-parser';
-import { typeCheckWindfinder } from '../partials/utils/type-check';
-import { getWindfinderUrl } from '../partials/utils/url-builder';
+import Windfinder from '../partials/data-parsers/windfinder-parser.js';
+import { typeCheckWindfinder } from '../partials/utils/type-check.js';
+import { getWindfinderUrl } from '../partials/utils/url-builder.js';
 
-import type { WindfinderData } from '../interfaces/windfinder';
+import type { WindfinderData } from '../interfaces/windfinder.js';
 
-import { WindfinderErrors } from '../constants';
+import { WindfinderErrors } from '../constants/index.js';
 
 export default async function windfinder(spotname: string): Promise<WindfinderData> {
    typeCheckWindfinder(spotname);
