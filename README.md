@@ -27,6 +27,8 @@ Wind-scrape can scrape wind forecasts from the following websites:
 * Windguru (spots & custom spots (custom spots requires windguru PRO))
 * Windy
 
+> ⚠️ Wind scrape is esm only
+
 ## Table of contents
 * [Installation](#installation)
 * [Usage](#usage)
@@ -48,20 +50,21 @@ Releases can be found [here](https://github.com/jeroentvb/wind-scrape/releases).
 
 ## Usage
 ```js
-const scrape = require('wind-scrape')
-
-// TypeScript
 import * as scrape from 'wind-scrape'
+
+// Or import a specific scrape function, e.g.
+
+import { windfinder } from 'wind-scrape'
 
 // Scrape windfinder spot
 scrape.windfinder('tarifa')
-  .then(data => console.log(data)
-  .catch(err => console.error(err)
+  .then(data => console.log(data))
+  .catch(err => console.error(err))
 
 // Scrape windguru spot
 scrape.windguru(43)
-  .then(data => console.log(data)
-  .catch(err => console.error(err)
+  .then(data => console.log(data))
+  .catch(err => console.error(err))
 
 // Scrape custom windguru spot
 scrape.customWindguru({
@@ -71,18 +74,18 @@ scrape.customWindguru({
     username: 'your windguru username',
     password: 'your secondary windguru pasword'
 })
-  .then(data => console.log(data)
-  .catch(err => console.error(err)
+  .then(data => console.log(data))
+  .catch(err => console.error(err))
 
 // Scrape windy spot
 scrape.windy(36.012, -5.611)
-  .then(data => console.log(data)
-  .catch(err => console.error(err)
+  .then(data => console.log(data))
+  .catch(err => console.error(err))
 
 // Scrape windreport of a windguru spot
 scrape.windReport('tarifa')
-  .then(data => console.log(data)
-  .catch(err => console.error(err)
+  .then(data => console.log(data))
+  .catch(err => console.error(err))
 ```
 
 ### windfinder
@@ -133,7 +136,6 @@ Scrapes data from give windguru spot. Optionally get a specific model. Returns a
 ```json
 {
     "spot": {
-        "name": "Spain - Tarifa",
         "coordinates": {
             "lat": "36",
             "lng": "-5.65"
@@ -251,27 +253,24 @@ Scrapes data for a custom location. Returns a promise which resolves in an objec
  <summary>Windguru data format</summary>
  
 ```json
-{
-    "name": "Windy",
-    "models": [
-        {
-            "name": "ECMWF 9km",
-            "days": [
-                {
-                    "date": "07-04-2019",
-                    "hours": [
-                        {
-                            "hour": 9,
-                            "windspeed": 20,
-                            "windgust": 30,
-                            "winddirection": 278
-                        }
-                    ]
-                }
-            ]
-        }
-    ]
-}
+[
+    {
+        "name": "ECMWF 9km",
+        "days": [
+            {
+                "date": "07-04-2019",
+                "hours": [
+                    {
+                        "hour": 9,
+                        "windspeed": 20,
+                        "windgust": 30,
+                        "winddirection": 278
+                    }
+                ]
+            }
+        ]
+    }
+]
 ```  
 </details>
 
@@ -292,7 +291,6 @@ Gets the report data for a windfinder spot report. Returns a promise which resol
  
 ```json
 {
-    "name": "Windfinder report",
     "spot": "tarifa",
     "report": [
         {
