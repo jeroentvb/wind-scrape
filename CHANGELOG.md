@@ -1,3 +1,16 @@
+# v5.0.0-beta.1
+### ⚠️ Breaking changes
+* Upgrade to puppeteer 14
+* Convert to esm
+* Remove name field from data output
+
+### Other changes
+* Add eslint config
+* Use functions instead of classes
+
+# v4.1.4
+* Update dependencies
+
 # v4.1.3
 * Update dependencies
 
