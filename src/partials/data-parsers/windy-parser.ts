@@ -1,8 +1,8 @@
-import WindyUtils from '../utils/windy-utils';
+import DataHelper from '../utils/data-helper';
+import { reverseDate } from '../utils/windy-utils';
+import type { ExtractedWindyData, WindyData, WindyModelDay, WindyModelHour } from '../../interfaces/windy';
 
-import { ExtractedWindyData, WindyData, WindyModelDay, WindyModelHour } from '../../interfaces/windy';
-
-export default class Windy extends WindyUtils {
+export default class Windy extends DataHelper {
    private extractedData!: ExtractedWindyData;
    private parsedData!: WindyData;
 
@@ -69,7 +69,7 @@ export default class Windy extends WindyUtils {
             hours.forEach((hour, i) => {
                if (i === 0) {
                   days[0] = {
-                     date: this.extractedData.date[0] ? this.reverseDate(this.extractedData.date[0]) : null,
+                     date: this.extractedData.date[0] ? reverseDate(this.extractedData.date[0]) : null,
                      hours: []
                   };
 
@@ -79,7 +79,7 @@ export default class Windy extends WindyUtils {
                   dayIndex++;
 
                   days[dayIndex] = {
-                     date: this.extractedData.date[dayIndex] ? this.reverseDate(this.extractedData.date[dayIndex] as string) : null,
+                     date: this.extractedData.date[dayIndex] ? reverseDate(this.extractedData.date[dayIndex] as string) : null,
                      hours: []
                   };
 
@@ -90,62 +90,6 @@ export default class Windy extends WindyUtils {
 
                previousHour = hour;
             });
-
-
-            // let dayIndex2 = 0
-            // const test2: WindyModelDay[] = [{
-            //   date: this.extractedData.date[0] ? this.reverseDate(this.extractedData.date[0] as string) : null,
-            //   hours: []
-            // }]
-
-            // hours.reduce((prev, current, i) => {
-            //   if (prev.hour > current.hour) {
-            //     dayIndex2++
-
-            //     test2[dayIndex2] = {
-            //       date: this.extractedData.date[dayIndex2] ? this.reverseDate(this.extractedData.date[dayIndex2] as string) : null,
-            //       hours: []
-            //     }
-            //     test2[dayIndex2].hours.push(current)
-            //   } else {
-            //     test2[dayIndex2].hours.push(current)
-            //   }
-
-            //   return current
-            // })
-
-            // TODO refactor, this code is ugly
-            // const days: WindyModelDay[] = []
-            // let previousHour: number;
-            // let dayIndex = 0
-
-            // model.time.forEach((hour, j) => {
-            //   const hourData: WindyModelHour = {
-            //     hour: model.time[j],
-            //     windspeed: model.windspeed[j],
-            //     windgust: model.windgust[j],
-            //     winddirection: model.winddirection[j]
-            //   }
-
-            //   if (j === 0) {
-            //     days[0] = {
-            //       date: this.extractedData.date[0] ? this.reverseDate(this.extractedData.date[0] as string) : null,
-            //       hours: []
-            //     }
-            //     days[0].hours.push(hourData)
-            //   } else if (hour < previousHour) {
-            //     dayIndex++
-            //     days[dayIndex] = {
-            //       date: this.extractedData.date[dayIndex] ? this.reverseDate(<string>this.extractedData.date[dayIndex]) : null,
-            //       hours: []
-            //     }
-            //     days[dayIndex].hours.push(hourData)
-            //   } else {
-            //     days[dayIndex].hours.push(hourData)
-            //   }
-
-            //   previousHour = hour
-            // })
 
             return {
                name: model.name,

@@ -1,17 +1,17 @@
 import puppeteer from 'puppeteer';
 
 import Report from '../partials/data-parsers/windfinder-report-parser';
-import TypeCheck from '../partials/utils/type-check';
-import UrlBuilder from '../partials/utils/url-builder';
+import { typeCheckWindReport } from '../partials/utils/type-check';
+import { getWindReportUrl } from '../partials/utils/url-builder';
 
-import { WindReport, ExtractedWindReport } from '../interfaces/wind-report';
+import type { WindReport, ExtractedWindReport } from '../interfaces/wind-report';
 
 import { REQUEST_TIMEOUT, WindReportErrors, WIND_REPORT_API_URL, PPTR_TIMEOUT } from '../constants';
 
 export default async function windReport(spotname: string): Promise<WindReport> {
-   TypeCheck.windReport(spotname);
+   typeCheckWindReport(spotname);
 
-   const url = UrlBuilder.windReport(spotname);
+   const url = getWindReportUrl(spotname);
 
    let data: ExtractedWindReport = [];
 

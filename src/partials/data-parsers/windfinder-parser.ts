@@ -1,8 +1,8 @@
-import WindfinderUtils from '../utils/windfinder-utils';
+import { getWindDirection, sliceDay } from '../utils/windfinder-utils';
+import type { ExtractedWindfinderData, ParsedWindfinderDay, WindfinderData } from '../../interfaces/windfinder';
+import DataHelper from '../utils/data-helper';
 
-import { ExtractedWindfinderData, ParsedWindfinderDay, WindfinderData } from '../../interfaces/windfinder';
-
-export default class Windfinder extends WindfinderUtils {
+export default class Windfinder extends DataHelper {
    private extractedData!: ExtractedWindfinderData;
    private parsedData!: WindfinderData;
 
@@ -16,7 +16,7 @@ export default class Windfinder extends WindfinderUtils {
       const winddirectionDegrees = this.getDataArray(['.directionarrow', '.units-wd-sym'], (el) => {
          return parseInt((this.$(el).attr('title') as string).replace('°', ' '));
       });
-      const winddirectionLetters = winddirectionDegrees.map(windDirection => this.getWindDirection(windDirection));
+      const winddirectionLetters = winddirectionDegrees.map(windDirection => getWindDirection(windDirection));
 
       this.extractedData = {
          name: 'Windfinder',
@@ -74,16 +74,15 @@ export default class Windfinder extends WindfinderUtils {
    private getWindfinderDay(index: number): ParsedWindfinderDay {
       return {
          date: this.extractedData.date[index],
-         time: this.sliceDay(this.extractedData.time, index),
-         windspeed: this.sliceDay(this.extractedData.windspeed, index),
-         windgust: this.sliceDay(this.extractedData.windgust, index),
-         winddirectionDegrees: this.sliceDay(this.extractedData.winddirectionDegrees, index),
-         winddirectionLetters: this.sliceDay(this.extractedData.winddirectionLetters, index),
-         temperature: this.sliceDay(this.extractedData.temperature, index),
-         wavedirection: this.sliceDay(this.extractedData.wavedirection, index),
-         waveheight: this.sliceDay(this.extractedData.waveheight, index),
-         waveinterval: this.sliceDay(this.extractedData.waveinterval, index)
+         time: sliceDay(this.extractedData.time, index),
+         windspeed: sliceDay(this.extractedData.windspeed, index),
+         windgust: sliceDay(this.extractedData.windgust, index),
+         winddirectionDegrees: sliceDay(this.extractedData.winddirectionDegrees, index),
+         winddirectionLetters: sliceDay(this.extractedData.winddirectionLetters, index),
+         temperature: sliceDay(this.extractedData.temperature, index),
+         wavedirection: sliceDay(this.extractedData.wavedirection, index),
+         waveheight: sliceDay(this.extractedData.waveheight, index),
+         waveinterval: sliceDay(this.extractedData.waveinterval, index)
       };
    }
-
 }

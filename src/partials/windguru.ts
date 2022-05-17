@@ -1,27 +1,27 @@
 import fetch from 'node-fetch';
 
 import Windguru from '../partials/data-parsers/windguru-parser';
-import TypeCheck from '../partials/utils/type-check';
-import UrlBuilder from '../partials/utils/url-builder';
+import { typeCheckWindguru, typeCheckCustomWindguru } from '../partials/utils/type-check';
+import { getWindguruUrl, getCustomWindguruUrl } from '../partials/utils/url-builder';
 
-import { WindguruData } from '../interfaces/windguru';
-import { Coordinates } from '../interfaces/coordinates';
-import { Credentials } from '../interfaces/credentials';
+import type { WindguruData } from '../interfaces/windguru';
+import type { Coordinates } from '../interfaces/coordinates';
+import type { Credentials } from '../interfaces/credentials';
 
 import { WindguruErrors } from '../constants';
 
-async function windguru(spot: number | string, model?: string | number): Promise<WindguruData> {
-   TypeCheck.windguru(spot, model);
+export async function windguru(spot: number | string, model?: string | number): Promise<WindguruData> {
+   typeCheckWindguru(spot, model);
 
-   const url = UrlBuilder.windguru(spot, model);
+   const url = getWindguruUrl(spot, model);
 
    return getWindguru(url);
 }
 
-async function customWindguru(coordinates: Coordinates, credentials: Credentials, model?: string | number): Promise<WindguruData> {
-   TypeCheck.customWindguru(coordinates, credentials, model);
+export async function customWindguru(coordinates: Coordinates, credentials: Credentials, model?: string | number): Promise<WindguruData> {
+   typeCheckCustomWindguru(coordinates, credentials, model);
 
-   const url = UrlBuilder.customWindguru(coordinates, credentials);
+   const url = getCustomWindguruUrl(coordinates, credentials);
 
    return getWindguru(url, true);
 }
@@ -42,8 +42,3 @@ async function getWindguru(url: string, custom = false): Promise<WindguruData> {
 
    return windguru;
 }
-
-export {
-   windguru,
-   customWindguru
-};

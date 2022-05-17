@@ -1,16 +1,12 @@
-import WindguruUtils from '../utils/windguru-utils';
+import { getDate, getHour, parseLegend, parseModelInfo, parseSpotInfo } from '../utils/windguru-utils';
+import type { ExtractedWindguruData, ExtractedWindguruModelData, SpotInfo, WindguruData, WindguruModelDay } from '../../interfaces/windguru';
 
-import { ExtractedWindguruModelData, SpotInfo, WindguruData, WindguruModelDay } from '../../interfaces/windguru';
-import { ExtractedWindguruData } from '../../interfaces/windguru';
-
-export default class Windguru extends WindguruUtils {
+export default class Windguru {
    readonly data: string;
    private extractedData!: ExtractedWindguruData;
    private parsedData!: WindguruData;
 
    constructor(data: string) {
-      super();
-
       this.data = data;
    }
 
@@ -38,7 +34,7 @@ export default class Windguru extends WindguruUtils {
          })
       // Filter unneeded rows from the data, including the spot info
          .filter((row, i) => {
-            if (i === 1) spot = this.parseSpotInfo(row);
+            if (i === 1) spot = parseSpotInfo(row);
             if (i < 2) return false;
             return true;
          });
@@ -52,8 +48,8 @@ export default class Windguru extends WindguruUtils {
 
          // Filter the modelInfo and legend from the data
          const extractedModelData = modelData.filter((row, i) => {
-            if (i === 0) modelInfo = this.parseModelInfo(row);
-            if (i === 1) legend = this.parseLegend(row);
+            if (i === 0) modelInfo = parseModelInfo(row);
+            if (i === 1) legend = parseLegend(row);
 
             if (i < 3) return;
 
@@ -99,7 +95,7 @@ export default class Windguru extends WindguruUtils {
 
          // Group the data by hour
          model.data.forEach(modelData => {
-            const parsedDate = this.getDate(modelData.date);
+            const parsedDate = getDate(modelData.date);
 
             if (currentDay !== parsedDate) {
                currentDay = parsedDate;
@@ -110,7 +106,7 @@ export default class Windguru extends WindguruUtils {
                };
             }
 
-            modelData.hour = this.getHour(modelData.date);
+            modelData.hour = getHour(modelData.date);
             delete modelData.date;
 
             days[count].hours.push(modelData);
@@ -149,5 +145,4 @@ export default class Windguru extends WindguruUtils {
 
       return extractedData;
    }
-
 }
