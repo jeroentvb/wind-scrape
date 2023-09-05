@@ -115,7 +115,7 @@ class Windguru extends windguru_utils_1.default {
         return this.parsedData;
     }
     extractModel(data) {
-        let extractedData = [];
+        const extractedData = [];
         let index = -1;
         data.forEach(row => {
             if (row[0] !== ' ') {

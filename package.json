@@ -15,7 +15,9 @@
     "test-dev": "node tests/dev-sandbox.js",
     "build": "rm -rf ./dist && tsc",
     "build:prod": "npm run build && npm run package",
-    "package": "npm pack && node scripts/unpack.js"
+    "package": "npm pack && node scripts/unpack.js",
+    "lint": "eslint ./src",
+    "lint:fix": "eslint --fix ./src"
   },
   "repository": {
     "type": "git",
@@ -39,12 +41,14 @@
     "puppeteer": "^13.4.0"
   },
   "devDependencies": {
+    "@jeroentvb/eslint-config-typescript": "^1.3.0",
     "@types/cheerio": "^0.22.31",
     "@types/jest": "^27.5.0",
-    "@types/node": "^17.0.32",
+    "@types/node": "^20.5.9",
     "@types/node-fetch": "^2.5.10",
     "@types/puppeteer": "^5.4.3",
     "dotenv": "^16.0.1",
+    "eslint": "^8.15.0",
     "jeroentvb-helper": "github:jeroentvb/jeroentvb-helper",
     "jest": "^28.1.0",
     "typescript": "^4.6.4"

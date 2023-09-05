@@ -11,7 +11,7 @@ export interface WindReportItem {
     temperature?: number;
     airPressure?: number;
 }
-export declare type ExtractedWindReport = {
+export type ExtractedWindReport = {
     ws?: number;
     wg?: number;
     wd?: number;

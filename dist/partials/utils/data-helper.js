@@ -11,7 +11,7 @@ class DataHelper {
     getDataArray([selector, context, root], modifier) {
         return this.$(selector, context, root)
             .map((index, el) => {
-            return !!modifier ? modifier(el, index) : parseInt(this.$(el).text()); // TODO fix typing on this
+            return modifier ? modifier(el, index) : parseInt(this.$(el).text()); // TODO fix typing on this
         })
             .get();
     }

@@ -1,7 +1,7 @@
 export default class TypeCheck {
-    static windfinder(spotname: any): void;
-    static windguru(spot: any, model?: any): void;
-    static customWindguru(coordinates: any, credentials: any, model?: any): void;
-    static windy(lat: any, lon: any): void;
-    static windReport(spotname: any): void;
+    static windfinder(spotname: unknown): void;
+    static windguru(spot: unknown, model?: unknown): void;
+    static customWindguru(coordinates: any, credentials: any, model?: unknown): void;
+    static windy(lat: unknown, lon: unknown): void;
+    static windReport(spotname: unknown): void;
 }

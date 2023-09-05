@@ -7,7 +7,7 @@ class WindguruUtils {
             .map(item => item.trim())
             .filter((item) => item.includes(':'))
             .map(item => item.trim())
-            .map(item => item.split(':').map(item2 => '\"' + item2.trim() + '\"').join(':'))
+            .map(item => item.split(':').map(item2 => '"' + item2.trim() + '"').join(':'))
             .join(',');
         const spotData = JSON.parse('{' + spotDataString + '}');
         const spotName = str.split(',')[0].trim();
